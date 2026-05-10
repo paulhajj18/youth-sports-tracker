@@ -14,79 +14,94 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 
+type Stats = {
+  single: number;
+  double: number;
+  triple: number;
+  homerun: number;
+  walk: number;
+
+  strikeout_swinging: number;
+  strikeout_looking: number;
+
+  ground_out: number;
+  fly_out: number;
+  other_out: number;
+};
+
 export default function GamePage() {
   const params = useParams();
   const gameId = params.id as string;
 
   const gameRef = doc(db, "games", gameId);
 
-  const [stats, setStats] = useState({
+  const [stats, setStats] = useState<Stats>({
     single: 0,
     double: 0,
     triple: 0,
     homerun: 0,
     walk: 0,
-    strikeout: 0,
-    out: 0,
+    strikeout_swinging: 0,
+    strikeout_looking: 0,
+    ground_out: 0,
+    fly_out: 0,
+    other_out: 0,
   });
 
   const [comment, setComment] = useState("");
-
   const [comments, setComments] = useState<string[]>([]);
 
-  // Initialize game document if missing
+  // Initialize game document
   useEffect(() => {
-    const initializeGame = async () => {
+    const init = async () => {
       await setDoc(
         gameRef,
         {
-          single: 0,
-          double: 0,
-          triple: 0,
-          homerun: 0,
-          walk: 0,
-          strikeout: 0,
-          out: 0,
+          ...stats,
           comments: [],
         },
         { merge: true }
       );
     };
 
-    initializeGame();
+    init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Realtime listener
+  // Live sync
   useEffect(() => {
-    const unsubscribe = onSnapshot(gameRef, (snapshot) => {
-      const data = snapshot.data();
+    const unsub = onSnapshot(gameRef, (snap) => {
+      const data = snap.data();
 
-      if (data) {
-        setStats({
-          single: data.single || 0,
-          double: data.double || 0,
-          triple: data.triple || 0,
-          homerun: data.homerun || 0,
-          walk: data.walk || 0,
-          strikeout: data.strikeout || 0,
-          out: data.out || 0,
-        });
+      if (!data) return;
 
-        setComments(data.comments || []);
-      }
+      setStats({
+        single: data.single || 0,
+        double: data.double || 0,
+        triple: data.triple || 0,
+        homerun: data.homerun || 0,
+        walk: data.walk || 0,
+
+        strikeout_swinging: data.strikeout_swinging || 0,
+        strikeout_looking: data.strikeout_looking || 0,
+
+        ground_out: data.ground_out || 0,
+        fly_out: data.fly_out || 0,
+        other_out: data.other_out || 0,
+      });
+
+      setComments(data.comments || []);
     });
 
-    return () => unsubscribe();
+    return () => unsub();
   }, []);
 
-  // Add stat
-  const addStat = async (stat: string) => {
+  const addStat = async (key: keyof Stats) => {
     await updateDoc(gameRef, {
-      [stat]: increment(1),
+      [key]: increment(1),
     });
   };
 
-  // Add commentary
   const addComment = async () => {
     if (!comment.trim()) return;
 
@@ -97,140 +112,78 @@ export default function GamePage() {
     setComment("");
   };
 
-  // Calculated stats
-  const totalHits =
+  const hits =
     stats.single +
     stats.double +
     stats.triple +
     stats.homerun;
 
-  const atBats =
-    totalHits +
-    stats.strikeout +
-    stats.out;
+  const outs =
+    stats.strikeout_swinging +
+    stats.strikeout_looking +
+    stats.ground_out +
+    stats.fly_out +
+    stats.other_out;
 
-  const battingAverage =
-    atBats > 0
-      ? (totalHits / atBats).toFixed(3)
-      : "0.000";
+  const atBats = hits + outs;
+
+  const avg =
+    atBats > 0 ? (hits / atBats).toFixed(3) : "0.000";
 
   return (
     <div className="min-h-screen p-6 max-w-xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2">
-        Live Game Tracker
-      </h1>
+      <h1 className="text-2xl font-bold mb-2">Live Game</h1>
+      <p className="text-gray-500 mb-4">Game ID: {gameId}</p>
 
-      <p className="text-gray-600 mb-6">
-        Game ID: {gameId}
-      </p>
-
-      {/* Stat Buttons */}
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        <button
-          onClick={() => addStat("single")}
-          className="bg-green-600 text-white p-3 rounded"
-        >
-          Single
-        </button>
-
-        <button
-          onClick={() => addStat("double")}
-          className="bg-green-700 text-white p-3 rounded"
-        >
-          Double
-        </button>
-
-        <button
-          onClick={() => addStat("triple")}
-          className="bg-green-800 text-white p-3 rounded"
-        >
-          Triple
-        </button>
-
-        <button
-          onClick={() => addStat("homerun")}
-          className="bg-yellow-600 text-white p-3 rounded"
-        >
-          Home Run
-        </button>
-
-        <button
-          onClick={() => addStat("walk")}
-          className="bg-blue-600 text-white p-3 rounded"
-        >
-          Walk
-        </button>
-
-        <button
-          onClick={() => addStat("strikeout")}
-          className="bg-red-600 text-white p-3 rounded"
-        >
-          Strikeout
-        </button>
-
-        <button
-          onClick={() => addStat("out")}
-          className="bg-gray-700 text-white p-3 rounded col-span-2"
-        >
-          Out
-        </button>
+      {/* HITS */}
+      <h2 className="font-semibold mt-4 mb-2">Hits</h2>
+      <div className="grid grid-cols-2 gap-2 mb-4">
+        <button onClick={() => addStat("single")} className="bg-green-600 text-white p-2 rounded">Single</button>
+        <button onClick={() => addStat("double")} className="bg-green-700 text-white p-2 rounded">Double</button>
+        <button onClick={() => addStat("triple")} className="bg-green-800 text-white p-2 rounded">Triple</button>
+        <button onClick={() => addStat("homerun")} className="bg-yellow-600 text-white p-2 rounded">HR</button>
       </div>
 
-      {/* Live Stats */}
-      <div className="border rounded p-4 space-y-2">
-        <h2 className="text-xl font-semibold mb-2">
-          Live Stats
-        </h2>
+      {/* OUTS */}
+      <h2 className="font-semibold mt-4 mb-2">Outs</h2>
+      <div className="grid grid-cols-2 gap-2 mb-4">
+        <button onClick={() => addStat("strikeout_swinging")} className="bg-red-600 text-white p-2 rounded">K Swing</button>
+        <button onClick={() => addStat("strikeout_looking")} className="bg-red-700 text-white p-2 rounded">K Looking</button>
+        <button onClick={() => addStat("ground_out")} className="bg-gray-600 text-white p-2 rounded">Ground Out</button>
+        <button onClick={() => addStat("fly_out")} className="bg-gray-700 text-white p-2 rounded">Fly Out</button>
+        <button onClick={() => addStat("other_out")} className="bg-gray-800 text-white p-2 rounded col-span-2">Other Out</button>
+      </div>
 
-        <p>Singles: {stats.single}</p>
-        <p>Doubles: {stats.double}</p>
-        <p>Triples: {stats.triple}</p>
-        <p>Home Runs: {stats.homerun}</p>
-        <p>Walks: {stats.walk}</p>
-        <p>Strikeouts: {stats.strikeout}</p>
-        <p>Outs: {stats.out}</p>
-
-        <hr className="my-2" />
-
-        <p>Total Hits: {totalHits}</p>
+      {/* STATS */}
+      <div className="border p-4 rounded mb-6">
+        <p>Hits: {hits}</p>
+        <p>Outs: {outs}</p>
         <p>At Bats: {atBats}</p>
-        <p>Batting Average: {battingAverage}</p>
+        <p>AVG: {avg}</p>
       </div>
 
-      {/* Commentary */}
-      <div className="border rounded p-4 mt-6">
-        <h2 className="text-xl font-semibold mb-4">
-          Live Commentary
-        </h2>
+      {/* COMMENTARY */}
+      <div className="border p-4 rounded">
+        <h2 className="font-semibold mb-2">Live Commentary</h2>
 
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-3">
           <input
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="Enter live update..."
-            className="border p-2 rounded flex-1"
+            className="border p-2 flex-1 rounded"
+            placeholder="Say something..."
           />
-
-          <button
-            onClick={addComment}
-            className="bg-blue-600 text-white px-4 rounded"
-          >
+          <button onClick={addComment} className="bg-blue-600 text-white px-3 rounded">
             Send
           </button>
         </div>
 
-        <div className="space-y-2">
-          {comments
-            .slice()
-            .reverse()
-            .map((c, index) => (
-              <div
-                key={index}
-                className="bg-gray-100 p-2 rounded"
-              >
-                {c}
-              </div>
-            ))}
+        <div className="space-y-1">
+          {comments.slice().reverse().map((c, i) => (
+            <div key={i} className="bg-gray-100 p-2 rounded text-sm">
+              {c}
+            </div>
+          ))}
         </div>
       </div>
     </div>
