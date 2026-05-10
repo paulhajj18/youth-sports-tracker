@@ -58,35 +58,18 @@ export default function SummaryPage() {
   }, []);
 
   const downloadImage = async () => {
-    try {
-      if (!cardRef.current) {
-        console.log("Card not ready");
-        return;
-      }
+    if (!cardRef.current) return;
 
-      // let layout settle
-      await new Promise((r) => setTimeout(r, 150));
+    const canvas = await html2canvas(cardRef.current);
+    const image = canvas.toDataURL("image/png");
 
-      const canvas = await html2canvas(cardRef.current, {
-        backgroundColor: "#ffffff",
-        scale: 2,
-        useCORS: true,
-      });
-
-      const image = canvas.toDataURL("image/png");
-
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = `${kidName || "game"}-summary.png`;
-      link.click();
-
-    } catch (err) {
-      console.error("Download error:", err);
-      alert("Download failed — check console");
-    }
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = `${kidName}-game-summary.png`;
+    link.click();
   };
 
-  if (!stats) return <div className="p-6">Loading summary...</div>;
+  if (!stats) return <div className="p-6">Loading...</div>;
 
   const hits =
     stats.single +
@@ -111,7 +94,7 @@ export default function SummaryPage() {
 
       <div className="w-full max-w-md">
 
-        {/* CARD (THIS IS WHAT GETS TURNED INTO IMAGE) */}
+        {/* CARD */}
         <div
           ref={cardRef}
           className="bg-white rounded-2xl shadow-xl p-6"
@@ -119,11 +102,9 @@ export default function SummaryPage() {
 
           {/* HEADER */}
           <div className="text-center mb-4">
-            <h1 className="text-2xl font-bold">
-              {kidName}
-            </h1>
+            <h1 className="text-2xl font-bold">{kidName}</h1>
 
-            {/* DATE (small font) */}
+            {/* DATE (small text) */}
             <p className="text-gray-400 text-xs mt-1">
               {gameDate}
             </p>
@@ -175,7 +156,7 @@ export default function SummaryPage() {
 
         </div>
 
-        {/* DOWNLOAD BUTTON */}
+        {/* DOWNLOAD BUTTON (outside card for clean export) */}
         <button
           onClick={downloadImage}
           className="w-full mt-4 bg-purple-600 text-white py-3 rounded-xl font-semibold"
