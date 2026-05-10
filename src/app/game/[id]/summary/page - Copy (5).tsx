@@ -57,16 +57,14 @@ export default function SummaryPage() {
     return () => unsub();
   }, [gameId]);
 
-  // ✅ OPTION 3: Share Image via iOS/Android Share Sheet
-  const shareImage = async () => {
+  const downloadImage = async () => {
     try {
-      if (!cardRef.current) return;
+      if (!cardRef.current) {
+        console.log("Card ref not found");
+        return;
+      }
 
-      console.log("Generating share image...");
-
-      // ensure layout is ready
-      await document.fonts?.ready;
-      await new Promise((r) => setTimeout(r, 200));
+      console.log("Generating image...");
 
       const dataUrl = await htmlToImage.toPng(cardRef.current, {
         backgroundColor: "#ffffff",
@@ -74,32 +72,16 @@ export default function SummaryPage() {
         cacheBust: true,
       });
 
-      const blob = await (await fetch(dataUrl)).blob();
+      const link = document.createElement("a");
+      link.href = dataUrl;
+      link.download = `${kidName || "game"}-summary.png`;
+      link.click();
 
-      const file = new File(
-        [blob],
-        `${kidName || "game"}-summary.png`,
-        { type: "image/png" }
-      );
-
-      // ✅ Native share sheet (iPhone / Android)
-      if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({
-          title: `${kidName} Game Summary`,
-          text: "Check out this game!",
-          files: [file],
-        });
-      } else {
-        // fallback for desktop
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = file.name;
-        link.click();
-      }
+      console.log("Download complete");
 
     } catch (err) {
-      console.error("Share failed:", err);
-      alert("Share failed — check console");
+      console.error("Image generation failed:", err);
+      alert("Download failed — check console");
     }
   };
 
@@ -128,40 +110,43 @@ export default function SummaryPage() {
 
       <div className="w-full max-w-md">
 
-        {/* CARD */}
+        {/* CARD (this becomes the image) */}
         <div
           ref={cardRef}
-          className="bg-white rounded-2xl shadow-xl p-6 text-black"
+          className="bg-white rounded-2xl shadow-xl p-6"
         >
 
           {/* HEADER */}
           <div className="text-center mb-4">
-            <h1 className="text-2xl font-bold">{kidName}</h1>
+            <h1 className="text-2xl font-bold">
+              {kidName}
+            </h1>
 
-            <p className="text-gray-500 text-xs mt-1">
+            {/* DATE */}
+            <p className="text-gray-400 text-xs mt-1">
               {gameDate}
             </p>
 
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-500 text-sm">
               Game Summary
             </p>
           </div>
 
-          {/* STATS */}
+          {/* MAIN STATS */}
           <div className="grid grid-cols-2 gap-4 text-center mb-6">
 
-            <div className="bg-green-200 rounded-xl p-4">
-              <p className="text-sm text-gray-700">HITS</p>
+            <div className="bg-green-100 rounded-xl p-4">
+              <p className="text-sm text-gray-600">HITS</p>
               <p className="text-2xl font-bold">{hits}</p>
             </div>
 
-            <div className="bg-red-200 rounded-xl p-4">
-              <p className="text-sm text-gray-700">OUTS</p>
+            <div className="bg-red-100 rounded-xl p-4">
+              <p className="text-sm text-gray-600">OUTS</p>
               <p className="text-2xl font-bold">{outs}</p>
             </div>
 
-            <div className="bg-blue-200 rounded-xl p-4 col-span-2">
-              <p className="text-sm text-gray-700">AVG</p>
+            <div className="bg-blue-100 rounded-xl p-4 col-span-2">
+              <p className="text-sm text-gray-600">AVG</p>
               <p className="text-2xl font-bold">{avg}</p>
             </div>
 
@@ -189,12 +174,12 @@ export default function SummaryPage() {
 
         </div>
 
-        {/* ✅ SHARE BUTTON (iPhone-native sheet) */}
+        {/* DOWNLOAD BUTTON */}
         <button
-          onClick={shareImage}
+          onClick={downloadImage}
           className="w-full mt-4 bg-purple-600 text-white py-3 rounded-xl font-semibold"
         >
-          Share Game Card
+          Download Image
         </button>
 
       </div>
