@@ -8,7 +8,6 @@ import { db } from "@/lib/firebase";
 import {
   doc,
   onSnapshot,
-  setDoc,
   updateDoc,
   increment,
   arrayUnion,
@@ -43,7 +42,7 @@ export default function GamePage() {
 
   const gameRef = doc(db, "games", gameId);
 
-  const [kidName, setKidName] = useState("Loading...");
+  const [kidName, setKidName] = useState("");
 
   const [stats, setStats] = useState<Stats>({
     single: 0,
@@ -62,24 +61,7 @@ export default function GamePage() {
   const [log, setLog] = useState<ActionLog[]>([]);
   const [comment, setComment] = useState("");
 
-  // INIT
-  useEffect(() => {
-    const init = async () => {
-      await setDoc(
-        gameRef,
-        {
-          comments: [],
-          log: [],
-        },
-        { merge: true }
-      );
-    };
-
-    init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // LIVE SYNC
+  // REAL-TIME SYNC
   useEffect(() => {
     const unsub = onSnapshot(gameRef, (snap) => {
       const data = snap.data();
@@ -115,7 +97,7 @@ export default function GamePage() {
     });
   };
 
-  // UNDO
+  // UNDO LAST ACTION
   const undoLast = async () => {
     const last = log[log.length - 1];
     if (!last) return;
@@ -126,7 +108,7 @@ export default function GamePage() {
     });
   };
 
-  // COMMENT
+  // ADD COMMENT
   const addComment = async () => {
     if (!comment.trim()) return;
 
@@ -137,7 +119,7 @@ export default function GamePage() {
     setComment("");
   };
 
-  // CALCS
+  // STATS CALCULATION
   const hits = useMemo(
     () =>
       stats.single +
@@ -161,29 +143,39 @@ export default function GamePage() {
 
   const avg = atBats > 0 ? (hits / atBats).toFixed(3) : "0.000";
 
+  // SHARE (read-only link)
+  const shareGame = () => {
+    const url = `${window.location.origin}/game/${gameId}?view=true`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: `Live Game for ${kidName}`,
+        text: "Follow this live game!",
+        url,
+      });
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("Read-only link copied!");
+    }
+  };
+
   return (
     <div className="min-h-screen p-6 max-w-xl mx-auto">
 
       {/* HEADER */}
       <h1 className="text-2xl font-bold mb-1">
-        Live Game for {kidName}
+        Live Game for {kidName || "Player"}
       </h1>
 
       <p className="text-gray-500 mb-3">
         Game ID: {gameId}
       </p>
 
-      {/* ACTIONS (HIDDEN IN VIEW MODE) */}
+      {/* ACTIONS */}
       {!isViewer && (
         <div className="flex gap-2 mb-4">
           <button
-            onClick={() =>
-              navigator.share?.({
-                title: "Live Game",
-                url: window.location.href,
-              }) ||
-              navigator.clipboard.writeText(window.location.href)
-            }
+            onClick={shareGame}
             className="bg-purple-600 text-white px-3 py-2 rounded"
           >
             Share
@@ -260,7 +252,10 @@ export default function GamePage() {
               className="border p-2 flex-1 rounded"
               placeholder="Say something..."
             />
-            <button onClick={addComment} className="bg-blue-600 text-white px-3 rounded">
+            <button
+              onClick={addComment}
+              className="bg-blue-600 text-white px-3 rounded"
+            >
               Send
             </button>
           </div>
