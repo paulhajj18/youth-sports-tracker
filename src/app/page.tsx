@@ -21,25 +21,48 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
-      <h1 className="text-3xl font-bold mb-6">
-        Youth Sports Tracker
-      </h1>
+    <div className="relative min-h-screen flex items-center justify-center p-6">
 
-      <div className="w-full max-w-sm space-y-4">
-        <input
-          className="w-full border p-3 rounded"
-          placeholder="Enter kid's name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      {/* BACKGROUND IMAGE */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/baseball-kids.png')",
+        }}
+      />
 
-        <button
-          onClick={startGame}
-          className="w-full bg-blue-600 text-white p-3 rounded"
-        >
-          Start Game
-        </button>
+      {/* DARK OVERLAY */}
+      <div className="absolute inset-0 bg-black/60" />
+
+      {/* CONTENT */}
+      <div className="relative z-10 w-full max-w-md text-center text-white">
+
+        <h1 className="text-4xl font-extrabold mb-2 drop-shadow-lg">
+          ⚾ Youth Sports Tracker
+        </h1>
+
+        <p className="text-sm mb-6 text-gray-200">
+          Start a game quickly and share live updates with friends & family!
+        </p>
+
+        <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl shadow-lg">
+
+          <input
+            className="w-full p-3 rounded-lg text-black mb-3"
+            placeholder="Enter kid's name (e.g. Henry)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <button
+            onClick={startGame}
+            className="w-full bg-green-500 hover:bg-green-600 text-white font-bold p-3 rounded-lg"
+          >
+            Start Game
+          </button>
+
+        </div>
+
       </div>
     </div>
   );
