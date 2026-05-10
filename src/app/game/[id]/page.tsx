@@ -174,6 +174,7 @@ export default function GamePage() {
       {/* ACTIONS */}
       {!isViewer && (
         <div className="flex gap-2 mb-4">
+
           <button
             onClick={shareGame}
             className="bg-purple-600 text-white px-3 py-2 rounded"
@@ -187,6 +188,15 @@ export default function GamePage() {
           >
             Undo
           </button>
+
+          {/* 👉 NEW BUTTON */}
+          <a
+            href={`/game/${gameId}/summary`}
+            className="bg-indigo-600 text-white px-3 py-2 rounded"
+          >
+            View Summary
+          </a>
+
         </div>
       )}
 
