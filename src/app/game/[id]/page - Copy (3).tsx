@@ -51,22 +51,13 @@ export default function GamePage() {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<string[]>([]);
 
-  // Initialize game doc
+  // Initialize game document
   useEffect(() => {
     const init = async () => {
       await setDoc(
         gameRef,
         {
-          single: 0,
-          double: 0,
-          triple: 0,
-          homerun: 0,
-          walk: 0,
-          strikeout_swinging: 0,
-          strikeout_looking: 0,
-          ground_out: 0,
-          fly_out: 0,
-          other_out: 0,
+          ...stats,
           comments: [],
         },
         { merge: true }
@@ -77,10 +68,11 @@ export default function GamePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Realtime listener
+  // Live sync
   useEffect(() => {
     const unsub = onSnapshot(gameRef, (snap) => {
       const data = snap.data();
+
       if (!data) return;
 
       setStats({
@@ -120,26 +112,6 @@ export default function GamePage() {
     setComment("");
   };
 
-  // SHARE FUNCTION
-  const shareGame = async () => {
-    const url = window.location.href;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Youth Sports Live Game",
-          text: "Follow this live game!",
-          url,
-        });
-      } catch (err) {
-        console.log("Share cancelled");
-      }
-    } else {
-      await navigator.clipboard.writeText(url);
-      alert("Game link copied to clipboard!");
-    }
-  };
-
   const hits =
     stats.single +
     stats.double +
@@ -160,23 +132,11 @@ export default function GamePage() {
 
   return (
     <div className="min-h-screen p-6 max-w-xl mx-auto">
-
       <h1 className="text-2xl font-bold mb-2">Live Game</h1>
-
-      {/* SHARE BUTTON */}
-      <button
-        onClick={shareGame}
-        className="bg-purple-600 text-white px-4 py-2 rounded mb-4"
-      >
-        Share Game
-      </button>
-
-      <p className="text-gray-500 mb-4">
-        Game ID: {gameId}
-      </p>
+      <p className="text-gray-500 mb-4">Game ID: {gameId}</p>
 
       {/* HITS */}
-      <h2 className="font-semibold mb-2">Hits</h2>
+      <h2 className="font-semibold mt-4 mb-2">Hits</h2>
       <div className="grid grid-cols-2 gap-2 mb-4">
         <button onClick={() => addStat("single")} className="bg-green-600 text-white p-2 rounded">Single</button>
         <button onClick={() => addStat("double")} className="bg-green-700 text-white p-2 rounded">Double</button>
@@ -185,7 +145,7 @@ export default function GamePage() {
       </div>
 
       {/* OUTS */}
-      <h2 className="font-semibold mb-2">Outs</h2>
+      <h2 className="font-semibold mt-4 mb-2">Outs</h2>
       <div className="grid grid-cols-2 gap-2 mb-4">
         <button onClick={() => addStat("strikeout_swinging")} className="bg-red-600 text-white p-2 rounded">K Swing</button>
         <button onClick={() => addStat("strikeout_looking")} className="bg-red-700 text-white p-2 rounded">K Looking</button>
