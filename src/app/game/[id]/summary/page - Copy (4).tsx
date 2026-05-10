@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
-import * as htmlToImage from "html-to-image";
+import html2canvas from "html2canvas";
 
 import { db } from "@/lib/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -55,32 +55,33 @@ export default function SummaryPage() {
     });
 
     return () => unsub();
-  }, [gameId]);
+  }, []);
 
   const downloadImage = async () => {
     try {
       if (!cardRef.current) {
-        console.log("Card ref not found");
+        console.log("Card not ready");
         return;
       }
 
-      console.log("Generating image...");
+      // let layout settle
+      await new Promise((r) => setTimeout(r, 150));
 
-      const dataUrl = await htmlToImage.toPng(cardRef.current, {
+      const canvas = await html2canvas(cardRef.current, {
         backgroundColor: "#ffffff",
-        pixelRatio: 2,
-        cacheBust: true,
+        scale: 2,
+        useCORS: true,
       });
 
+      const image = canvas.toDataURL("image/png");
+
       const link = document.createElement("a");
-      link.href = dataUrl;
+      link.href = image;
       link.download = `${kidName || "game"}-summary.png`;
       link.click();
 
-      console.log("Download complete");
-
     } catch (err) {
-      console.error("Image generation failed:", err);
+      console.error("Download error:", err);
       alert("Download failed — check console");
     }
   };
@@ -110,7 +111,7 @@ export default function SummaryPage() {
 
       <div className="w-full max-w-md">
 
-        {/* CARD (this becomes the image) */}
+        {/* CARD (THIS IS WHAT GETS TURNED INTO IMAGE) */}
         <div
           ref={cardRef}
           className="bg-white rounded-2xl shadow-xl p-6"
@@ -122,7 +123,7 @@ export default function SummaryPage() {
               {kidName}
             </h1>
 
-            {/* DATE */}
+            {/* DATE (small font) */}
             <p className="text-gray-400 text-xs mt-1">
               {gameDate}
             </p>
@@ -132,7 +133,7 @@ export default function SummaryPage() {
             </p>
           </div>
 
-          {/* MAIN STATS */}
+          {/* BIG STATS */}
           <div className="grid grid-cols-2 gap-4 text-center mb-6">
 
             <div className="bg-green-100 rounded-xl p-4">
