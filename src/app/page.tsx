@@ -42,7 +42,7 @@ export default function Home() {
         </h1>
 
         <p className="text-sm mb-6 text-gray-200">
-          Start quickly and share your kid's live baseball updates with friends & family! No download or signups needed!
+          Start quickly and share your kid's live baseball updates with friends & family!   <strong>No download or signups needed!</strong>
         </p>
 
         <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl shadow-lg">
