@@ -42,13 +42,13 @@ export default function Home() {
         </h1>
 
         <p className="text-sm mb-6 text-gray-200">
-          Start a game quickly and share live updates with friends & family!
+          Start quickly and share your kid's live baseball updates with friends & family! No download or signups needed!
         </p>
 
         <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl shadow-lg">
 
           <input
-            className="w-full p-3 rounded-lg text-black mb-3"
+            className="w-full p-3 rounded-lg text-white mb-3"
             placeholder="Enter kid's name (e.g. Henry)"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -58,7 +58,7 @@ export default function Home() {
             onClick={startGame}
             className="w-full bg-green-500 hover:bg-green-600 text-white font-bold p-3 rounded-lg"
           >
-            Start Game
+            Play Ball!!
           </button>
 
         </div>
