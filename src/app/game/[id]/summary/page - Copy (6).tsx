@@ -26,12 +26,12 @@ export default function SummaryPage() {
   const gameId = params.id as string;
 
   const gameRef = doc(db, "games", gameId);
+
   const cardRef = useRef<HTMLDivElement>(null);
 
   const [kidName, setKidName] = useState("");
   const [stats, setStats] = useState<Stats | null>(null);
 
-  // 🔥 FIREBASE SYNC
   useEffect(() => {
     const unsub = onSnapshot(gameRef, (snap) => {
       const data = snap.data();
@@ -57,51 +57,14 @@ export default function SummaryPage() {
     return () => unsub();
   }, [gameId]);
 
-  // 🧠 RECAP ENGINE
-  const generateRecap = () => {
-    if (!stats) return "";
-
-    const hits =
-      stats.single +
-      stats.double +
-      stats.triple +
-      stats.homerun;
-
-    const outs =
-      stats.strikeout_swinging +
-      stats.strikeout_looking +
-      stats.ground_out +
-      stats.fly_out +
-      stats.other_out;
-
-    const hitParts = [];
-    if (stats.single) hitParts.push(`${stats.single} single`);
-    if (stats.double) hitParts.push(`${stats.double} double`);
-    if (stats.triple) hitParts.push(`${stats.triple} triple`);
-    if (stats.homerun) hitParts.push(`${stats.homerun} HR`);
-
-    const outParts = [];
-    if (stats.strikeout_swinging) outParts.push(`${stats.strikeout_swinging} K swinging`);
-    if (stats.strikeout_looking) outParts.push(`${stats.strikeout_looking} K looking`);
-    if (stats.ground_out) outParts.push(`${stats.ground_out} ground out`);
-    if (stats.fly_out) outParts.push(`${stats.fly_out} fly out`);
-    if (stats.other_out) outParts.push(`${stats.other_out} other out`);
-
-    const atBats = hits + outs;
-    const avg = atBats > 0 ? (hits / atBats).toFixed(3) : "0.000";
-
-    return `${kidName} went ${hits}-for-${atBats} (AVG ${avg}). ${
-      hitParts.length ? `Hits: ${hitParts.join(", ")}.` : ""
-    } ${
-      outParts.length ? `Outs: ${outParts.join(", ")}.` : ""
-    }`;
-  };
-
-  // 📤 SHARE SHEET (BEST MOBILE UX)
+  // ✅ OPTION 3: Share Image via iOS/Android Share Sheet
   const shareImage = async () => {
     try {
       if (!cardRef.current) return;
 
+      console.log("Generating share image...");
+
+      // ensure layout is ready
       await document.fonts?.ready;
       await new Promise((r) => setTimeout(r, 200));
 
@@ -119,18 +82,21 @@ export default function SummaryPage() {
         { type: "image/png" }
       );
 
+      // ✅ Native share sheet (iPhone / Android)
       if (navigator.canShare?.({ files: [file] })) {
         await navigator.share({
           title: `${kidName} Game Summary`,
-          text: generateRecap(),
+          text: "Check out this game!",
           files: [file],
         });
       } else {
+        // fallback for desktop
         const link = document.createElement("a");
         link.href = dataUrl;
         link.download = file.name;
         link.click();
       }
+
     } catch (err) {
       console.error("Share failed:", err);
       alert("Share failed — check console");
@@ -162,7 +128,7 @@ export default function SummaryPage() {
 
       <div className="w-full max-w-md">
 
-        {/* 🧾 CARD (shared image) */}
+        {/* CARD */}
         <div
           ref={cardRef}
           className="bg-white rounded-2xl shadow-xl p-6 text-black"
@@ -171,8 +137,14 @@ export default function SummaryPage() {
           {/* HEADER */}
           <div className="text-center mb-4">
             <h1 className="text-2xl font-bold">{kidName}</h1>
-            <p className="text-gray-500 text-xs mt-1">{gameDate}</p>
-            <p className="text-gray-600 text-sm">Game Summary</p>
+
+            <p className="text-gray-500 text-xs mt-1">
+              {gameDate}
+            </p>
+
+            <p className="text-gray-600 text-sm">
+              Game Summary
+            </p>
           </div>
 
           {/* STATS */}
@@ -212,17 +184,12 @@ export default function SummaryPage() {
             <p>Ground Out: {stats.ground_out}</p>
             <p>Fly Out: {stats.fly_out}</p>
             <p>Other Out: {stats.other_out}</p>
-          </div>
 
-          {/* 🧠 RECAP INSIDE IMAGE */}
-          <div className="mt-4 text-sm border-t pt-3">
-            <p className="font-semibold">Recap</p>
-            <p className="text-gray-700">{generateRecap()}</p>
           </div>
 
         </div>
 
-        {/* 📤 SHARE BUTTON */}
+        {/* ✅ SHARE BUTTON (iPhone-native sheet) */}
         <button
           onClick={shareImage}
           className="w-full mt-4 bg-purple-600 text-white py-3 rounded-xl font-semibold"
