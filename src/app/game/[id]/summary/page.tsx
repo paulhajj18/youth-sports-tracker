@@ -54,7 +54,7 @@ export default function SummaryPage() {
     return () => unsub();
   }, []);
 
-  if (!stats) return <div className="p-6">Loading summary...</div>;
+  if (!stats) return <div className="p-6">Loading...</div>;
 
   const hits =
     stats.single +
@@ -72,7 +72,7 @@ export default function SummaryPage() {
   const atBats = hits + outs;
   const avg = atBats > 0 ? (hits / atBats).toFixed(3) : "0.000";
 
-  const shareSummary = async () => {
+  const shareCard = async () => {
     const url = `${window.location.origin}/game/${gameId}/summary`;
 
     if (navigator.share) {
@@ -87,54 +87,70 @@ export default function SummaryPage() {
   };
 
   return (
-    <div className="min-h-screen p-6 max-w-xl mx-auto">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
 
-      {/* HEADER CARD */}
-      <div className="border rounded p-4 mb-4 bg-white shadow">
-        <h1 className="text-2xl font-bold">
-          {kidName} - Game Summary
-        </h1>
+      {/* CARD */}
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6">
 
-        <p className="text-gray-500">
-          Game ID: {gameId}
-        </p>
+        {/* HEADER */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold">
+            {kidName}
+          </h1>
+          <p className="text-gray-500 text-sm">
+            Game Summary
+          </p>
+        </div>
+
+        {/* BIG STATS */}
+        <div className="grid grid-cols-2 gap-4 text-center mb-6">
+
+          <div className="bg-green-100 rounded-xl p-4">
+            <p className="text-sm text-gray-600">HITS</p>
+            <p className="text-2xl font-bold">{hits}</p>
+          </div>
+
+          <div className="bg-red-100 rounded-xl p-4">
+            <p className="text-sm text-gray-600">OUTS</p>
+            <p className="text-2xl font-bold">{outs}</p>
+          </div>
+
+          <div className="bg-blue-100 rounded-xl p-4 col-span-2">
+            <p className="text-sm text-gray-600">AVG</p>
+            <p className="text-2xl font-bold">{avg}</p>
+          </div>
+
+        </div>
+
+        {/* BREAKDOWN */}
+        <div className="text-sm space-y-1 mb-6">
+
+          <p className="font-semibold">Hits</p>
+          <p>Single: {stats.single}</p>
+          <p>Double: {stats.double}</p>
+          <p>Triple: {stats.triple}</p>
+          <p>Home Run: {stats.homerun}</p>
+
+          <hr className="my-2" />
+
+          <p className="font-semibold">Outs</p>
+          <p>K Swing: {stats.strikeout_swinging}</p>
+          <p>K Looking: {stats.strikeout_looking}</p>
+          <p>Ground Out: {stats.ground_out}</p>
+          <p>Fly Out: {stats.fly_out}</p>
+          <p>Other Out: {stats.other_out}</p>
+
+        </div>
+
+        {/* SHARE BUTTON */}
+        <button
+          onClick={shareCard}
+          className="w-full bg-purple-600 text-white py-3 rounded-xl font-semibold"
+        >
+          Share Game Card
+        </button>
+
       </div>
-
-      {/* SHARE */}
-      <button
-        onClick={shareSummary}
-        className="bg-purple-600 text-white px-4 py-2 rounded mb-4"
-      >
-        Share Summary
-      </button>
-
-      {/* SUMMARY CARD */}
-      <div className="border rounded p-4 space-y-2">
-
-        <h2 className="font-semibold text-lg">Hits</h2>
-        <p>Singles: {stats.single}</p>
-        <p>Doubles: {stats.double}</p>
-        <p>Triples: {stats.triple}</p>
-        <p>Home Runs: {stats.homerun}</p>
-
-        <hr />
-
-        <h2 className="font-semibold text-lg">Outs</h2>
-        <p>K Swinging: {stats.strikeout_swinging}</p>
-        <p>K Looking: {stats.strikeout_looking}</p>
-        <p>Ground Outs: {stats.ground_out}</p>
-        <p>Fly Outs: {stats.fly_out}</p>
-        <p>Other Outs: {stats.other_out}</p>
-
-        <hr />
-
-        <h2 className="font-semibold text-lg">Totals</h2>
-        <p>Hits: {hits}</p>
-        <p>Outs: {outs}</p>
-        <p>At Bats: {atBats}</p>
-        <p>AVG: {avg}</p>
-      </div>
-
     </div>
   );
 }
