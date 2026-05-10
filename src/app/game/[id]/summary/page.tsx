@@ -35,7 +35,6 @@ export default function SummaryPage() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
 
-  // 🔥 LIVE DATA
   useEffect(() => {
     const unsub = onSnapshot(gameRef, (snap) => {
       const data = snap.data();
@@ -63,7 +62,13 @@ export default function SummaryPage() {
     return () => unsub();
   }, [gameId]);
 
-  if (!stats) return <div className="p-6">Loading...</div>;
+  if (!stats) {
+    return (
+      <div className="min-h-screen bg-slate-900 text-white p-6">
+        Loading...
+      </div>
+    );
+  }
 
   const hits =
     stats.single +
@@ -79,78 +84,176 @@ export default function SummaryPage() {
     stats.other_out;
 
   const atBats = hits + outs;
-  const avg = atBats > 0 ? (hits / atBats).toFixed(3) : "0.000";
+
+  const avg =
+    atBats > 0
+      ? (hits / atBats).toFixed(3)
+      : "0.000";
 
   return (
-    <div className="min-h-screen bg-white text-black p-6 max-w-xl mx-auto">
+    <div className="min-h-screen bg-slate-900 text-white p-6 max-w-xl mx-auto">
 
       {/* HEADER */}
-      <h1 className="text-2xl font-bold mb-1">
-        {kidName} - Game Summary
-      </h1>
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 shadow-lg mb-5">
+        <p className="text-sm opacity-80 mb-1">
+          Game Summary
+        </p>
 
-      {/* STATS CARD */}
-      <div className="bg-white border rounded-xl p-4 shadow-sm mb-4">
+        <h1 className="text-3xl font-bold">
+          {kidName}
+        </h1>
 
-        <p><b>Hits:</b> {hits}</p>
-        <p><b>Outs:</b> {outs}</p>
-        <p><b>At Bats:</b> {atBats}</p>
-        <p><b>AVG:</b> {avg}</p>
+        <p className="text-sm opacity-75 mt-1">
+          {new Date().toLocaleDateString()}
+        </p>
+      </div>
 
-        <hr className="my-2" />
+      {/* TOP STATS */}
+      <div className="grid grid-cols-2 gap-3 mb-5">
 
-        <p className="font-semibold">Breakdown</p>
+        <div className="bg-green-600 rounded-xl p-4 shadow">
+          <p className="text-sm opacity-80">
+            Hits
+          </p>
 
-        <p>Single: {stats.single}</p>
-        <p>Double: {stats.double}</p>
-        <p>Triple: {stats.triple}</p>
-        <p>Home Run: {stats.homerun}</p>
+          <p className="text-3xl font-bold">
+            {hits}
+          </p>
+        </div>
 
-        <p>K Swing: {stats.strikeout_swinging}</p>
-        <p>K Looking: {stats.strikeout_looking}</p>
-        <p>Ground Out: {stats.ground_out}</p>
-        <p>Fly Out: {stats.fly_out}</p>
-        <p>Other Out: {stats.other_out}</p>
+        <div className="bg-red-600 rounded-xl p-4 shadow">
+          <p className="text-sm opacity-80">
+            Outs
+          </p>
+
+          <p className="text-3xl font-bold">
+            {outs}
+          </p>
+        </div>
+
+        <div className="bg-slate-800 rounded-xl p-4 shadow">
+          <p className="text-sm opacity-80">
+            At Bats
+          </p>
+
+          <p className="text-3xl font-bold">
+            {atBats}
+          </p>
+        </div>
+
+        <div className="bg-yellow-500 text-black rounded-xl p-4 shadow">
+          <p className="text-sm opacity-70">
+            AVG
+          </p>
+
+          <p className="text-3xl font-bold">
+            {avg}
+          </p>
+        </div>
 
       </div>
 
-      {/* 🧠 COMMENTS (FIXED GAMECHANGER STYLE) */}
-      <div className="bg-white border rounded-xl p-4 shadow-sm">
+      {/* BREAKDOWN */}
+      <div className="bg-slate-800 rounded-2xl p-5 shadow-lg mb-5">
 
-        <h2 className="font-semibold mb-2">Live Commentary</h2>
+        <h2 className="text-xl font-bold mb-4">
+          Stat Breakdown
+        </h2>
+
+        {/* HITS */}
+        <div className="mb-5">
+          <p className="text-green-400 font-semibold mb-2">
+            Hits
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+              Singles: {stats.single}
+            </div>
+
+            <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+              Doubles: {stats.double}
+            </div>
+
+            <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+              Triples: {stats.triple}
+            </div>
+
+            <div className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-semibold">
+              HR: {stats.homerun}
+            </div>
+          </div>
+        </div>
+
+        {/* OUTS */}
+        <div>
+          <p className="text-red-400 font-semibold mb-2">
+            Outs
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+
+            <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
+              K Swing: {stats.strikeout_swinging}
+            </div>
+
+            <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
+              K Looking: {stats.strikeout_looking}
+            </div>
+
+            <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+              Ground Out: {stats.ground_out}
+            </div>
+
+            <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+              Fly Out: {stats.fly_out}
+            </div>
+
+            <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+              Other Out: {stats.other_out}
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      {/* COMMENTARY */}
+      <div className="bg-slate-800 rounded-2xl p-5 shadow-lg">
+
+        <h2 className="text-xl font-bold mb-4">
+          Live Commentary
+        </h2>
 
         {comments.length === 0 && (
-          <p className="text-gray-400 text-sm">
-            No comments yet
+          <p className="text-slate-400">
+            No commentary yet.
           </p>
         )}
 
-        <div className="space-y-2">
-          {comments.map((c, i) => (
-            <div
-              key={i}
-              className="
-                bg-white
-                border
-                border-gray-200
-                rounded-lg
-                p-2
-                text-sm
-                shadow-sm
-              "
-            >
-              <div className="text-black">
-                {c.text}
-              </div>
+        <div className="space-y-3">
+          {comments
+            .slice()
+            .reverse()
+            .map((c, i) => (
+              <div
+                key={i}
+                className="bg-slate-700 rounded-xl p-3"
+              >
+                <div className="text-white">
+                  {c.text}
+                </div>
 
-              <div className="text-xs text-gray-500 mt-1">
-                {new Date(c.timestamp).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                <div className="text-xs text-slate-300 mt-1">
+                  {new Date(
+                    c.timestamp
+                  ).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
 
       </div>
