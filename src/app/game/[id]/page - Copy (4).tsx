@@ -159,10 +159,6 @@ export default function GamePage() {
     }
   };
 
-  const goToSummary = () => {
-    window.location.href = `/game/${gameId}/summary`;
-  };
-
   return (
     <div className="min-h-screen p-6 max-w-xl mx-auto">
 
@@ -190,13 +186,6 @@ export default function GamePage() {
             className="bg-black text-white px-3 py-2 rounded"
           >
             Undo
-          </button>
-
-          <button
-            onClick={goToSummary}
-            className="bg-blue-600 text-white px-3 py-2 rounded"
-          >
-            View Summary
           </button>
         </div>
       )}
