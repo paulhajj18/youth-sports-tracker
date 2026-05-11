@@ -38,11 +38,11 @@ export default function Home() {
       <div className="relative z-10 w-full max-w-md text-center text-white">
 
         <h1 className="text-4xl font-extrabold mb-2 drop-shadow-lg">
-          ⚾ Youth Sports Tracker
+          ⚾ Youth Baseball Live Sports Tracker
         </h1>
 
         <p className="text-sm mb-6 text-gray-200">
-          Start quickly and share your kid's live baseball updates with friends & family!   <strong>No download or signups needed!</strong>
+          Start a <strong>live game tracker</strong> to share out your kid’s at bat stats, game score, and your personal commentating to friends & family.  <strong>Simple to use!  No download or signups needed!</strong>
         </p>
 
         <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl shadow-lg">
@@ -58,7 +58,7 @@ export default function Home() {
             onClick={startGame}
             className="w-full bg-green-500 hover:bg-green-600 text-white font-bold p-3 rounded-lg"
           >
-            Play Ball!!
+            Play Ball!
           </button>
 
         </div>
