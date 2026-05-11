@@ -20,11 +20,6 @@ type Stats = {
   other_out: number;
 };
 
-type Comment = {
-  text: string;
-  timestamp: number;
-};
-
 export default function SummaryPage() {
   const params = useParams();
   const gameId = params.id as string;
@@ -33,7 +28,6 @@ export default function SummaryPage() {
 
   const [kidName, setKidName] = useState("");
   const [stats, setStats] = useState<Stats | null>(null);
-  const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
     const unsub = onSnapshot(gameRef, (snap) => {
@@ -55,8 +49,6 @@ export default function SummaryPage() {
         fly_out: data.fly_out || 0,
         other_out: data.other_out || 0,
       });
-
-      setComments(data.comments || []);
     });
 
     return () => unsub();
@@ -131,7 +123,7 @@ export default function SummaryPage() {
           </p>
         </div>
 
-        <div className="bg-slate-800 rounded-xl p-4 shadow">
+        <div className="bg-slate-800 rounded-xl p-4 shadow border border-slate-700">
           <p className="text-sm opacity-80">
             At Bats
           </p>
@@ -154,106 +146,68 @@ export default function SummaryPage() {
       </div>
 
       {/* BREAKDOWN */}
-      <div className="bg-slate-800 rounded-2xl p-5 shadow-lg mb-5">
+      <div className="bg-slate-800 rounded-2xl p-5 shadow-lg">
 
         <h2 className="text-xl font-bold mb-4">
           Stat Breakdown
         </h2>
 
         {/* HITS */}
-        <div className="mb-5">
-          <p className="text-green-400 font-semibold mb-2">
+        <div className="mb-6">
+          <p className="text-green-400 font-semibold mb-3">
             Hits
           </p>
 
           <div className="flex flex-wrap gap-2">
-            <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+
+            <div className="bg-green-700 px-3 py-2 rounded-full text-sm">
               Singles: {stats.single}
             </div>
 
-            <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+            <div className="bg-green-700 px-3 py-2 rounded-full text-sm">
               Doubles: {stats.double}
             </div>
 
-            <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+            <div className="bg-green-700 px-3 py-2 rounded-full text-sm">
               Triples: {stats.triple}
             </div>
 
-            <div className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-semibold">
+            <div className="bg-yellow-500 text-black px-3 py-2 rounded-full text-sm font-semibold">
               HR: {stats.homerun}
             </div>
+
           </div>
         </div>
 
         {/* OUTS */}
         <div>
-          <p className="text-red-400 font-semibold mb-2">
+          <p className="text-red-400 font-semibold mb-3">
             Outs
           </p>
 
           <div className="flex flex-wrap gap-2">
 
-            <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
+            <div className="bg-red-700 px-3 py-2 rounded-full text-sm">
               K Swing: {stats.strikeout_swinging}
             </div>
 
-            <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
+            <div className="bg-red-700 px-3 py-2 rounded-full text-sm">
               K Looking: {stats.strikeout_looking}
             </div>
 
-            <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+            <div className="bg-slate-700 px-3 py-2 rounded-full text-sm">
               Ground Out: {stats.ground_out}
             </div>
 
-            <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+            <div className="bg-slate-700 px-3 py-2 rounded-full text-sm">
               Fly Out: {stats.fly_out}
             </div>
 
-            <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+            <div className="bg-slate-700 px-3 py-2 rounded-full text-sm">
               Other Out: {stats.other_out}
             </div>
 
           </div>
-        </div>
-
-      </div>
-
-      {/* COMMENTARY */}
-      <div className="bg-slate-800 rounded-2xl p-5 shadow-lg">
-
-        <h2 className="text-xl font-bold mb-4">
-          Live Commentary
-        </h2>
-
-        {comments.length === 0 && (
-          <p className="text-slate-400">
-            No commentary yet.
-          </p>
-        )}
-
-        <div className="space-y-3">
-          {comments
-            .slice()
-            .reverse()
-            .map((c, i) => (
-              <div
-                key={i}
-                className="bg-slate-700 rounded-xl p-3"
-              >
-                <div className="text-white">
-                  {c.text}
-                </div>
-
-                <div className="text-xs text-slate-300 mt-1">
-                  {new Date(
-                    c.timestamp
-                  ).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </div>
-              </div>
-            ))}
         </div>
 
       </div>
