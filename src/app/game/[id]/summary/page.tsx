@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { db } from "@/lib/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -27,6 +27,8 @@ type Stats = {
 
 export default function SummaryPage() {
   const params = useParams();
+  const router = useRouter();
+
   const gameId = params.id as string;
 
   const gameRef = doc(db, "games", gameId);
@@ -48,8 +50,12 @@ export default function SummaryPage() {
       if (!data) return;
 
       setKidName(data.kidName || "Player");
+
       setTeamName(data.teamName || "Our Team");
-      setOpponentName(data.opponentName || "Other Team");
+
+      setOpponentName(
+        data.opponentName || "Other Team"
+      );
 
       setOurScore(data.ourScore || 0);
       setTheirScore(data.theirScore || 0);
@@ -68,6 +74,7 @@ export default function SummaryPage() {
 
         strikeout_swinging:
           data.strikeout_swinging || 0,
+
         strikeout_looking:
           data.strikeout_looking || 0,
 
@@ -138,6 +145,7 @@ export default function SummaryPage() {
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 shadow-lg mb-5">
 
         <div className="flex justify-between items-start">
+
           <div>
             <p className="text-sm opacity-80 mb-1">
               Game Summary
@@ -158,7 +166,9 @@ export default function SummaryPage() {
           >
             Share
           </button>
+
         </div>
+
       </div>
 
       {/* SCOREBOARD */}
@@ -197,6 +207,7 @@ export default function SummaryPage() {
           </div>
 
         </div>
+
       </div>
 
       {/* TOP STATS */}
@@ -247,7 +258,7 @@ export default function SummaryPage() {
       </div>
 
       {/* BREAKDOWN */}
-      <div className="bg-slate-900 rounded-2xl p-5 border border-slate-800">
+      <div className="bg-slate-900 rounded-2xl p-5 border border-slate-800 mb-6">
 
         <h2 className="text-xl font-bold mb-4">
           Stat Breakdown
@@ -304,7 +315,28 @@ export default function SummaryPage() {
           </div>
 
         </div>
+
       </div>
+
+      {/* START NEW GAME BUTTON */}
+      <button
+        onClick={() => router.push("/")}
+        className="
+          w-full
+          bg-green-500
+          hover:bg-green-600
+          transition
+          text-white
+          font-bold
+          text-lg
+          p-4
+          rounded-2xl
+          shadow-lg
+        "
+      >
+        ⚾ Start Tracking A New Game
+      </button>
+
     </div>
   );
 }
