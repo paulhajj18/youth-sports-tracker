@@ -11,8 +11,8 @@ type Stats = {
   double: number;
   triple: number;
   homerun: number;
-
   walk: number;
+
   rbi: number;
   stolen_base: number;
   run_scored: number;
@@ -27,16 +27,20 @@ type Stats = {
 
 export default function SummaryPage() {
   const params = useParams();
+
   const gameId = params.id as string;
 
   const gameRef = doc(db, "games", gameId);
 
   const [kidName, setKidName] = useState("");
-  const [stats, setStats] = useState<Stats | null>(null);
+
+  const [stats, setStats] =
+    useState<Stats | null>(null);
 
   useEffect(() => {
     const unsub = onSnapshot(gameRef, (snap) => {
       const data = snap.data();
+
       if (!data) return;
 
       setKidName(data.kidName || "Player");
@@ -46,14 +50,17 @@ export default function SummaryPage() {
         double: data.double || 0,
         triple: data.triple || 0,
         homerun: data.homerun || 0,
-
         walk: data.walk || 0,
+
         rbi: data.rbi || 0,
         stolen_base: data.stolen_base || 0,
         run_scored: data.run_scored || 0,
 
-        strikeout_swinging: data.strikeout_swinging || 0,
-        strikeout_looking: data.strikeout_looking || 0,
+        strikeout_swinging:
+          data.strikeout_swinging || 0,
+
+        strikeout_looking:
+          data.strikeout_looking || 0,
 
         ground_out: data.ground_out || 0,
         fly_out: data.fly_out || 0,
@@ -62,7 +69,7 @@ export default function SummaryPage() {
     });
 
     return () => unsub();
-  }, [gameId]);
+  }, []);
 
   if (!stats) {
     return (
@@ -92,107 +99,168 @@ export default function SummaryPage() {
       ? (hits / atBats).toFixed(3)
       : "0.000";
 
+  const obpDenominator =
+    atBats + stats.walk;
+
+  const obp =
+    obpDenominator > 0
+      ? (
+          (hits + stats.walk) /
+          obpDenominator
+        ).toFixed(3)
+      : "0.000";
+
+  const shareSummary = () => {
+    const url = window.location.href;
+
+    if (navigator.share) {
+      navigator.share({
+        title: `${kidName} Game Summary`,
+        url,
+      });
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("Summary link copied!");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-900 text-white p-6 max-w-xl mx-auto">
 
+      {/* HEADER */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 shadow-lg mb-5">
 
-        <p className="text-sm opacity-80 mb-1">
-          Game Summary
-        </p>
+        <div className="flex justify-between items-start">
 
-        <h1 className="text-3xl font-bold">
-          {kidName}
-        </h1>
+          <div>
+            <p className="text-sm opacity-80 mb-1">
+              Game Summary
+            </p>
 
-        <p className="text-sm opacity-75 mt-1">
-          {new Date().toLocaleDateString()}
-        </p>
+            <h1 className="text-3xl font-bold">
+              {kidName}
+            </h1>
+
+            <p className="text-sm opacity-75 mt-1">
+              {new Date().toLocaleDateString()}
+            </p>
+          </div>
+
+          <button
+            onClick={shareSummary}
+            className="bg-white text-black px-4 py-2 rounded-xl font-semibold"
+          >
+            Share
+          </button>
+
+        </div>
 
       </div>
 
+      {/* TOP STATS */}
       <div className="grid grid-cols-2 gap-3 mb-5">
 
-        <div className="bg-green-600 rounded-xl p-4">
-          <p className="text-sm">Hits</p>
+        <div className="bg-green-600 rounded-xl p-4 shadow">
+          <p className="text-sm opacity-80">Hits</p>
           <p className="text-3xl font-bold">{hits}</p>
         </div>
 
-        <div className="bg-red-600 rounded-xl p-4">
-          <p className="text-sm">Outs</p>
+        <div className="bg-red-600 rounded-xl p-4 shadow">
+          <p className="text-sm opacity-80">Outs</p>
           <p className="text-3xl font-bold">{outs}</p>
         </div>
 
-        <div className="bg-slate-800 rounded-xl p-4">
-          <p className="text-sm">At Bats</p>
-          <p className="text-3xl font-bold">{atBats}</p>
+        <div className="bg-slate-800 rounded-xl p-4 shadow">
+          <p className="text-sm opacity-80">
+            At Bats
+          </p>
+
+          <p className="text-3xl font-bold">
+            {atBats}
+          </p>
         </div>
 
-        <div className="bg-yellow-500 text-black rounded-xl p-4">
-          <p className="text-sm">AVG</p>
+        <div className="bg-yellow-500 text-black rounded-xl p-4 shadow">
+          <p className="text-sm opacity-70">AVG</p>
           <p className="text-3xl font-bold">{avg}</p>
+        </div>
+
+        <div className="bg-blue-600 rounded-xl p-4 shadow">
+          <p className="text-sm opacity-80">OBP</p>
+          <p className="text-3xl font-bold">{obp}</p>
         </div>
 
       </div>
 
-      <div className="bg-slate-800 rounded-2xl p-5">
+      {/* BREAKDOWN */}
+      <div className="bg-slate-800 rounded-2xl p-5 shadow-lg">
 
         <h2 className="text-xl font-bold mb-4">
-          Full Stat Breakdown
+          Stat Breakdown
         </h2>
 
         <div className="flex flex-wrap gap-2">
 
-          <div className="bg-green-700 px-3 py-2 rounded-full">
+          <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
             Singles: {stats.single}
           </div>
 
-          <div className="bg-green-700 px-3 py-2 rounded-full">
+          <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
             Doubles: {stats.double}
           </div>
 
-          <div className="bg-green-700 px-3 py-2 rounded-full">
+          <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
             Triples: {stats.triple}
           </div>
 
-          <div className="bg-yellow-500 text-black px-3 py-2 rounded-full font-semibold">
+          <div className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-semibold">
             HR: {stats.homerun}
           </div>
 
-          <div className="bg-cyan-600 px-3 py-2 rounded-full">
+          <div className="bg-blue-700 px-3 py-1 rounded-full text-sm">
             Walks: {stats.walk}
           </div>
 
-          <div className="bg-indigo-600 px-3 py-2 rounded-full">
+          <div className="bg-indigo-700 px-3 py-1 rounded-full text-sm">
             RBI: {stats.rbi}
           </div>
 
-          <div className="bg-orange-600 px-3 py-2 rounded-full">
+          <div className="bg-cyan-700 px-3 py-1 rounded-full text-sm">
             SB: {stats.stolen_base}
           </div>
 
-          <div className="bg-pink-600 px-3 py-2 rounded-full">
+          <div className="bg-pink-700 px-3 py-1 rounded-full text-sm">
             Runs: {stats.run_scored}
           </div>
 
-          <div className="bg-red-700 px-3 py-2 rounded-full">
-            K Swing: {stats.strikeout_swinging}
+          <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
+            K Swing:
+            {" "}
+            {stats.strikeout_swinging}
           </div>
 
-          <div className="bg-red-700 px-3 py-2 rounded-full">
-            K Looking: {stats.strikeout_looking}
+          <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
+            K Looking:
+            {" "}
+            {stats.strikeout_looking}
           </div>
 
-          <div className="bg-slate-700 px-3 py-2 rounded-full">
-            Ground Out: {stats.ground_out}
+          <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+            Ground Out:
+            {" "}
+            {stats.ground_out}
           </div>
 
-          <div className="bg-slate-700 px-3 py-2 rounded-full">
-            Fly Out: {stats.fly_out}
+          <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+            Fly Out:
+            {" "}
+            {stats.fly_out}
           </div>
 
-          <div className="bg-slate-700 px-3 py-2 rounded-full">
-            Other Out: {stats.other_out}
+          <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
+            Other Out:
+            {" "}
+            {stats.other_out}
           </div>
 
         </div>
