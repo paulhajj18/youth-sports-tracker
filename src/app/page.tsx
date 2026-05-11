@@ -50,11 +50,11 @@ export default function Home() {
 
         {/* TITLE */}
         <h1 className="text-4xl font-extrabold mb-3 drop-shadow-lg">
-          ⚾ Youth Baseball Live Sports Tracker
+          ⚾ Youth Baseball/Softball Live Sports Tracker
         </h1>
 
         <p className="text-lg text-gray-200 mb-6">
-          Track your kid's live baseball stats and share
+          Track your kid's live baseball/softball stats and share
           game updates instantly with family
           & friends.
         </p>
