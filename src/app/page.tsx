@@ -59,7 +59,16 @@ export default function Home() {
           </button>
 
         <p className="text-sm mb-6 text-gray-200"><br/>
-          Track your kid’s baseball stats & share live updates with family & friends. <br/> At bat stats, game score, and your personal commentating! <br/><strong><br/>Simple to use!  <br/>No download or signups needed!</strong>
+          Track your kid’s baseball stats & share live updates with family & friends. <br/> At bat stats, game score, and your personal commentating! <br/><strong><br/>Simple to use!  <br/>No download or signups needed!</strong><br/>
+How To : <br/>
+Enter your kid's name above, and hit Play Ball! button to start tracking their baseball stats! <br/>
+Use the easy buttons to track your kid's progress throughout the game. <br/>
+The fun part, hit the Share button on the game page to send the updates to family & friends. This will open a similar page on their phone which will receive the updates automatically, including your game commentary! <br/>
+Hit the Summary button at the end of the game for final stats. <br/>
+Hit the Share button on the Summary page to send the final stats to others.   <br/>
+You can also save the unique Summary URL link to reference later, or just take a screenshot! <br/>
+PLAY BALL & HAVE FUN!
+
         </p>
 
         </div>
