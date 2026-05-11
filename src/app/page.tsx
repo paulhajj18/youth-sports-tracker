@@ -54,7 +54,7 @@ export default function Home() {
         </h1>
 
         <p className="text-lg text-gray-200 mb-6">
-          Track live baseball stats and share
+          Track your kid's live baseball stats and share
           game updates instantly with family
           & friends.
         </p>
@@ -122,11 +122,11 @@ export default function Home() {
         </div>
 
         <p className="text-sm text-gray-300 mt-5">
-          No app download required.
+          <strong>No app download required.
           <br />
           No signups needed.
           <br />
-          Just start scoring and share live!
+          Just start scoring and share live!</strong>
         </p>
 
       </div>
