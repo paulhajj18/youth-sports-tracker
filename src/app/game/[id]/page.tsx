@@ -61,7 +61,6 @@ export default function GamePage() {
   const [log, setLog] = useState<ActionLog[]>([]);
   const [comment, setComment] = useState("");
 
-  // REAL-TIME SYNC
   useEffect(() => {
     const unsub = onSnapshot(gameRef, (snap) => {
       const data = snap.data();
@@ -89,15 +88,16 @@ export default function GamePage() {
     return () => unsub();
   }, []);
 
-  // ADD STAT
   const addStat = async (key: keyof Stats) => {
     await updateDoc(gameRef, {
       [key]: increment(1),
-      log: arrayUnion({ type: key, timestamp: Date.now() }),
+      log: arrayUnion({
+        type: key,
+        timestamp: Date.now(),
+      }),
     });
   };
 
-  // UNDO LAST ACTION
   const undoLast = async () => {
     const last = log[log.length - 1];
     if (!last) return;
@@ -108,7 +108,6 @@ export default function GamePage() {
     });
   };
 
-  // ADD COMMENT
   const addComment = async () => {
     if (!comment.trim()) return;
 
@@ -119,7 +118,6 @@ export default function GamePage() {
     setComment("");
   };
 
-  // STATS CALCULATION
   const hits = useMemo(
     () =>
       stats.single +
@@ -141,9 +139,11 @@ export default function GamePage() {
 
   const atBats = hits + outs;
 
-  const avg = atBats > 0 ? (hits / atBats).toFixed(3) : "0.000";
+  const avg =
+    atBats > 0
+      ? (hits / atBats).toFixed(3)
+      : "0.000";
 
-  // SHARE (read-only link)
   const shareGame = () => {
     const url = `${window.location.origin}/game/${gameId}?view=true`;
 
@@ -164,122 +164,254 @@ export default function GamePage() {
   };
 
   return (
-    <div className="min-h-screen p-6 max-w-xl mx-auto">
+    <div className="min-h-screen bg-slate-900 text-white p-4">
 
-      {/* HEADER */}
-      <h1 className="text-2xl font-bold mb-1">
-        Live Game for {kidName || "Player"}
-      </h1>
+      <div className="max-w-3xl mx-auto">
 
-      <p className="text-gray-500 mb-3">
-        Game ID: {gameId}
-      </p>
+        {/* HEADER */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-5 shadow-2xl mb-5">
 
-      {/* ACTIONS */}
-      {!isViewer && (
-        <div className="flex gap-2 mb-4">
-          <button
-            onClick={shareGame}
-            className="bg-purple-600 text-white px-3 py-2 rounded"
-          >
-            Share
-          </button>
+          <div className="flex justify-between items-start gap-4">
 
-          <button
-            onClick={undoLast}
-            className="bg-black text-white px-3 py-2 rounded"
-          >
-            Undo
-          </button>
+            <div>
+              <p className="text-sm opacity-80 mb-1">
+                ⚾ Live Game
+              </p>
 
-          <button
-            onClick={goToSummary}
-            className="bg-blue-600 text-white px-3 py-2 rounded"
-          >
-            View Summary
-          </button>
+              <h1 className="text-3xl font-bold">
+                {kidName || "Player"}
+              </h1>
+
+              <p className="text-sm opacity-75 mt-1 break-all">
+                Game ID: {gameId}
+              </p>
+            </div>
+
+          </div>
+
         </div>
-      )}
 
-      {/* HITS */}
-      <h2 className="font-semibold mb-2">Hits</h2>
-      {!isViewer && (
-        <div className="grid grid-cols-2 gap-2 mb-4">
-          <button onClick={() => addStat("single")} className="bg-green-600 text-white p-2 rounded">Single</button>
-          <button onClick={() => addStat("double")} className="bg-green-700 text-white p-2 rounded">Double</button>
-          <button onClick={() => addStat("triple")} className="bg-green-800 text-white p-2 rounded">Triple</button>
-          <button onClick={() => addStat("homerun")} className="bg-yellow-600 text-white p-2 rounded">HR</button>
-        </div>
-      )}
-
-      {/* OUTS */}
-      <h2 className="font-semibold mb-2">Outs</h2>
-      {!isViewer && (
-        <div className="grid grid-cols-2 gap-2 mb-4">
-          <button onClick={() => addStat("strikeout_swinging")} className="bg-red-600 text-white p-2 rounded">K Swing</button>
-          <button onClick={() => addStat("strikeout_looking")} className="bg-red-700 text-white p-2 rounded">K Looking</button>
-          <button onClick={() => addStat("ground_out")} className="bg-gray-600 text-white p-2 rounded">Ground Out</button>
-          <button onClick={() => addStat("fly_out")} className="bg-gray-700 text-white p-2 rounded">Fly Out</button>
-          <button onClick={() => addStat("other_out")} className="bg-gray-800 text-white p-2 rounded col-span-2">Other Out</button>
-        </div>
-      )}
-
-      {/* SUMMARY */}
-      <div className="border p-4 rounded mb-6">
-        <h2 className="font-semibold mb-2">Summary</h2>
-
-        <p><b>Hits:</b></p>
-        <p>Single: {stats.single}</p>
-        <p>Double: {stats.double}</p>
-        <p>Triple: {stats.triple}</p>
-        <p>Home Run: {stats.homerun}</p>
-
-        <hr className="my-2" />
-
-        <p><b>Outs:</b></p>
-        <p>K Swing: {stats.strikeout_swinging}</p>
-        <p>K Looking: {stats.strikeout_looking}</p>
-        <p>Ground Out: {stats.ground_out}</p>
-        <p>Fly Out: {stats.fly_out}</p>
-        <p>Other Out: {stats.other_out}</p>
-
-        <hr className="my-2" />
-
-        <p>Hits: {hits}</p>
-        <p>Outs: {outs}</p>
-        <p>At Bats: {atBats}</p>
-        <p>AVG: {avg}</p>
-      </div>
-
-      {/* COMMENTARY */}
-      <div className="border p-4 rounded">
-        <h2 className="font-semibold mb-2">Live Commentary</h2>
-
+        {/* ACTIONS */}
         {!isViewer && (
-          <div className="flex gap-2 mb-3">
-            <input
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              className="border p-2 flex-1 rounded"
-              placeholder="Say something..."
-            />
+          <div className="grid grid-cols-3 gap-2 mb-5">
+
             <button
-              onClick={addComment}
-              className="bg-blue-600 text-white px-3 rounded"
+              onClick={shareGame}
+              className="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-2xl font-semibold shadow-lg"
             >
-              Send
+              Share
             </button>
+
+            <button
+              onClick={undoLast}
+              className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-2xl font-semibold shadow-lg"
+            >
+              Undo
+            </button>
+
+            <button
+              onClick={goToSummary}
+              className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-2xl font-semibold shadow-lg"
+            >
+              Summary
+            </button>
+
           </div>
         )}
 
-        <div className="space-y-1">
-          {comments.slice().reverse().map((c, i) => (
-            <div key={i} className="bg-gray-100 p-2 rounded text-sm">
-              {c}
-            </div>
-          ))}
+        {/* TOP STATS */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+
+          <div className="bg-green-600 rounded-2xl p-4 shadow-lg">
+            <p className="text-sm opacity-80">
+              Hits
+            </p>
+
+            <p className="text-3xl font-bold">
+              {hits}
+            </p>
+          </div>
+
+          <div className="bg-red-600 rounded-2xl p-4 shadow-lg">
+            <p className="text-sm opacity-80">
+              Outs
+            </p>
+
+            <p className="text-3xl font-bold">
+              {outs}
+            </p>
+          </div>
+
+          <div className="bg-slate-800 rounded-2xl p-4 shadow-lg border border-slate-700">
+            <p className="text-sm opacity-80">
+              At Bats
+            </p>
+
+            <p className="text-3xl font-bold">
+              {atBats}
+            </p>
+          </div>
+
+          <div className="bg-yellow-500 text-black rounded-2xl p-4 shadow-lg">
+            <p className="text-sm opacity-70">
+              AVG
+            </p>
+
+            <p className="text-3xl font-bold">
+              {avg}
+            </p>
+          </div>
+
         </div>
+
+        {/* HITS */}
+        {!isViewer && (
+          <div className="bg-slate-800 rounded-3xl p-5 shadow-xl mb-5">
+
+            <h2 className="text-xl font-bold mb-4 text-green-400">
+              Hits
+            </h2>
+
+            <div className="grid grid-cols-2 gap-3">
+
+              <button
+                onClick={() => addStat("single")}
+                className="bg-green-600 hover:bg-green-700 p-4 rounded-2xl font-bold shadow"
+              >
+                Single
+              </button>
+
+              <button
+                onClick={() => addStat("double")}
+                className="bg-green-700 hover:bg-green-800 p-4 rounded-2xl font-bold shadow"
+              >
+                Double
+              </button>
+
+              <button
+                onClick={() => addStat("triple")}
+                className="bg-green-800 hover:bg-green-900 p-4 rounded-2xl font-bold shadow"
+              >
+                Triple
+              </button>
+
+              <button
+                onClick={() => addStat("homerun")}
+                className="bg-yellow-500 hover:bg-yellow-400 text-black p-4 rounded-2xl font-bold shadow"
+              >
+                Home Run
+              </button>
+
+            </div>
+
+          </div>
+        )}
+
+        {/* OUTS */}
+        {!isViewer && (
+          <div className="bg-slate-800 rounded-3xl p-5 shadow-xl mb-5">
+
+            <h2 className="text-xl font-bold mb-4 text-red-400">
+              Outs
+            </h2>
+
+            <div className="grid grid-cols-2 gap-3">
+
+              <button
+                onClick={() => addStat("strikeout_swinging")}
+                className="bg-red-600 hover:bg-red-700 p-4 rounded-2xl font-bold shadow"
+              >
+                K Swing
+              </button>
+
+              <button
+                onClick={() => addStat("strikeout_looking")}
+                className="bg-red-700 hover:bg-red-800 p-4 rounded-2xl font-bold shadow"
+              >
+                K Looking
+              </button>
+
+              <button
+                onClick={() => addStat("ground_out")}
+                className="bg-slate-700 hover:bg-slate-600 p-4 rounded-2xl font-bold shadow"
+              >
+                Ground Out
+              </button>
+
+              <button
+                onClick={() => addStat("fly_out")}
+                className="bg-slate-700 hover:bg-slate-600 p-4 rounded-2xl font-bold shadow"
+              >
+                Fly Out
+              </button>
+
+              <button
+                onClick={() => addStat("other_out")}
+                className="bg-slate-600 hover:bg-slate-500 p-4 rounded-2xl font-bold shadow col-span-2"
+              >
+                Other Out
+              </button>
+
+            </div>
+
+          </div>
+        )}
+
+        {/* LIVE COMMENTARY */}
+        <div className="bg-slate-800 rounded-3xl p-5 shadow-xl">
+
+          <h2 className="text-xl font-bold mb-4">
+            Live Commentary
+          </h2>
+
+          {!isViewer && (
+            <div className="flex gap-2 mb-4">
+
+              <input
+                value={comment}
+                onChange={(e) =>
+                  setComment(e.target.value)
+                }
+                className="bg-slate-700 border border-slate-600 p-3 flex-1 rounded-2xl text-white"
+                placeholder="Add commentary..."
+              />
+
+              <button
+                onClick={addComment}
+                className="bg-blue-600 hover:bg-blue-700 px-5 rounded-2xl font-semibold"
+              >
+                Send
+              </button>
+
+            </div>
+          )}
+
+          {comments.length === 0 && (
+            <p className="text-slate-400">
+              No commentary yet.
+            </p>
+          )}
+
+          <div className="space-y-3">
+
+            {comments
+              .slice()
+              .reverse()
+              .map((c, i) => (
+                <div
+                  key={i}
+                  className="bg-slate-700 rounded-2xl p-3 border border-slate-600"
+                >
+                  {c}
+                </div>
+              ))}
+
+          </div>
+
+        </div>
+
       </div>
+
     </div>
   );
 }
