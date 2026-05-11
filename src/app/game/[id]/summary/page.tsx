@@ -54,6 +54,25 @@ export default function SummaryPage() {
     return () => unsub();
   }, [gameId]);
 
+  const shareSummary = async () => {
+    const url = window.location.href;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: `${kidName} Game Summary`,
+          text: `Check out ${kidName}'s game summary!`,
+          url,
+        });
+      } else {
+        await navigator.clipboard.writeText(url);
+        alert("Summary link copied!");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   if (!stats) {
     return (
       <div className="min-h-screen bg-slate-900 text-white p-6">
@@ -85,10 +104,20 @@ export default function SummaryPage() {
   return (
     <div className="min-h-screen bg-slate-900 text-white p-6 max-w-xl mx-auto">
 
+      {/* ACTION BAR */}
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={shareSummary}
+          className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl shadow font-semibold"
+        >
+          Share Summary
+        </button>
+      </div>
+
       {/* HEADER */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 shadow-lg mb-5">
         <p className="text-sm opacity-80 mb-1">
-          Game Summary for :
+          Game Summary
         </p>
 
         <h1 className="text-3xl font-bold">
