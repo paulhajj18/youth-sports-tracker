@@ -88,7 +88,7 @@ export default function SummaryPage() {
       {/* HEADER */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 shadow-lg mb-5">
         <p className="text-sm opacity-80 mb-1">
-          Game Summary
+          Game Summary for :
         </p>
 
         <h1 className="text-3xl font-bold">
