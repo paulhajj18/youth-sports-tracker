@@ -41,15 +41,12 @@ export default function Home() {
           ⚾ Youth Baseball Live Sports Tracker
         </h1>
 
-        <p className="text-sm mb-6 text-gray-200">
-          Start a <strong>live game tracker</strong> to share out your kid’s at bat stats, game score, and your personal commentating to friends & family. <br /><strong>Simple to use!  No download or signups needed!</strong>
-        </p>
 
         <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl shadow-lg">
 
           <input
             className="w-full p-3 rounded-lg text-white mb-3"
-            placeholder="Enter kid's name (e.g. Henry)"
+            placeholder="Enter your kid's name (e.g. Henry)"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -60,6 +57,10 @@ export default function Home() {
           >
             Play Ball!
           </button>
+
+        <p className="text-sm mb-6 text-gray-200"><br/>
+          Track your kid’s baseball stats & share live updates with family & friends. <br/> At bat stats, game score, and your personal commentating! <br/><strong><br/>Simple to use!  <br/>No download or signups needed!</strong>
+        </p>
 
         </div>
 
