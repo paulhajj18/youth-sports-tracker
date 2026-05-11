@@ -12,6 +12,11 @@ type Stats = {
   triple: number;
   homerun: number;
 
+  walk: number;
+  rbi: number;
+  stolen_base: number;
+  run_scored: number;
+
   strikeout_swinging: number;
   strikeout_looking: number;
 
@@ -42,6 +47,11 @@ export default function SummaryPage() {
         triple: data.triple || 0,
         homerun: data.homerun || 0,
 
+        walk: data.walk || 0,
+        rbi: data.rbi || 0,
+        stolen_base: data.stolen_base || 0,
+        run_scored: data.run_scored || 0,
+
         strikeout_swinging: data.strikeout_swinging || 0,
         strikeout_looking: data.strikeout_looking || 0,
 
@@ -53,25 +63,6 @@ export default function SummaryPage() {
 
     return () => unsub();
   }, [gameId]);
-
-  const shareSummary = async () => {
-    const url = window.location.href;
-
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: `${kidName} Game Summary`,
-          text: `Check out ${kidName}'s game summary!`,
-          url,
-        });
-      } else {
-        await navigator.clipboard.writeText(url);
-        alert("Summary link copied!");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   if (!stats) {
     return (
@@ -104,18 +95,8 @@ export default function SummaryPage() {
   return (
     <div className="min-h-screen bg-slate-900 text-white p-6 max-w-xl mx-auto">
 
-      {/* ACTION BAR */}
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={shareSummary}
-          className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl shadow font-semibold"
-        >
-          Share Summary
-        </button>
-      </div>
-
-      {/* HEADER */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 shadow-lg mb-5">
+
         <p className="text-sm opacity-80 mb-1">
           Game Summary
         </p>
@@ -127,116 +108,93 @@ export default function SummaryPage() {
         <p className="text-sm opacity-75 mt-1">
           {new Date().toLocaleDateString()}
         </p>
+
       </div>
 
-      {/* TOP STATS */}
       <div className="grid grid-cols-2 gap-3 mb-5">
 
-        <div className="bg-green-600 rounded-xl p-4 shadow">
-          <p className="text-sm opacity-80">
-            Hits
-          </p>
-
-          <p className="text-3xl font-bold">
-            {hits}
-          </p>
+        <div className="bg-green-600 rounded-xl p-4">
+          <p className="text-sm">Hits</p>
+          <p className="text-3xl font-bold">{hits}</p>
         </div>
 
-        <div className="bg-red-600 rounded-xl p-4 shadow">
-          <p className="text-sm opacity-80">
-            Outs
-          </p>
-
-          <p className="text-3xl font-bold">
-            {outs}
-          </p>
+        <div className="bg-red-600 rounded-xl p-4">
+          <p className="text-sm">Outs</p>
+          <p className="text-3xl font-bold">{outs}</p>
         </div>
 
-        <div className="bg-slate-800 rounded-xl p-4 shadow border border-slate-700">
-          <p className="text-sm opacity-80">
-            At Bats
-          </p>
-
-          <p className="text-3xl font-bold">
-            {atBats}
-          </p>
+        <div className="bg-slate-800 rounded-xl p-4">
+          <p className="text-sm">At Bats</p>
+          <p className="text-3xl font-bold">{atBats}</p>
         </div>
 
-        <div className="bg-yellow-500 text-black rounded-xl p-4 shadow">
-          <p className="text-sm opacity-70">
-            AVG
-          </p>
-
-          <p className="text-3xl font-bold">
-            {avg}
-          </p>
+        <div className="bg-yellow-500 text-black rounded-xl p-4">
+          <p className="text-sm">AVG</p>
+          <p className="text-3xl font-bold">{avg}</p>
         </div>
 
       </div>
 
-      {/* BREAKDOWN */}
-      <div className="bg-slate-800 rounded-2xl p-5 shadow-lg">
+      <div className="bg-slate-800 rounded-2xl p-5">
 
         <h2 className="text-xl font-bold mb-4">
-          Stat Breakdown
+          Full Stat Breakdown
         </h2>
 
-        {/* HITS */}
-        <div className="mb-6">
-          <p className="text-green-400 font-semibold mb-3">
-            Hits
-          </p>
+        <div className="flex flex-wrap gap-2">
 
-          <div className="flex flex-wrap gap-2">
-
-            <div className="bg-green-700 px-3 py-2 rounded-full text-sm">
-              Singles: {stats.single}
-            </div>
-
-            <div className="bg-green-700 px-3 py-2 rounded-full text-sm">
-              Doubles: {stats.double}
-            </div>
-
-            <div className="bg-green-700 px-3 py-2 rounded-full text-sm">
-              Triples: {stats.triple}
-            </div>
-
-            <div className="bg-yellow-500 text-black px-3 py-2 rounded-full text-sm font-semibold">
-              HR: {stats.homerun}
-            </div>
-
+          <div className="bg-green-700 px-3 py-2 rounded-full">
+            Singles: {stats.single}
           </div>
-        </div>
 
-        {/* OUTS */}
-        <div>
-          <p className="text-red-400 font-semibold mb-3">
-            Outs
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-
-            <div className="bg-red-700 px-3 py-2 rounded-full text-sm">
-              K Swing: {stats.strikeout_swinging}
-            </div>
-
-            <div className="bg-red-700 px-3 py-2 rounded-full text-sm">
-              K Looking: {stats.strikeout_looking}
-            </div>
-
-            <div className="bg-slate-700 px-3 py-2 rounded-full text-sm">
-              Ground Out: {stats.ground_out}
-            </div>
-
-            <div className="bg-slate-700 px-3 py-2 rounded-full text-sm">
-              Fly Out: {stats.fly_out}
-            </div>
-
-            <div className="bg-slate-700 px-3 py-2 rounded-full text-sm">
-              Other Out: {stats.other_out}
-            </div>
-
+          <div className="bg-green-700 px-3 py-2 rounded-full">
+            Doubles: {stats.double}
           </div>
+
+          <div className="bg-green-700 px-3 py-2 rounded-full">
+            Triples: {stats.triple}
+          </div>
+
+          <div className="bg-yellow-500 text-black px-3 py-2 rounded-full font-semibold">
+            HR: {stats.homerun}
+          </div>
+
+          <div className="bg-cyan-600 px-3 py-2 rounded-full">
+            Walks: {stats.walk}
+          </div>
+
+          <div className="bg-indigo-600 px-3 py-2 rounded-full">
+            RBI: {stats.rbi}
+          </div>
+
+          <div className="bg-orange-600 px-3 py-2 rounded-full">
+            SB: {stats.stolen_base}
+          </div>
+
+          <div className="bg-pink-600 px-3 py-2 rounded-full">
+            Runs: {stats.run_scored}
+          </div>
+
+          <div className="bg-red-700 px-3 py-2 rounded-full">
+            K Swing: {stats.strikeout_swinging}
+          </div>
+
+          <div className="bg-red-700 px-3 py-2 rounded-full">
+            K Looking: {stats.strikeout_looking}
+          </div>
+
+          <div className="bg-slate-700 px-3 py-2 rounded-full">
+            Ground Out: {stats.ground_out}
+          </div>
+
+          <div className="bg-slate-700 px-3 py-2 rounded-full">
+            Fly Out: {stats.fly_out}
+          </div>
+
+          <div className="bg-slate-700 px-3 py-2 rounded-full">
+            Other Out: {stats.other_out}
+          </div>
+
         </div>
 
       </div>

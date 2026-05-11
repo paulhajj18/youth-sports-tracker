@@ -18,7 +18,11 @@ type Stats = {
   double: number;
   triple: number;
   homerun: number;
+
   walk: number;
+  rbi: number;
+  stolen_base: number;
+  run_scored: number;
 
   strikeout_swinging: number;
   strikeout_looking: number;
@@ -49,9 +53,15 @@ export default function GamePage() {
     double: 0,
     triple: 0,
     homerun: 0,
+
     walk: 0,
+    rbi: 0,
+    stolen_base: 0,
+    run_scored: 0,
+
     strikeout_swinging: 0,
     strikeout_looking: 0,
+
     ground_out: 0,
     fly_out: 0,
     other_out: 0,
@@ -73,9 +83,15 @@ export default function GamePage() {
         double: data.double || 0,
         triple: data.triple || 0,
         homerun: data.homerun || 0,
+
         walk: data.walk || 0,
+        rbi: data.rbi || 0,
+        stolen_base: data.stolen_base || 0,
+        run_scored: data.run_scored || 0,
+
         strikeout_swinging: data.strikeout_swinging || 0,
         strikeout_looking: data.strikeout_looking || 0,
+
         ground_out: data.ground_out || 0,
         fly_out: data.fly_out || 0,
         other_out: data.other_out || 0,
@@ -171,19 +187,17 @@ export default function GamePage() {
         {/* HEADER */}
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-5 shadow-2xl mb-5">
 
-          <div>
-            <p className="text-sm opacity-80 mb-1">
-              ⚾ Live Game
-            </p>
+          <p className="text-sm opacity-80 mb-1">
+            ⚾ Live Game
+          </p>
 
-            <h1 className="text-3xl font-bold">
-              {kidName || "Player"}
-            </h1>
+          <h1 className="text-3xl font-bold">
+            {kidName || "Player"}
+          </h1>
 
-            <p className="text-sm opacity-75 mt-1 break-all">
-              Game ID: {gameId}
-            </p>
-          </div>
+          <p className="text-sm opacity-75 mt-1 break-all">
+            Game ID: {gameId}
+          </p>
 
         </div>
 
@@ -193,21 +207,21 @@ export default function GamePage() {
 
             <button
               onClick={shareGame}
-              className="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-2xl font-semibold shadow-lg"
+              className="bg-purple-600 p-3 rounded-2xl font-semibold"
             >
               Share
             </button>
 
             <button
               onClick={undoLast}
-              className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-2xl font-semibold shadow-lg"
+              className="bg-slate-700 p-3 rounded-2xl font-semibold"
             >
               Undo
             </button>
 
             <button
               onClick={goToSummary}
-              className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-2xl font-semibold shadow-lg"
+              className="bg-blue-600 p-3 rounded-2xl font-semibold"
             >
               Summary
             </button>
@@ -215,54 +229,34 @@ export default function GamePage() {
           </div>
         )}
 
-        {/* SMALLER TOP STATS */}
+        {/* SMALL TOP STATS */}
         <div className="grid grid-cols-4 gap-2 mb-5 text-center">
 
-          <div className="bg-green-600 rounded-xl p-2 shadow">
-            <p className="text-xs opacity-80">
-              Hits
-            </p>
-
-            <p className="text-xl font-bold">
-              {hits}
-            </p>
+          <div className="bg-green-600 rounded-xl p-2">
+            <p className="text-xs">Hits</p>
+            <p className="text-xl font-bold">{hits}</p>
           </div>
 
-          <div className="bg-red-600 rounded-xl p-2 shadow">
-            <p className="text-xs opacity-80">
-              Outs
-            </p>
-
-            <p className="text-xl font-bold">
-              {outs}
-            </p>
+          <div className="bg-red-600 rounded-xl p-2">
+            <p className="text-xs">Outs</p>
+            <p className="text-xl font-bold">{outs}</p>
           </div>
 
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-2 shadow">
-            <p className="text-xs opacity-80">
-              AB
-            </p>
-
-            <p className="text-xl font-bold">
-              {atBats}
-            </p>
+          <div className="bg-slate-800 rounded-xl p-2">
+            <p className="text-xs">AB</p>
+            <p className="text-xl font-bold">{atBats}</p>
           </div>
 
-          <div className="bg-yellow-500 text-black rounded-xl p-2 shadow">
-            <p className="text-xs opacity-70">
-              AVG
-            </p>
-
-            <p className="text-xl font-bold">
-              {avg}
-            </p>
+          <div className="bg-yellow-500 text-black rounded-xl p-2">
+            <p className="text-xs">AVG</p>
+            <p className="text-xl font-bold">{avg}</p>
           </div>
 
         </div>
 
         {/* HITS */}
         {!isViewer && (
-          <div className="bg-slate-800 rounded-3xl p-5 shadow-xl mb-5">
+          <div className="bg-slate-800 rounded-3xl p-5 mb-5">
 
             <h2 className="text-xl font-bold mb-4 text-green-400">
               Hits
@@ -270,32 +264,51 @@ export default function GamePage() {
 
             <div className="grid grid-cols-2 gap-3">
 
-              <button
-                onClick={() => addStat("single")}
-                className="bg-green-600 hover:bg-green-700 p-4 rounded-2xl font-bold shadow"
-              >
+              <button onClick={() => addStat("single")} className="bg-green-600 p-4 rounded-2xl font-bold">
                 Single
               </button>
 
-              <button
-                onClick={() => addStat("double")}
-                className="bg-green-700 hover:bg-green-800 p-4 rounded-2xl font-bold shadow"
-              >
+              <button onClick={() => addStat("double")} className="bg-green-700 p-4 rounded-2xl font-bold">
                 Double
               </button>
 
-              <button
-                onClick={() => addStat("triple")}
-                className="bg-green-800 hover:bg-green-900 p-4 rounded-2xl font-bold shadow"
-              >
+              <button onClick={() => addStat("triple")} className="bg-green-800 p-4 rounded-2xl font-bold">
                 Triple
               </button>
 
-              <button
-                onClick={() => addStat("homerun")}
-                className="bg-yellow-500 hover:bg-yellow-400 text-black p-4 rounded-2xl font-bold shadow"
-              >
+              <button onClick={() => addStat("homerun")} className="bg-yellow-500 text-black p-4 rounded-2xl font-bold">
                 Home Run
+              </button>
+
+            </div>
+
+          </div>
+        )}
+
+        {/* EXTRA STATS */}
+        {!isViewer && (
+          <div className="bg-slate-800 rounded-3xl p-5 mb-5">
+
+            <h2 className="text-xl font-bold mb-4 text-cyan-400">
+              Extra Stats
+            </h2>
+
+            <div className="grid grid-cols-2 gap-3">
+
+              <button onClick={() => addStat("walk")} className="bg-cyan-600 p-4 rounded-2xl font-bold">
+                Walk
+              </button>
+
+              <button onClick={() => addStat("rbi")} className="bg-indigo-600 p-4 rounded-2xl font-bold">
+                RBI
+              </button>
+
+              <button onClick={() => addStat("stolen_base")} className="bg-orange-600 p-4 rounded-2xl font-bold">
+                Stolen Base
+              </button>
+
+              <button onClick={() => addStat("run_scored")} className="bg-pink-600 p-4 rounded-2xl font-bold">
+                Run Scored
               </button>
 
             </div>
@@ -305,7 +318,7 @@ export default function GamePage() {
 
         {/* OUTS */}
         {!isViewer && (
-          <div className="bg-slate-800 rounded-3xl p-5 shadow-xl mb-5">
+          <div className="bg-slate-800 rounded-3xl p-5 mb-5">
 
             <h2 className="text-xl font-bold mb-4 text-red-400">
               Outs
@@ -313,38 +326,23 @@ export default function GamePage() {
 
             <div className="grid grid-cols-2 gap-3">
 
-              <button
-                onClick={() => addStat("strikeout_swinging")}
-                className="bg-red-600 hover:bg-red-700 p-4 rounded-2xl font-bold shadow"
-              >
+              <button onClick={() => addStat("strikeout_swinging")} className="bg-red-600 p-4 rounded-2xl font-bold">
                 K Swing
               </button>
 
-              <button
-                onClick={() => addStat("strikeout_looking")}
-                className="bg-red-700 hover:bg-red-800 p-4 rounded-2xl font-bold shadow"
-              >
+              <button onClick={() => addStat("strikeout_looking")} className="bg-red-700 p-4 rounded-2xl font-bold">
                 K Looking
               </button>
 
-              <button
-                onClick={() => addStat("ground_out")}
-                className="bg-slate-700 hover:bg-slate-600 p-4 rounded-2xl font-bold shadow"
-              >
+              <button onClick={() => addStat("ground_out")} className="bg-slate-700 p-4 rounded-2xl font-bold">
                 Ground Out
               </button>
 
-              <button
-                onClick={() => addStat("fly_out")}
-                className="bg-slate-700 hover:bg-slate-600 p-4 rounded-2xl font-bold shadow"
-              >
+              <button onClick={() => addStat("fly_out")} className="bg-slate-700 p-4 rounded-2xl font-bold">
                 Fly Out
               </button>
 
-              <button
-                onClick={() => addStat("other_out")}
-                className="bg-slate-600 hover:bg-slate-500 p-4 rounded-2xl font-bold shadow col-span-2"
-              >
+              <button onClick={() => addStat("other_out")} className="bg-slate-600 p-4 rounded-2xl font-bold col-span-2">
                 Other Out
               </button>
 
@@ -353,8 +351,8 @@ export default function GamePage() {
           </div>
         )}
 
-        {/* LIVE COMMENTARY */}
-        <div className="bg-slate-800 rounded-3xl p-5 shadow-xl">
+        {/* COMMENTARY */}
+        <div className="bg-slate-800 rounded-3xl p-5">
 
           <h2 className="text-xl font-bold mb-4">
             Live Commentary
@@ -365,27 +363,19 @@ export default function GamePage() {
 
               <input
                 value={comment}
-                onChange={(e) =>
-                  setComment(e.target.value)
-                }
+                onChange={(e) => setComment(e.target.value)}
                 className="bg-slate-700 border border-slate-600 p-3 flex-1 rounded-2xl text-white"
                 placeholder="Add commentary..."
               />
 
               <button
                 onClick={addComment}
-                className="bg-blue-600 hover:bg-blue-700 px-5 rounded-2xl font-semibold"
+                className="bg-blue-600 px-5 rounded-2xl font-semibold"
               >
                 Send
               </button>
 
             </div>
-          )}
-
-          {comments.length === 0 && (
-            <p className="text-slate-400">
-              No commentary yet.
-            </p>
           )}
 
           <div className="space-y-3">

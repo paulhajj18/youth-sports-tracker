@@ -42,7 +42,7 @@ export default function Home() {
         </h1>
 
         <p className="text-sm mb-6 text-gray-200">
-          Start a <strong>live game tracker</strong> to share out your kid’s at bat stats, game score, and your personal commentating to friends & family.  <strong>Simple to use!  No download or signups needed!</strong>
+          Start a <strong>live game tracker</strong> to share out your kid’s at bat stats, game score, and your personal commentating to friends & family. <br /><strong>Simple to use!  No download or signups needed!</strong>
         </p>
 
         <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl shadow-lg">
