@@ -171,29 +171,25 @@ export default function GamePage() {
         {/* HEADER */}
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-5 shadow-2xl mb-5">
 
-          <div className="flex justify-between items-start gap-4">
+          <div>
+            <p className="text-sm opacity-80 mb-1">
+              ⚾ Live Game
+            </p>
 
-            <div>
-              <p className="text-sm opacity-80 mb-1">
-                ⚾ Live Game
-              </p>
+            <h1 className="text-3xl font-bold">
+              {kidName || "Player"}
+            </h1>
 
-              <h1 className="text-3xl font-bold">
-                {kidName || "Player"}
-              </h1>
-
-              <p className="text-sm opacity-75 mt-1 break-all">
-                Game ID: {gameId}
-              </p>
-            </div>
-
+            <p className="text-sm opacity-75 mt-1 break-all">
+              Game ID: {gameId}
+            </p>
           </div>
 
         </div>
 
         {/* ACTIONS */}
         {!isViewer && (
-          <div className="grid grid-cols-3 gap-2 mb-5">
+          <div className="grid grid-cols-3 gap-2 mb-4">
 
             <button
               onClick={shareGame}
@@ -219,45 +215,45 @@ export default function GamePage() {
           </div>
         )}
 
-        {/* TOP STATS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        {/* SMALLER TOP STATS */}
+        <div className="grid grid-cols-4 gap-2 mb-5 text-center">
 
-          <div className="bg-green-600 rounded-2xl p-4 shadow-lg">
-            <p className="text-sm opacity-80">
+          <div className="bg-green-600 rounded-xl p-2 shadow">
+            <p className="text-xs opacity-80">
               Hits
             </p>
 
-            <p className="text-3xl font-bold">
+            <p className="text-xl font-bold">
               {hits}
             </p>
           </div>
 
-          <div className="bg-red-600 rounded-2xl p-4 shadow-lg">
-            <p className="text-sm opacity-80">
+          <div className="bg-red-600 rounded-xl p-2 shadow">
+            <p className="text-xs opacity-80">
               Outs
             </p>
 
-            <p className="text-3xl font-bold">
+            <p className="text-xl font-bold">
               {outs}
             </p>
           </div>
 
-          <div className="bg-slate-800 rounded-2xl p-4 shadow-lg border border-slate-700">
-            <p className="text-sm opacity-80">
-              At Bats
+          <div className="bg-slate-800 border border-slate-700 rounded-xl p-2 shadow">
+            <p className="text-xs opacity-80">
+              AB
             </p>
 
-            <p className="text-3xl font-bold">
+            <p className="text-xl font-bold">
               {atBats}
             </p>
           </div>
 
-          <div className="bg-yellow-500 text-black rounded-2xl p-4 shadow-lg">
-            <p className="text-sm opacity-70">
+          <div className="bg-yellow-500 text-black rounded-xl p-2 shadow">
+            <p className="text-xs opacity-70">
               AVG
             </p>
 
-            <p className="text-3xl font-bold">
+            <p className="text-xl font-bold">
               {avg}
             </p>
           </div>
