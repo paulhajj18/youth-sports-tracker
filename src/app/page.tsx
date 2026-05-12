@@ -14,10 +14,25 @@ import {
 export default function Home() {
   const [name, setName] = useState("");
 
+  // BUTTON FLASH STATE
+  const [activeButton, setActiveButton] =
+    useState("");
+
   const router = useRouter();
+
+  // BUTTON FLASH EFFECT
+  const triggerFlash = (name: string) => {
+    setActiveButton(name);
+
+    setTimeout(() => {
+      setActiveButton("");
+    }, 180);
+  };
 
   const startGame = async () => {
     if (!name) return;
+
+    triggerFlash("play");
 
     const docRef = await addDoc(
       collection(db, "games"),
@@ -31,10 +46,12 @@ export default function Home() {
   };
 
   const showInstallHelp = () => {
+    triggerFlash("install");
+
     alert(
       "📲 SAVE TO HOME SCREEN\n\n" +
       "On iPhone:\n\n" +
-      "1. Tap the Share button in Safari\n" +
+      "1. Tap the Share button in the phone browser\n" +
       "2. Tap 'Add to Home Screen'\n\n" +
       "Then Youth Sports Tracker will appear like an app on your phone!"
     );
@@ -92,40 +109,71 @@ export default function Home() {
             }
           />
 
+          {/* PLAY BALL */}
           <button
             onClick={startGame}
-            className="
+            className={`
               w-full
               bg-green-500
               hover:bg-green-600
-              transition
+              transition-all
+              duration-150
               text-white
               font-bold
               p-3
               rounded-xl
               shadow-lg
               mb-3
-            "
+
+              ${
+                activeButton === "play"
+                  ? "scale-95 brightness-125"
+                  : ""
+              }
+            `}
           >
             ⚾ Play Ball!
           </button>
 
-          {/* HOW TO BUTTON */}
+{/* DIVIDER */}
+<div className="flex items-center gap-3 my-4">
+
+  <div className="flex-1 h-px bg-white/15" />
+
+  <p className="text-[10px] uppercase tracking-widest text-gray-300">
+    More
+  </p>
+
+  <div className="flex-1 h-px bg-white/15" />
+
+</div>
+
+{/* HOW TO BUTTON */}
           <button
-            onClick={() =>
-              router.push("/how-to")
-            }
-            className="
+            onClick={() => {
+              triggerFlash("howto");
+
+              router.push("/how-to");
+            }}
+            className={`
               w-full
               bg-blue-600
               hover:bg-blue-700
-              transition
+              transition-all
+              duration-150
               text-white
               font-semibold
-              p-3
+              text-sm
+              p-2.5
               rounded-xl
               mb-3
-            "
+
+              ${
+                activeButton === "howto"
+                  ? "scale-95 brightness-125"
+                  : ""
+              }
+            `}
           >
             📘 How It Works
           </button>
@@ -133,16 +181,24 @@ export default function Home() {
           {/* SAVE TO HOME SCREEN */}
           <button
             onClick={showInstallHelp}
-            className="
+            className={`
               w-full
               bg-purple-600
               hover:bg-purple-700
-              transition
+              transition-all
+              duration-150
               text-white
               font-semibold
-              p-3
+              text-sm
+              p-2.5
               rounded-xl
-            "
+
+              ${
+                activeButton === "install"
+                  ? "scale-95 brightness-125"
+                  : ""
+              }
+            `}
           >
             📲 Save To Home Screen
           </button>
