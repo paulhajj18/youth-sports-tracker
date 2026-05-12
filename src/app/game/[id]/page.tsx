@@ -48,11 +48,13 @@ export default function GamePage() {
 
   const [kidName, setKidName] = useState("");
 
+
   const [teamName, setTeamName] =
-    useState("Our Team");
+    useState("");
 
   const [opponentName, setOpponentName] =
-    useState("Other Team");
+    useState("");
+
 
   const [ourScore, setOurScore] = useState(0);
   const [theirScore, setTheirScore] =
@@ -101,13 +103,15 @@ export default function GamePage() {
 
       setKidName(data.kidName || "Player");
 
-      setTeamName(
-        data.teamName || "Our Team"
-      );
 
-      setOpponentName(
-        data.opponentName || "Other Team"
-      );
+  setTeamName(
+    data.teamName ?? ""
+  );
+
+  setOpponentName(
+    data.opponentName ?? ""
+  );
+
 
       setOurScore(data.ourScore || 0);
 
@@ -386,34 +390,35 @@ export default function GamePage() {
           <div>
 
             {!isViewer ? (
-              <input
-                value={teamName}
-                onChange={async (e) => {
-                  const value =
-                    e.target.value;
+              
 
-                  setTeamName(value);
+<input
+  value={teamName}
+  placeholder="Our Team"
+  onChange={(e) => {
+    setTeamName(e.target.value);
+  }}
+  onBlur={async () => {
+    await updateDoc(gameRef, {
+      teamName,
+    });
+  }}
+  className="
+    bg-transparent
+    text-center
+    text-base
+    font-bold
+    text-green-300
+    border-b
+    border-slate-600
+    outline-none
+    w-full
+    mb-1
+    placeholder:text-slate-500
+  "
+/>
 
-                  await updateDoc(
-                    gameRef,
-                    {
-                      teamName: value,
-                    }
-                  );
-                }}
-                className="
-                  bg-transparent
-                  text-center
-                  text-base
-                  font-bold
-                  text-green-300
-                  border-b
-                  border-slate-600
-                  outline-none
-                  w-full
-                  mb-1
-                "
-              />
+
             ) : (
               <p className="text-base font-bold text-green-300 mb-1">
                 {teamName}
@@ -491,37 +496,35 @@ export default function GamePage() {
           <div>
 
             {!isViewer ? (
-              <input
-                value={opponentName}
-                onChange={async (e) => {
-                  const value =
-                    e.target.value;
+             
 
-                  setOpponentName(
-                    value
-                  );
+ <input
+  value={opponentName}
+  placeholder="Other Team"
+  onChange={(e) => {
+    setOpponentName(e.target.value);
+  }}
+  onBlur={async () => {
+    await updateDoc(gameRef, {
+      opponentName,
+    });
+  }}
+  className="
+    bg-transparent
+    text-center
+    text-base
+    font-bold
+    text-red-300
+    border-b
+    border-slate-600
+    outline-none
+    w-full
+    mb-1
+    placeholder:text-slate-500
+  "
+/>
 
-                  await updateDoc(
-                    gameRef,
-                    {
-                      opponentName:
-                        value,
-                    }
-                  );
-                }}
-                className="
-                  bg-transparent
-                  text-center
-                  text-base
-                  font-bold
-                  text-red-300
-                  border-b
-                  border-slate-600
-                  outline-none
-                  w-full
-                  mb-1
-                "
-              />
+
             ) : (
               <p className="text-base font-bold text-red-300 mb-1">
                 {opponentName}
