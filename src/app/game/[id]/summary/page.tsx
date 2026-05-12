@@ -152,11 +152,11 @@ export default function SummaryPage() {
             </p>
 
             <h1 className="text-3xl font-bold">
-              {kidName}
+              {kidName}'s stats
             </h1>
 
             <p className="text-sm opacity-75 mt-1">
-              {new Date().toLocaleDateString()}
+              Game Date : {new Date().toLocaleDateString()}
             </p>
           </div>
 
@@ -294,13 +294,13 @@ export default function SummaryPage() {
 
         <div className="flex flex-wrap gap-2">
 
-          <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
-            K Swing: {stats.strikeout_swinging}
-          </div>
+        <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
+            Ks: {
+               stats.strikeout_swinging +
+               stats.strikeout_looking
+         }
+       </div>
 
-          <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
-            K Looking: {stats.strikeout_looking}
-          </div>
 
           <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
             Ground Out: {stats.ground_out}
