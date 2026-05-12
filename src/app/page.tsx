@@ -30,6 +30,16 @@ export default function Home() {
     router.push(`/game/${docRef.id}`);
   };
 
+  const showInstallHelp = () => {
+    alert(
+      "📲 SAVE TO HOME SCREEN\n\n" +
+      "On iPhone:\n\n" +
+      "1. Tap the Share button in Safari\n" +
+      "2. Tap 'Add to Home Screen'\n\n" +
+      "Then Youth Sports Tracker will appear like an app on your phone!"
+    );
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center p-6">
 
@@ -114,20 +124,45 @@ export default function Home() {
               font-semibold
               p-3
               rounded-xl
+              mb-3
             "
           >
             📘 How It Works
           </button>
 
+          {/* SAVE TO HOME SCREEN */}
+          <button
+            onClick={showInstallHelp}
+            className="
+              w-full
+              bg-purple-600
+              hover:bg-purple-700
+              transition
+              text-white
+              font-semibold
+              p-3
+              rounded-xl
+            "
+          >
+            📲 Save To Home Screen
+          </button>
+
         </div>
 
-        <p className="text-sm text-gray-300 mt-5">
-          <strong>No app download required.
-          <br />
-          No signups needed.
-          <br />
-          Just start scoring and share live!</strong>
-        </p>
+        {/* FOOTER TEXT */}
+        <div className="mt-5 bg-black/30 rounded-2xl p-4 backdrop-blur-sm">
+
+          <p className="text-sm text-gray-200 leading-relaxed">
+            <strong>
+              No app download required.
+              <br />
+              No signups needed.
+              <br />
+              Just start scoring and share live!
+            </strong>
+          </p>
+
+        </div>
 
       </div>
     </div>
