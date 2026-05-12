@@ -394,7 +394,7 @@ export default function GamePage() {
 
 <input
   value={teamName}
-  placeholder="Our Team"
+  placeholder="Our Team Name"
   onChange={(e) => {
     setTeamName(e.target.value);
   }}
@@ -500,7 +500,7 @@ export default function GamePage() {
 
  <input
   value={opponentName}
-  placeholder="Other Team"
+  placeholder="Other Team Name"
   onChange={(e) => {
     setOpponentName(e.target.value);
   }}
@@ -567,13 +567,13 @@ export default function GamePage() {
 
       {/* ACTIONS */}
       {!isViewer && (
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap justify-center gap-2 mb-4">
 
           <button
             onClick={shareGame}
             className="bg-purple-600 text-white px-3 py-2 rounded-xl"
           >
-            Share
+            Share Live Now!
           </button>
 
           <button
