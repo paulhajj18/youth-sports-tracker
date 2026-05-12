@@ -51,44 +51,46 @@ export default function Home() {
     alert(
       "📲 SAVE TO HOME SCREEN\n\n" +
       "On iPhone:\n\n" +
-      "1. Tap the Share button in the phone browser\n" +
+      "1. Tap the Share button in the browser\n" +
       "2. Tap 'Add to Home Screen'\n\n" +
       "Then Youth Sports Tracker will appear like an app on your phone!"
     );
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-6">
+    <div className="relative min-h-screen flex items-center justify-center p-6 overflow-hidden">
 
       {/* BACKGROUND */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center scale-105"
         style={{
           backgroundImage:
             "url('/images/baseball-kids.png')",
         }}
       />
 
-      {/* OVERLAY */}
-      <div className="absolute inset-0 bg-black/65" />
+      {/* DARK OVERLAY */}
+      <div className="absolute inset-0 bg-black/70" />
 
       {/* CONTENT */}
       <div className="relative z-10 w-full max-w-md text-center text-white">
 
         {/* TITLE */}
-        <h1 className="text-4xl font-extrabold mb-3 drop-shadow-lg">
-          ⚾ Youth Baseball/Softball Live Sports Tracker
+        <h1 className="text-4xl font-extrabold mb-3 drop-shadow-2xl">
+          ⚾ Youth Sports Tracker ⚾ 
         </h1>
 
-        <p className="text-lg text-gray-200 mb-6">
-          Track your kid's live baseball/softball stats and share
-          game updates instantly with family
-          & friends.
+        {/* SUBTITLE */}
+        <p className="text-lg text-gray-200 mb-6 leading-relaxed">
+          Track your kid’s stats live during the game.
+          <br />
+          Share updates instantly with family & friends.
         </p>
 
-        {/* CARD */}
-        <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-white/10">
+        {/* MAIN CARD */}
+        <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
+          {/* INPUT */}
           <input
             className="
               w-full
@@ -120,10 +122,11 @@ export default function Home() {
               duration-150
               text-white
               font-bold
+              text-lg
               p-3
-              rounded-xl
+              rounded-2xl
               shadow-lg
-              mb-3
+              mb-4
 
               ${
                 activeButton === "play"
@@ -135,20 +138,20 @@ export default function Home() {
             ⚾ Play Ball!
           </button>
 
-{/* DIVIDER */}
-<div className="flex items-center gap-3 my-4">
+          {/* DIVIDER */}
+          <div className="flex items-center gap-3 my-4">
 
-  <div className="flex-1 h-px bg-white/15" />
+            <div className="flex-1 h-px bg-white/15" />
 
-  <p className="text-[10px] uppercase tracking-widest text-gray-300">
-    More
-  </p>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-gray-300">
+              More
+            </p>
 
-  <div className="flex-1 h-px bg-white/15" />
+            <div className="flex-1 h-px bg-white/15" />
 
-</div>
+          </div>
 
-{/* HOW TO BUTTON */}
+          {/* HOW TO */}
           <button
             onClick={() => {
               triggerFlash("howto");
@@ -178,7 +181,7 @@ export default function Home() {
             📘 How It Works
           </button>
 
-          {/* SAVE TO HOME SCREEN */}
+          {/* INSTALL */}
           <button
             onClick={showInstallHelp}
             className={`
@@ -205,18 +208,28 @@ export default function Home() {
 
         </div>
 
-        {/* FOOTER TEXT */}
-        <div className="mt-5 bg-black/30 rounded-2xl p-4 backdrop-blur-sm">
+        {/* FEATURE BOX */}
+        <div className="mt-5 bg-black/30 rounded-2xl p-4 backdrop-blur-sm border border-white/5">
 
-          <p className="text-sm text-gray-200 leading-relaxed">
-            <strong>
-              No app download required.
-              <br />
-              No signups needed.
-              <br />
-              Just start scoring and share live!
-            </strong>
-          </p>
+          <div className="space-y-2 text-sm text-gray-200">
+
+            <p>
+              ⚡ Instant live stat tracking
+            </p>
+
+            <p>
+              📲 Share live game updates
+            </p>
+
+            <p>
+              🎙️ Fun sports commentary
+            </p>
+
+            <p>
+              🚫 No downloads or signups needed
+            </p>
+
+          </div>
 
         </div>
 
