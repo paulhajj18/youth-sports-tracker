@@ -47,11 +47,17 @@ export default function GamePage() {
   const gameRef = doc(db, "games", gameId);
 
   const [kidName, setKidName] = useState("");
-  const [teamName, setTeamName] = useState("Our Team");
-  const [opponentName, setOpponentName] = useState("Other Team");
+
+  const [teamName, setTeamName] =
+    useState("Our Team");
+
+  const [opponentName, setOpponentName] =
+    useState("Other Team");
 
   const [ourScore, setOurScore] = useState(0);
-  const [theirScore, setTheirScore] = useState(0);
+  const [theirScore, setTheirScore] =
+    useState(0);
+
   const [inning, setInning] = useState(1);
 
   const [stats, setStats] = useState<Stats>({
@@ -73,11 +79,18 @@ export default function GamePage() {
     other_out: 0,
   });
 
-  const [comments, setComments] = useState<string[]>([]);
-  const [log, setLog] = useState<ActionLog[]>([]);
+  const [comments, setComments] = useState<
+    string[]
+  >([]);
+
+  const [log, setLog] = useState<ActionLog[]>(
+    []
+  );
+
   const [comment, setComment] = useState("");
 
-  const [activeButton, setActiveButton] = useState("");
+  const [activeButton, setActiveButton] =
+    useState("");
 
   // LIVE SYNC
   useEffect(() => {
@@ -88,14 +101,18 @@ export default function GamePage() {
 
       setKidName(data.kidName || "Player");
 
-      setTeamName(data.teamName || "Our Team");
+      setTeamName(
+        data.teamName || "Our Team"
+      );
 
       setOpponentName(
         data.opponentName || "Other Team"
       );
 
       setOurScore(data.ourScore || 0);
+
       setTheirScore(data.theirScore || 0);
+
       setInning(data.inning || 1);
 
       setStats({
@@ -106,8 +123,12 @@ export default function GamePage() {
 
         walk: data.walk || 0,
         rbi: data.rbi || 0,
-        stolen_base: data.stolen_base || 0,
-        run_scored: data.run_scored || 0,
+
+        stolen_base:
+          data.stolen_base || 0,
+
+        run_scored:
+          data.run_scored || 0,
 
         strikeout_swinging:
           data.strikeout_swinging || 0,
@@ -115,12 +136,17 @@ export default function GamePage() {
         strikeout_looking:
           data.strikeout_looking || 0,
 
-        ground_out: data.ground_out || 0,
+        ground_out:
+          data.ground_out || 0,
+
         fly_out: data.fly_out || 0,
-        other_out: data.other_out || 0,
+
+        other_out:
+          data.other_out || 0,
       });
 
       setComments(data.comments || []);
+
       setLog(data.log || []);
     });
 
@@ -138,8 +164,11 @@ export default function GamePage() {
     homerun: `${kidName} launches a HOME RUN!`,
 
     walk: `${kidName} draws a walk.`,
+
     rbi: `${kidName} picks up an RBI!`,
+
     stolen_base: `${kidName} steals a base!`,
+
     run_scored: `${kidName} scores a run!`,
 
     strikeout_swinging:
@@ -149,7 +178,9 @@ export default function GamePage() {
       `${kidName} strikes out looking.`,
 
     ground_out: `${kidName} grounds out.`,
+
     fly_out: `${kidName} flies out.`,
+
     other_out: `${kidName} is retired.`,
   };
 
@@ -169,7 +200,9 @@ export default function GamePage() {
     await updateDoc(gameRef, {
       [key]: increment(1),
 
-      comments: arrayUnion(commentaryMap[key]),
+      comments: arrayUnion(
+        commentaryMap[key]
+      ),
 
       log: arrayUnion({
         type: key,
@@ -191,6 +224,7 @@ export default function GamePage() {
 
     await updateDoc(gameRef, {
       ourScore: newScore,
+
       comments: arrayUnion(
         `${teamName} score updated: ${newScore}`
       ),
@@ -209,6 +243,7 @@ export default function GamePage() {
 
     await updateDoc(gameRef, {
       theirScore: newScore,
+
       comments: arrayUnion(
         `${opponentName} score updated: ${newScore}`
       ),
@@ -227,6 +262,7 @@ export default function GamePage() {
 
     await updateDoc(gameRef, {
       inning: newInning,
+
       comments: arrayUnion(
         `Now entering inning ${newInning}.`
       ),
@@ -241,6 +277,7 @@ export default function GamePage() {
 
     await updateDoc(gameRef, {
       [last.type]: increment(-1),
+
       log: log.slice(0, -1),
     });
   };
@@ -304,6 +341,7 @@ export default function GamePage() {
       });
     } else {
       navigator.clipboard.writeText(url);
+
       alert("Read-only link copied!");
     }
   };
@@ -330,11 +368,11 @@ export default function GamePage() {
       <div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-5 shadow-lg mb-4">
 
         <p className="text-sm opacity-80">
-          Now Tracking
+          Now Tracking Live Stats for
         </p>
 
         <h1 className="text-3xl font-bold">
-          {kidName || "Player"}'s Stats!
+          {kidName || "Player"}
         </h1>
 
       </div>
@@ -347,11 +385,42 @@ export default function GamePage() {
           {/* OUR TEAM */}
           <div>
 
-            <p className="text-xs text-slate-400 mb-1">
-              {teamName}
-            </p>
+            {!isViewer ? (
+              <input
+                value={teamName}
+                onChange={async (e) => {
+                  const value =
+                    e.target.value;
 
-            <div className="text-2xl font-bold">
+                  setTeamName(value);
+
+                  await updateDoc(
+                    gameRef,
+                    {
+                      teamName: value,
+                    }
+                  );
+                }}
+                className="
+                  bg-transparent
+                  text-center
+                  text-base
+                  font-bold
+                  text-green-300
+                  border-b
+                  border-slate-600
+                  outline-none
+                  w-full
+                  mb-1
+                "
+              />
+            ) : (
+              <p className="text-base font-bold text-green-300 mb-1">
+                {teamName}
+              </p>
+            )}
+
+            <div className="text-3xl font-bold">
               {ourScore}
             </div>
 
@@ -384,11 +453,11 @@ export default function GamePage() {
           {/* INNING */}
           <div>
 
-            <p className="text-xs text-slate-400 mb-1">
+            <p className="text-sm text-slate-400 mb-1">
               Inning
             </p>
 
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-bold">
               {inning}
             </div>
 
@@ -421,11 +490,45 @@ export default function GamePage() {
           {/* OTHER TEAM */}
           <div>
 
-            <p className="text-xs text-slate-400 mb-1">
-              {opponentName}
-            </p>
+            {!isViewer ? (
+              <input
+                value={opponentName}
+                onChange={async (e) => {
+                  const value =
+                    e.target.value;
 
-            <div className="text-2xl font-bold">
+                  setOpponentName(
+                    value
+                  );
+
+                  await updateDoc(
+                    gameRef,
+                    {
+                      opponentName:
+                        value,
+                    }
+                  );
+                }}
+                className="
+                  bg-transparent
+                  text-center
+                  text-base
+                  font-bold
+                  text-red-300
+                  border-b
+                  border-slate-600
+                  outline-none
+                  w-full
+                  mb-1
+                "
+              />
+            ) : (
+              <p className="text-base font-bold text-red-300 mb-1">
+                {opponentName}
+              </p>
+            )}
+
+            <div className="text-3xl font-bold">
               {theirScore}
             </div>
 
@@ -549,7 +652,6 @@ export default function GamePage() {
           Live Stat Breakdown
         </h2>
 
-        {/* HITTING */}
         <div className="flex flex-wrap gap-2 mb-3">
 
           <div className="bg-green-700 px-3 py-1 rounded-full text-xs">
@@ -586,30 +688,33 @@ export default function GamePage() {
 
         </div>
 
-        {/* OUTS */}
         <div className="flex flex-wrap gap-2">
 
-          <div className="bg-red-700 px-3 py-1 rounded-full text-xs">
+          <div className="bg-red-500 px-3 py-1 rounded-full text-xs">
             K Swing:
             {" "}
             {stats.strikeout_swinging}
           </div>
 
-          <div className="bg-red-700 px-3 py-1 rounded-full text-xs">
+          <div className="bg-red-600 px-3 py-1 rounded-full text-xs">
             K Looking:
             {" "}
             {stats.strikeout_looking}
           </div>
 
-          <div className="bg-slate-700 px-3 py-1 rounded-full text-xs">
-            GO: {stats.ground_out}
+          <div className="bg-red-700 px-3 py-1 rounded-full text-xs">
+            GO:
+            {" "}
+            {stats.ground_out}
           </div>
 
-          <div className="bg-slate-700 px-3 py-1 rounded-full text-xs">
-            FO: {stats.fly_out}
+          <div className="bg-rose-800 px-3 py-1 rounded-full text-xs">
+            FO:
+            {" "}
+            {stats.fly_out}
           </div>
 
-          <div className="bg-slate-700 px-3 py-1 rounded-full text-xs">
+          <div className="bg-red-950 px-3 py-1 rounded-full text-xs">
             Other:
             {" "}
             {stats.other_out}
@@ -750,7 +855,7 @@ export default function GamePage() {
               }
               className={buttonClass(
                 "strikeout_swinging",
-                "bg-red-600 p-3 rounded-xl"
+                "bg-red-500 p-3 rounded-xl"
               )}
             >
               K Swing
@@ -764,7 +869,7 @@ export default function GamePage() {
               }
               className={buttonClass(
                 "strikeout_looking",
-                "bg-red-700 p-3 rounded-xl"
+                "bg-red-600 p-3 rounded-xl"
               )}
             >
               K Looking
@@ -776,7 +881,7 @@ export default function GamePage() {
               }
               className={buttonClass(
                 "ground_out",
-                "bg-slate-700 p-3 rounded-xl"
+                "bg-red-700 p-3 rounded-xl"
               )}
             >
               Ground Out
@@ -788,7 +893,7 @@ export default function GamePage() {
               }
               className={buttonClass(
                 "fly_out",
-                "bg-slate-600 p-3 rounded-xl"
+                "bg-rose-800 p-3 rounded-xl"
               )}
             >
               Fly Out
@@ -800,7 +905,7 @@ export default function GamePage() {
               }
               className={buttonClass(
                 "other_out",
-                "bg-slate-800 p-3 rounded-xl col-span-2"
+                "bg-red-950 p-3 rounded-xl col-span-2"
               )}
             >
               Other Out
