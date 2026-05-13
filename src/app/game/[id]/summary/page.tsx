@@ -244,121 +244,207 @@ const obp =
 
       </div>
 
-      {/* TOP STATS */}
-      <div className="grid grid-cols-3 gap-3 mb-5">
+{/* QUICK STATS */}
+<div className="space-y-2 mb-4 text-center">
 
-        <div className="bg-green-600 rounded-xl p-4">
-          <p className="text-xs opacity-80">Hits</p>
-          <p className="text-2xl font-bold">{hits}</p>
-        </div>
+  {/* TOP ROW */}
+  <div className="grid grid-cols-4 gap-2">
 
-        <div className="bg-red-600 rounded-xl p-4">
-          <p className="text-xs opacity-80">Outs</p>
-          <p className="text-2xl font-bold">{outs}</p>
-        </div>
+    {/* AB */}
+    <div className="bg-slate-800 rounded-xl p-2">
+      <p className="text-[11px] opacity-80">
+        AB
+      </p>
 
-        <div className="bg-yellow-500 text-black rounded-xl p-4">
-          <p className="text-xs opacity-70">AVG</p>
-          <p className="text-2xl font-bold">{avg}</p>
-        </div>
+      <p className="text-sm font-bold">
+        {atBats}
+      </p>
+    </div>
 
-      </div>
+    {/* RUNS */}
+    <div className="bg-pink-700 rounded-xl p-2">
+      <p className="text-[11px] opacity-80">
+        RUNS
+      </p>
 
-      {/* ADVANCED */}
-      <div className="grid grid-cols-4 gap-2 mb-5">
+      <p className="text-sm font-bold">
+        {stats.run_scored}
+      </p>
+    </div>
 
-        <div className="bg-slate-800 rounded-xl p-3 text-center">
-          <p className="text-xs text-slate-400">AB</p>
-          <p className="font-bold">{atBats}</p>
-        </div>
+    {/* HITS */}
+    <div className="bg-green-700 rounded-xl p-2">
+      <p className="text-[11px] opacity-80">
+        HITS
+      </p>
 
-        <div className="bg-cyan-700 rounded-xl p-3 text-center">
-          <p className="text-xs text-cyan-100">OBP</p>
-          <p className="font-bold">{obp}</p>
-        </div>
+      <p className="text-sm font-bold">
+        {hits}
+      </p>
+    </div>
 
-        <div className="bg-blue-700 rounded-xl p-3 text-center">
-          <p className="text-xs text-blue-100">RBI</p>
-          <p className="font-bold">{stats.rbi}</p>
-        </div>
+    {/* RBI */}
+    <div className="bg-blue-700 rounded-xl p-2">
+      <p className="text-[11px] opacity-80">
+        RBI
+      </p>
 
-        <div className="bg-pink-700 rounded-xl p-3 text-center">
-          <p className="text-xs text-pink-100">RUNS</p>
-          <p className="font-bold">
-            {stats.run_scored}
-          </p>
-        </div>
+      <p className="text-sm font-bold">
+        {stats.rbi}
+      </p>
+    </div>
 
-      </div>
+  </div>
 
-      {/* BREAKDOWN */}
-      <div className="bg-slate-900 rounded-2xl p-5 border border-slate-800 mb-6">
+  {/* SECOND ROW */}
+  <div className="grid grid-cols-5 gap-2">
 
-        <h2 className="text-xl font-bold mb-4">
-          Stat Breakdown For {kidName}
+    {/* HR */}
+    <div className="bg-yellow-500 text-black rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        HR
+      </p>
+
+      <p className="text-sm font-bold">
+        {stats.homerun}
+      </p>
+    </div>
+
+    {/* WALKS */}
+    <div className="bg-cyan-700 rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        BB
+      </p>
+
+      <p className="text-sm font-bold">
+        {stats.walk}
+      </p>
+    </div>
+
+    {/* STRIKEOUTS */}
+    <div className="bg-red-700 rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        SO
+      </p>
+
+      <p className="text-sm font-bold">
+        {
+          stats.strikeout_swinging +
+          stats.strikeout_looking
+        }
+      </p>
+    </div>
+
+    {/* AVG */}
+    <div className="bg-orange-500 text-black rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        AVG
+      </p>
+
+      <p className="text-sm font-bold">
+        {avg}
+      </p>
+    </div>
+
+    {/* OBP */}
+    <div className="bg-cyan-600 rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        OBP
+      </p>
+
+      <p className="text-sm font-bold">
+        {obp}
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+      {/* STAT BREAKDOWN */}
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
+
+        <h2 className="text-sm font-bold text-slate-300 mb-3">
+          Stat Breakdown for {kidName}
         </h2>
 
-        <div className="flex flex-wrap gap-2 mb-5">
+        <div className="flex flex-wrap gap-2 mb-3">
 
-          <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+          <div className="bg-green-700 px-3 py-1 rounded-full text-xs">
             1B: {stats.single}
           </div>
 
-          <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+          <div className="bg-green-700 px-3 py-1 rounded-full text-xs">
             2B: {stats.double}
           </div>
 
-          <div className="bg-green-700 px-3 py-1 rounded-full text-sm">
+          <div className="bg-green-700 px-3 py-1 rounded-full text-xs">
             3B: {stats.triple}
           </div>
 
-          <div className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold">
+          <div className="bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold">
             HR: {stats.homerun}
           </div>
 
-          <div className="bg-cyan-700 px-3 py-1 rounded-full text-sm">
+          <div className="bg-cyan-700 px-3 py-1 rounded-full text-xs">
             BB: {stats.walk}
           </div>
 
-          <div className="bg-indigo-700 px-3 py-1 rounded-full text-sm">
+          <div className="bg-blue-700 px-3 py-1 rounded-full text-xs">
+            RBI: {stats.rbi}
+          </div>
+
+          <div className="bg-indigo-700 px-3 py-1 rounded-full text-xs">
             Stole Base: {stats.stolen_base}
           </div>
 
+          <div className="bg-pink-700 px-3 py-1 rounded-full text-xs">
+            RUN: {stats.run_scored}
+          </div>
+<div className="bg-cyan-800 px-3 py-1 rounded-full text-xs">
+  Hit By Pitch: {stats.hit_by_pitch}
+</div>
+
+<div className="bg-orange-700 px-3 py-1 rounded-full text-xs">
+  Reached On Err: {stats.reached_on_error}
+</div>
+
+<div className="bg-red-800 px-3 py-1 rounded-full text-xs">
+  Sac Fly: {stats.sac_fly}
+</div>
         </div>
 
         <div className="flex flex-wrap gap-2">
 
-        <div className="bg-red-700 px-3 py-1 rounded-full text-sm">
-            Ks: {
-               stats.strikeout_swinging +
-               stats.strikeout_looking
-         }
-       </div>
-
-
-          <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
-            Ground Out: {stats.ground_out}
+          <div className="bg-red-500 px-3 py-1 rounded-full text-xs">
+            K Swing:
+            {" "}
+            {stats.strikeout_swinging}
           </div>
 
-          <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
-            Fly Out: {stats.fly_out}
+          <div className="bg-red-600 px-3 py-1 rounded-full text-xs">
+            K Looking:
+            {" "}
+            {stats.strikeout_looking}
           </div>
 
-          <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
-            Other Out: {stats.other_out}
+          <div className="bg-red-700 px-3 py-1 rounded-full text-xs">
+            Ground Out:
+            {" "}
+            {stats.ground_out}
           </div>
 
-<div className="bg-cyan-800 px-3 py-1 rounded-full text-sm">
-  Hit By Pitch: {stats.hit_by_pitch}
-</div>
+          <div className="bg-rose-800 px-3 py-1 rounded-full text-xs">
+            Fly Out:
+            {" "}
+            {stats.fly_out}
+          </div>
 
-<div className="bg-orange-700 px-3 py-1 rounded-full text-sm">
-  Reached On Err: {stats.reached_on_error}
-</div>
-
-<div className="bg-red-800 px-3 py-1 rounded-full text-sm">
-  Sac Fly: {stats.sac_fly}
-</div>
+          <div className="bg-red-950 px-3 py-1 rounded-full text-xs">
+            Other:
+            {" "}
+            {stats.other_out}
+          </div>
 
         </div>
 

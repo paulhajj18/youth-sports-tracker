@@ -641,62 +641,122 @@ const obp =
         </div>
       )}
 
-      {/* QUICK STATS */}
-      <div className="grid grid-cols-5 gap-2 mb-4 text-center">
+{/* QUICK STATS */}
+<div className="space-y-2 mb-4 text-center">
 
-        <div className="bg-slate-800 rounded-xl p-2">
-          <p className="text-[10px] opacity-80">
-            AB
-          </p>
+  {/* TOP ROW */}
+  <div className="grid grid-cols-4 gap-2">
 
-          <p className="text-lg font-bold">
-            {atBats}
-          </p>
-        </div>
+    {/* AB */}
+    <div className="bg-slate-800 rounded-xl p-2">
+      <p className="text-[11px] opacity-80">
+        AB
+      </p>
 
-        <div className="bg-green-700 rounded-xl p-2">
-          <p className="text-[10px] opacity-80">
-            HITS
-          </p>
+      <p className="text-sm font-bold">
+        {atBats}
+      </p>
+    </div>
 
-          <p className="text-lg font-bold">
-            {hits}
-          </p>
-        </div>
+    {/* RUNS */}
+    <div className="bg-pink-700 rounded-xl p-2">
+      <p className="text-[11px] opacity-80">
+        RUNS
+      </p>
 
-        <div className="bg-red-700 rounded-xl p-2">
-          <p className="text-[10px] opacity-80">
-            OUTS
-          </p>
+      <p className="text-sm font-bold">
+        {stats.run_scored}
+      </p>
+    </div>
 
-          <p className="text-lg font-bold">
-            {outs}
-          </p>
-        </div>
+    {/* HITS */}
+    <div className="bg-green-700 rounded-xl p-2">
+      <p className="text-[11px] opacity-80">
+        HITS
+      </p>
 
+      <p className="text-sm font-bold">
+        {hits}
+      </p>
+    </div>
 
+    {/* RBI */}
+    <div className="bg-blue-700 rounded-xl p-2">
+      <p className="text-[11px] opacity-80">
+        RBI
+      </p>
 
-        <div className="bg-yellow-500 text-black rounded-xl p-2">
-          <p className="text-[10px] opacity-80">
-            AVG
-          </p>
+      <p className="text-sm font-bold">
+        {stats.rbi}
+      </p>
+    </div>
 
-          <p className="text-lg font-bold">
-            {avg}
-          </p>
-        </div>
+  </div>
 
-        <div className="bg-cyan-600 rounded-xl p-2">
-          <p className="text-[10px] opacity-80">
-            OBP
-          </p>
+  {/* SECOND ROW */}
+  <div className="grid grid-cols-5 gap-2">
 
-          <p className="text-lg font-bold">
-            {obp}
-          </p>
-        </div>
+    {/* HR */}
+    <div className="bg-yellow-500 text-black rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        HR
+      </p>
 
-      </div>
+      <p className="text-sm font-bold">
+        {stats.homerun}
+      </p>
+    </div>
+
+    {/* WALKS */}
+    <div className="bg-cyan-700 rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        BB
+      </p>
+
+      <p className="text-sm font-bold">
+        {stats.walk}
+      </p>
+    </div>
+
+    {/* STRIKEOUTS */}
+    <div className="bg-red-700 rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        SO
+      </p>
+
+      <p className="text-sm font-bold">
+        {
+          stats.strikeout_swinging +
+          stats.strikeout_looking
+        }
+      </p>
+    </div>
+
+    {/* AVG */}
+    <div className="bg-orange-500 text-black rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        AVG
+      </p>
+
+      <p className="text-sm font-bold">
+        {avg}
+      </p>
+    </div>
+
+    {/* OBP */}
+    <div className="bg-cyan-600 rounded-xl p-2">
+      <p className="text-[10px] opacity-80">
+        OBP
+      </p>
+
+      <p className="text-sm font-bold">
+        {obp}
+      </p>
+    </div>
+
+  </div>
+
+</div>
 
       {/* LIVE STAT BREAKDOWN */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
@@ -787,231 +847,234 @@ const obp =
 
       </div>
 
-      {/* HIT BUTTONS */}
-      {!isViewer && (
-        <>
-          <h2 className="font-bold mb-2 text-green-400">
-            Hits
-          </h2>
+ {/* HIT BUTTONS */}
+{!isViewer && (
+  <>
+    <h2 className="font-semibold text-sm mb-2 text-green-400">
+      Hits
+    </h2>
 
-          <div className="grid grid-cols-2 gap-2 mb-5">
+    <div className="grid grid-cols-3 gap-2 mb-5">
 
-            <button
-              onClick={() =>
-                addStat("single")
-              }
-              className={buttonClass(
-                "single",
-                "bg-green-600 text-white p-3 rounded-xl"
-              )}
-            >
-              Single
-            </button>
+      <button
+        onClick={() =>
+          addStat("single")
+        }
+        className={buttonClass(
+          "single",
+          "bg-green-600 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Single
+      </button>
 
-            <button
-              onClick={() =>
-                addStat("double")
-              }
-              className={buttonClass(
-                "double",
-                "bg-green-700 text-white p-3 rounded-xl"
-              )}
-            >
-              Double
-            </button>
+      <button
+        onClick={() =>
+          addStat("double")
+        }
+        className={buttonClass(
+          "double",
+          "bg-green-700 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Double
+      </button>
 
-            <button
-              onClick={() =>
-                addStat("triple")
-              }
-              className={buttonClass(
-                "triple",
-                "bg-green-800 text-white p-3 rounded-xl"
-              )}
-            >
-              Triple
-            </button>
+      <button
+        onClick={() =>
+          addStat("triple")
+        }
+        className={buttonClass(
+          "triple",
+          "bg-green-800 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Triple
+      </button>
 
-            <button
-              onClick={() =>
-                addStat("homerun")
-              }
-              className={buttonClass(
-                "homerun",
-                "bg-yellow-500 text-black font-bold p-3 rounded-xl"
-              )}
-            >
-              HOME RUN
-            </button>
-<button
-  onClick={() =>
-    addStat("hit_by_pitch")
-  }
-  className={buttonClass(
-    "hit_by_pitch",
-    "bg-cyan-800 p-3 rounded-xl"
-  )}
->
-  Hit By Pitch
-</button>
+      <button
+        onClick={() =>
+          addStat("homerun")
+        }
+        className={buttonClass(
+          "homerun",
+          "bg-yellow-500 text-black font-bold p-2 text-sm rounded-xl"
+        )}
+      >
+        HR
+      </button>
 
-<button
-  onClick={() =>
-    addStat(
-      "reached_on_error"
-    )
-  }
-  className={buttonClass(
-    "reached_on_error",
-    "bg-orange-700 p-3 rounded-xl"
-  )}
->
-  Reached On Error
-</button>
-          </div>
+      <button
+        onClick={() =>
+          addStat("hit_by_pitch")
+        }
+        className={buttonClass(
+          "hit_by_pitch",
+          "bg-cyan-800 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Hit By Pitch
+      </button>
 
-          {/* EXTRA */}
-          <h2 className="font-bold mb-2 text-cyan-400">
-            Extra Stats
-          </h2>
+      <button
+        onClick={() =>
+          addStat(
+            "reached_on_error"
+          )
+        }
+        className={buttonClass(
+          "reached_on_error",
+          "bg-orange-700 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Reached On Err
+      </button>
 
-          <div className="grid grid-cols-2 gap-2 mb-5">
+    </div>
 
-            <button
-              onClick={() =>
-                addStat("walk")
-              }
-              className={buttonClass(
-                "walk",
-                "bg-cyan-700 p-3 rounded-xl"
-              )}
-            >
-              Walked
-            </button>
+    {/* EXTRA */}
+    <h2 className="font-semibold text-sm mb-2 text-cyan-400">
+      Extra Stats
+    </h2>
 
-            <button
-              onClick={() =>
-                addStat("rbi")
-              }
-              className={buttonClass(
-                "rbi",
-                "bg-blue-700 p-3 rounded-xl"
-              )}
-            >
-              RBI
-            </button>
+    <div className="grid grid-cols-3 gap-2 mb-5">
 
-            <button
-              onClick={() =>
-                addStat("stolen_base")
-              }
-              className={buttonClass(
-                "stolen_base",
-                "bg-indigo-700 p-3 rounded-xl"
-              )}
-            >
-              Stole Base
-            </button>
+      <button
+        onClick={() =>
+          addStat("walk")
+        }
+        className={buttonClass(
+          "walk",
+          "bg-cyan-700 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Walked
+      </button>
 
-            <button
-              onClick={() =>
-                addStat("run_scored")
-              }
-              className={buttonClass(
-                "run_scored",
-                "bg-pink-700 p-3 rounded-xl"
-              )}
-            >
-              Run Scored
-            </button>
+      <button
+        onClick={() =>
+          addStat("rbi")
+        }
+        className={buttonClass(
+          "rbi",
+          "bg-blue-700 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        RBI
+      </button>
 
-          </div>
+      <button
+        onClick={() =>
+          addStat("stolen_base")
+        }
+        className={buttonClass(
+          "stolen_base",
+          "bg-indigo-700 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Stole Base
+      </button>
 
-          {/* OUTS */}
-          <h2 className="font-bold mb-2 text-red-400">
-            Outs
-          </h2>
+      <button
+        onClick={() =>
+          addStat("run_scored")
+        }
+        className={buttonClass(
+          "run_scored",
+          "bg-pink-700 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Run
+      </button>
 
-          <div className="grid grid-cols-2 gap-2 mb-5">
+    </div>
 
-            <button
-              onClick={() =>
-                addStat(
-                  "strikeout_swinging"
-                )
-              }
-              className={buttonClass(
-                "strikeout_swinging",
-                "bg-red-500 p-3 rounded-xl"
-              )}
-            >
-              K Swing
-            </button>
+    {/* OUTS */}
+    <h2 className="font-semibold text-sm mb-2 text-red-400">
+      Outs
+    </h2>
 
-            <button
-              onClick={() =>
-                addStat(
-                  "strikeout_looking"
-                )
-              }
-              className={buttonClass(
-                "strikeout_looking",
-                "bg-red-600 p-3 rounded-xl"
-              )}
-            >
-              K Looking
-            </button>
+    <div className="grid grid-cols-3 gap-2 mb-5">
 
-            <button
-              onClick={() =>
-                addStat("ground_out")
-              }
-              className={buttonClass(
-                "ground_out",
-                "bg-red-700 p-3 rounded-xl"
-              )}
-            >
-              Ground Out
-            </button>
+      <button
+        onClick={() =>
+          addStat(
+            "strikeout_swinging"
+          )
+        }
+        className={buttonClass(
+          "strikeout_swinging",
+          "bg-red-500 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        K Swinging
+      </button>
 
-            <button
-              onClick={() =>
-                addStat("fly_out")
-              }
-              className={buttonClass(
-                "fly_out",
-                "bg-rose-800 p-3 rounded-xl"
-              )}
-            >
-              Fly Out
-            </button>
+      <button
+        onClick={() =>
+          addStat(
+            "strikeout_looking"
+          )
+        }
+        className={buttonClass(
+          "strikeout_looking",
+          "bg-red-600 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        K Looking
+      </button>
 
-<button
-  onClick={() =>
-    addStat("sac_fly")
-  }
-  className={buttonClass(
-    "sac_fly",
-    "bg-red-800 p-3 rounded-xl"
-  )}
->
-  Sac Fly
-</button>
-            <button
-              onClick={() =>
-                addStat("other_out")
-              }
-              className={buttonClass(
-                "other_out",
-                "bg-red-950 p-3 rounded-xl "
-              )}
-            >
-              Other Out
-            </button>
+      <button
+        onClick={() =>
+          addStat("ground_out")
+        }
+        className={buttonClass(
+          "ground_out",
+          "bg-red-700 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Ground Out
+      </button>
 
-          </div>
-        </>
-      )}
+      <button
+        onClick={() =>
+          addStat("fly_out")
+        }
+        className={buttonClass(
+          "fly_out",
+          "bg-rose-800 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Fly Out
+      </button>
+
+      <button
+        onClick={() =>
+          addStat("sac_fly")
+        }
+        className={buttonClass(
+          "sac_fly",
+          "bg-red-800 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Sac Fly
+      </button>
+
+      <button
+        onClick={() =>
+          addStat("other_out")
+        }
+        className={buttonClass(
+          "other_out",
+          "bg-red-950 text-white p-2 text-sm rounded-xl"
+        )}
+      >
+        Other Out
+      </button>
+
+    </div>
+  </>
+)}
 
       {/* COMMENTARY */}
       <div className="bg-slate-900 rounded-2xl p-4 border border-slate-800">
