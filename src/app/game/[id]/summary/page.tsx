@@ -13,9 +13,14 @@ type Stats = {
   homerun: number;
 
   walk: number;
+  hit_by_pitch: number;
+  reached_on_error: number;
+
   rbi: number;
   stolen_base: number;
   run_scored: number;
+
+  sac_fly: number;
 
   strikeout_swinging: number;
   strikeout_looking: number;
@@ -72,6 +77,14 @@ export default function SummaryPage() {
         stolen_base: data.stolen_base || 0,
         run_scored: data.run_scored || 0,
 
+hit_by_pitch:
+  data.hit_by_pitch || 0,
+
+reached_on_error:
+  data.reached_on_error || 0,
+
+sac_fly:
+  data.sac_fly || 0,
         strikeout_swinging:
           data.strikeout_swinging || 0,
 
@@ -102,26 +115,47 @@ export default function SummaryPage() {
     stats.homerun;
 
   const outs =
-    stats.strikeout_swinging +
-    stats.strikeout_looking +
-    stats.ground_out +
-    stats.fly_out +
-    stats.other_out;
+  stats.strikeout_swinging +
+  stats.strikeout_looking +
+  stats.ground_out +
+  stats.fly_out +
+  stats.other_out +
+  stats.sac_fly;
 
-  const atBats = hits + outs;
+const atBats =
+  hits +
+  stats.reached_on_error +
+  stats.strikeout_swinging +
+  stats.strikeout_looking +
+  stats.ground_out +
+  stats.fly_out +
+  stats.other_out;
 
   const avg =
     atBats > 0
       ? (hits / atBats).toFixed(3)
       : "0.000";
 
-  const obp =
-    atBats + stats.walk > 0
-      ? (
-          (hits + stats.walk) /
-          (atBats + stats.walk)
-        ).toFixed(3)
-      : "0.000";
+const obp =
+  atBats +
+    stats.walk +
+    stats.hit_by_pitch +
+    stats.sac_fly >
+  0
+    ? (
+        (
+          hits +
+          stats.walk +
+          stats.hit_by_pitch
+        ) /
+        (
+          atBats +
+          stats.walk +
+          stats.hit_by_pitch +
+          stats.sac_fly
+        )
+      ).toFixed(3)
+    : "0.000";
 
   const shareSummary = () => {
     const url = window.location.href;
@@ -313,6 +347,18 @@ export default function SummaryPage() {
           <div className="bg-slate-700 px-3 py-1 rounded-full text-sm">
             Other Out: {stats.other_out}
           </div>
+
+<div className="bg-cyan-800 px-3 py-1 rounded-full text-sm">
+  HBP: {stats.hit_by_pitch}
+</div>
+
+<div className="bg-orange-700 px-3 py-1 rounded-full text-sm">
+  ROE: {stats.reached_on_error}
+</div>
+
+<div className="bg-red-800 px-3 py-1 rounded-full text-sm">
+  SF: {stats.sac_fly}
+</div>
 
         </div>
 

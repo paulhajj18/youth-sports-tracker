@@ -20,9 +20,14 @@ type Stats = {
   homerun: number;
 
   walk: number;
+  hit_by_pitch: number;
+  reached_on_error: number;
+
   rbi: number;
   stolen_base: number;
   run_scored: number;
+
+  sac_fly: number;
 
   strikeout_swinging: number;
   strikeout_looking: number;
@@ -67,6 +72,10 @@ export default function GamePage() {
     double: 0,
     triple: 0,
     homerun: 0,
+
+hit_by_pitch: 0,
+reached_on_error: 0,
+sac_fly: 0,
 
     walk: 0,
     rbi: 0,
@@ -128,6 +137,15 @@ export default function GamePage() {
         walk: data.walk || 0,
         rbi: data.rbi || 0,
 
+hit_by_pitch:
+  data.hit_by_pitch || 0,
+
+reached_on_error:
+  data.reached_on_error || 0,
+
+sac_fly:
+  data.sac_fly || 0,
+
         stolen_base:
           data.stolen_base || 0,
 
@@ -170,6 +188,15 @@ export default function GamePage() {
     walk: `${kidName} draws a walk.`,
 
     rbi: `${kidName} picks up an RBI!`,
+
+hit_by_pitch:
+  `${kidName} is hit by the pitch.`,
+
+reached_on_error:
+  `${kidName} reaches on an error!`,
+
+sac_fly:
+  `${kidName} lifts a sacrifice fly!`,
 
     stolen_base: `${kidName} steals a base!`,
 
@@ -309,28 +336,49 @@ export default function GamePage() {
 
   const outs = useMemo(
     () =>
-      stats.strikeout_swinging +
-      stats.strikeout_looking +
-      stats.ground_out +
-      stats.fly_out +
-      stats.other_out,
+ stats.strikeout_swinging +
+  stats.strikeout_looking +
+  stats.ground_out +
+  stats.fly_out +
+  stats.other_out +
+  stats.sac_fly,
     [stats]
   );
 
-  const atBats = hits + outs;
+const atBats =
+  hits +
+  stats.reached_on_error +
+  stats.strikeout_swinging +
+  stats.strikeout_looking +
+  stats.ground_out +
+  stats.fly_out +
+  stats.other_out;
 
   const avg =
     atBats > 0
       ? (hits / atBats).toFixed(3)
       : "0.000";
 
-  const obp =
-    atBats + stats.walk > 0
-      ? (
-          (hits + stats.walk) /
-          (atBats + stats.walk)
-        ).toFixed(3)
-      : "0.000";
+const obp =
+  atBats +
+    stats.walk +
+    stats.hit_by_pitch +
+    stats.sac_fly >
+  0
+    ? (
+        (
+          hits +
+          stats.walk +
+          stats.hit_by_pitch
+        ) /
+        (
+          atBats +
+          stats.walk +
+          stats.hit_by_pitch +
+          stats.sac_fly
+        )
+      ).toFixed(3)
+    : "0.000";
 
   // SHARE
   const shareGame = () => {
@@ -688,7 +736,17 @@ export default function GamePage() {
           <div className="bg-pink-700 px-3 py-1 rounded-full text-xs">
             RUN: {stats.run_scored}
           </div>
+<div className="bg-cyan-800 px-3 py-1 rounded-full text-xs">
+  HBP: {stats.hit_by_pitch}
+</div>
 
+<div className="bg-orange-700 px-3 py-1 rounded-full text-xs">
+  ROE: {stats.reached_on_error}
+</div>
+
+<div className="bg-red-800 px-3 py-1 rounded-full text-xs">
+  SF: {stats.sac_fly}
+</div>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -783,7 +841,31 @@ export default function GamePage() {
             >
               HOME RUN
             </button>
+<button
+  onClick={() =>
+    addStat("hit_by_pitch")
+  }
+  className={buttonClass(
+    "hit_by_pitch",
+    "bg-cyan-800 p-3 rounded-xl"
+  )}
+>
+  Hit By Pitch
+</button>
 
+<button
+  onClick={() =>
+    addStat(
+      "reached_on_error"
+    )
+  }
+  className={buttonClass(
+    "reached_on_error",
+    "bg-orange-700 p-3 rounded-xl"
+  )}
+>
+  Reached On Error
+</button>
           </div>
 
           {/* EXTRA */}
@@ -913,7 +995,17 @@ export default function GamePage() {
             >
               Other Out
             </button>
-
+<button
+  onClick={() =>
+    addStat("sac_fly")
+  }
+  className={buttonClass(
+    "sac_fly",
+    "bg-red-800 p-3 rounded-xl"
+  )}
+>
+  Sac Fly
+</button>
           </div>
         </>
       )}
