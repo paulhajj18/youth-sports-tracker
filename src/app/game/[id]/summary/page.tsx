@@ -321,7 +321,7 @@ const obp =
           </div>
 
           <div className="bg-indigo-700 px-3 py-1 rounded-full text-sm">
-            SB: {stats.stolen_base}
+            Stole Base: {stats.stolen_base}
           </div>
 
         </div>
@@ -349,15 +349,15 @@ const obp =
           </div>
 
 <div className="bg-cyan-800 px-3 py-1 rounded-full text-sm">
-  HBP: {stats.hit_by_pitch}
+  Hit By Pitch: {stats.hit_by_pitch}
 </div>
 
 <div className="bg-orange-700 px-3 py-1 rounded-full text-sm">
-  ROE: {stats.reached_on_error}
+  Reached On Err: {stats.reached_on_error}
 </div>
 
 <div className="bg-red-800 px-3 py-1 rounded-full text-sm">
-  SF: {stats.sac_fly}
+  Sac Fly: {stats.sac_fly}
 </div>
 
         </div>

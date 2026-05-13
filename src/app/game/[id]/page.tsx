@@ -730,22 +730,22 @@ const obp =
           </div>
 
           <div className="bg-indigo-700 px-3 py-1 rounded-full text-xs">
-            SB: {stats.stolen_base}
+            Stole Base: {stats.stolen_base}
           </div>
 
           <div className="bg-pink-700 px-3 py-1 rounded-full text-xs">
             RUN: {stats.run_scored}
           </div>
 <div className="bg-cyan-800 px-3 py-1 rounded-full text-xs">
-  HBP: {stats.hit_by_pitch}
+  Hit By Pitch: {stats.hit_by_pitch}
 </div>
 
 <div className="bg-orange-700 px-3 py-1 rounded-full text-xs">
-  ROE: {stats.reached_on_error}
+  Reached On Err: {stats.reached_on_error}
 </div>
 
 <div className="bg-red-800 px-3 py-1 rounded-full text-xs">
-  SF: {stats.sac_fly}
+  Sac Fly: {stats.sac_fly}
 </div>
         </div>
 
@@ -764,13 +764,13 @@ const obp =
           </div>
 
           <div className="bg-red-700 px-3 py-1 rounded-full text-xs">
-            GO:
+            Ground Out:
             {" "}
             {stats.ground_out}
           </div>
 
           <div className="bg-rose-800 px-3 py-1 rounded-full text-xs">
-            FO:
+            Fly Out:
             {" "}
             {stats.fly_out}
           </div>
@@ -884,7 +884,7 @@ const obp =
                 "bg-cyan-700 p-3 rounded-xl"
               )}
             >
-              Walk
+              Walked
             </button>
 
             <button
@@ -908,7 +908,7 @@ const obp =
                 "bg-indigo-700 p-3 rounded-xl"
               )}
             >
-              Stolen Base
+              Stole Base
             </button>
 
             <button
@@ -984,17 +984,6 @@ const obp =
               Fly Out
             </button>
 
-            <button
-              onClick={() =>
-                addStat("other_out")
-              }
-              className={buttonClass(
-                "other_out",
-                "bg-red-950 p-3 rounded-xl col-span-2"
-              )}
-            >
-              Other Out
-            </button>
 <button
   onClick={() =>
     addStat("sac_fly")
@@ -1006,6 +995,18 @@ const obp =
 >
   Sac Fly
 </button>
+            <button
+              onClick={() =>
+                addStat("other_out")
+              }
+              className={buttonClass(
+                "other_out",
+                "bg-red-950 p-3 rounded-xl "
+              )}
+            >
+              Other Out
+            </button>
+
           </div>
         </>
       )}
