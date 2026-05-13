@@ -295,7 +295,7 @@ const obp =
       <div className="bg-slate-900 rounded-2xl p-5 border border-slate-800 mb-6">
 
         <h2 className="text-xl font-bold mb-4">
-          Stat Breakdown
+          Stat Breakdown For {kidName}
         </h2>
 
         <div className="flex flex-wrap gap-2 mb-5">
