@@ -626,9 +626,9 @@ const obp =
 
           <button
             onClick={undoLast}
-            className="bg-black text-white px-3 py-2 rounded-xl"
+            className="bg-red-600 text-white px-3 py-2 rounded-xl"
           >
-            Undo
+            Undo ↶
           </button>
 
           <button
