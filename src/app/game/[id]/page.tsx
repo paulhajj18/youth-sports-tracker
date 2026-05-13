@@ -189,14 +189,14 @@ sac_fly:
 
     rbi: `${kidName} picks up an RBI!`,
 
-hit_by_pitch:
-  `${kidName} is hit by the pitch.`,
+    hit_by_pitch:
+        `Ooof! ${kidName} is hit by the pitch.`,
 
-reached_on_error:
-  `${kidName} reaches on an error!`,
+    reached_on_error:
+       `${kidName} reaches on an error!`,
 
-sac_fly:
-  `${kidName} lifts a sacrifice fly!`,
+    sac_fly:
+       `${kidName} lifts a sacrifice fly!`,
 
     stolen_base: `${kidName} steals a base!`,
 
@@ -700,7 +700,7 @@ const obp =
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
 
         <h2 className="text-sm font-bold text-slate-300 mb-3">
-          Live Stat Breakdown
+          Live Stat Breakdown for {kidName}
         </h2>
 
         <div className="flex flex-wrap gap-2 mb-3">
