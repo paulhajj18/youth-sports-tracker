@@ -621,12 +621,12 @@ const obp =
             onClick={shareGame}
             className="bg-purple-600 text-white px-3 py-2 rounded-xl"
           >
-            Share Live Now!
+            Share Live!
           </button>
 
           <button
             onClick={undoLast}
-            className="bg-red-600 text-white px-3 py-2 rounded-xl"
+            className="bg-pink-600 text-white px-3 py-2 rounded-xl"
           >
             Undo ↶
           </button>
@@ -643,6 +643,16 @@ const obp =
 
       {/* QUICK STATS */}
       <div className="grid grid-cols-5 gap-2 mb-4 text-center">
+
+        <div className="bg-slate-800 rounded-xl p-2">
+          <p className="text-[10px] opacity-80">
+            AB
+          </p>
+
+          <p className="text-lg font-bold">
+            {atBats}
+          </p>
+        </div>
 
         <div className="bg-green-700 rounded-xl p-2">
           <p className="text-[10px] opacity-80">
@@ -664,15 +674,7 @@ const obp =
           </p>
         </div>
 
-        <div className="bg-slate-800 rounded-xl p-2">
-          <p className="text-[10px] opacity-80">
-            AB
-          </p>
 
-          <p className="text-lg font-bold">
-            {atBats}
-          </p>
-        </div>
 
         <div className="bg-yellow-500 text-black rounded-xl p-2">
           <p className="text-[10px] opacity-80">
