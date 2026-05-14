@@ -811,9 +811,6 @@ const obp =
         Reached On Err: {stats.reached_on_error}
       </div>
 
-      <div className="bg-red-800 px-3 py-1 rounded-full text-xs">
-        Sac Fly: {stats.sac_fly}
-      </div>
 
     </div>
 
@@ -833,6 +830,10 @@ const obp =
 
       <div className="bg-rose-800 px-3 py-1 rounded-full text-xs">
         Fly Out: {stats.fly_out}
+      </div>
+
+      <div className="bg-red-800 px-3 py-1 rounded-full text-xs">
+        Sac Fly: {stats.sac_fly}
       </div>
 
       <div className="bg-red-950 px-3 py-1 rounded-full text-xs">

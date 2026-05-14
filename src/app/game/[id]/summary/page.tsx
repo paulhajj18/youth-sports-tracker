@@ -409,9 +409,7 @@ const obp =
   Reached On Err: {stats.reached_on_error}
 </div>
 
-<div className="bg-red-800 px-3 py-1 rounded-full text-xs">
-  Sac Fly: {stats.sac_fly}
-</div>
+
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -439,6 +437,10 @@ const obp =
             {" "}
             {stats.fly_out}
           </div>
+
+<div className="bg-red-800 px-3 py-1 rounded-full text-xs">
+  Sac Fly: {stats.sac_fly}
+</div>
 
           <div className="bg-red-950 px-3 py-1 rounded-full text-xs">
             Other:
