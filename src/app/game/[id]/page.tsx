@@ -420,7 +420,7 @@ const obp =
       <div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-5 shadow-lg mb-4">
 
         <p className="text-sm opacity-80">
-          Play Ball! ⚾ Time to track stats for
+          Play Ball! ⚾ Tracking Live Stats for
         </p>
 
         <h1 className="text-3xl font-bold">
@@ -804,15 +804,15 @@ const obp =
       </div>
 
       <div className="bg-cyan-800 px-3 py-1 rounded-full text-xs">
-        HBP: {stats.hit_by_pitch}
+        Hit By Pitch: {stats.hit_by_pitch}
       </div>
 
       <div className="bg-orange-700 px-3 py-1 rounded-full text-xs">
-        ROE: {stats.reached_on_error}
+        Reached On Err: {stats.reached_on_error}
       </div>
 
       <div className="bg-red-800 px-3 py-1 rounded-full text-xs">
-        SF: {stats.sac_fly}
+        Sac Fly: {stats.sac_fly}
       </div>
 
     </div>
@@ -836,7 +836,7 @@ const obp =
       </div>
 
       <div className="bg-red-950 px-3 py-1 rounded-full text-xs">
-        Other: {stats.other_out}
+        Other Out: {stats.other_out}
       </div>
 
     </div>
@@ -845,61 +845,53 @@ const obp =
 
 </div>
 
- {/* HIT BUTTONS */}
+{/* BUTTONS CONTAINER */}
 
 {!isViewer && (
-  <>
+  <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
 
-    {/* HITS */}
-    <h2 className="font-semibold text-sm mb-2 text-green-400">
-      Hits
+ {/* HITS */}
+    <h2 className="font-semibold text-sm mb-2 text-yellow-500"><center>
+      Track {kidName}'s Stats with Buttons below!</center>
     </h2>
 
     <div className="grid grid-cols-4 gap-2 mb-5">
 
       <button
-        onClick={() =>
-          addStat("single")
-        }
+        onClick={() => addStat("single")}
         className={buttonClass(
           "single",
-          "bg-green-600 text-white p-2 text-sm rounded-xl"
+          "bg-green-600 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         1B
       </button>
 
       <button
-        onClick={() =>
-          addStat("double")
-        }
+        onClick={() => addStat("double")}
         className={buttonClass(
           "double",
-          "bg-green-700 text-white p-2 text-sm rounded-xl"
+          "bg-green-700 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         2B
       </button>
 
       <button
-        onClick={() =>
-          addStat("triple")
-        }
+        onClick={() => addStat("triple")}
         className={buttonClass(
           "triple",
-          "bg-green-800 text-white p-2 text-sm rounded-xl"
+          "bg-green-800 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         3B
       </button>
 
       <button
-        onClick={() =>
-          addStat("homerun")
-        }
+        onClick={() => addStat("homerun")}
         className={buttonClass(
           "homerun",
-          "bg-yellow-500 text-black font-bold p-2 text-sm rounded-xl"
+          "bg-yellow-500 text-black font-bold p-2 text-sm rounded-xl shadow-md"
         )}
       >
         HR
@@ -907,46 +899,39 @@ const obp =
 
     </div>
 
+    {/* DIVIDER */}
+    <div className="border-t border-slate-700 my-4" />
+
     {/* ON BASE */}
-    <h2 className="font-semibold text-sm mb-2 text-cyan-400">
-      On Base
-    </h2>
+
 
     <div className="grid grid-cols-3 gap-2 mb-5">
 
       <button
-        onClick={() =>
-          addStat("walk")
-        }
+        onClick={() => addStat("walk")}
         className={buttonClass(
           "walk",
-          "bg-cyan-700 text-white p-2 text-sm rounded-xl"
+          "bg-cyan-700 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Walked
       </button>
 
       <button
-        onClick={() =>
-          addStat("hit_by_pitch")
-        }
+        onClick={() => addStat("hit_by_pitch")}
         className={buttonClass(
           "hit_by_pitch",
-          "bg-cyan-800 text-white p-2 text-sm rounded-xl"
+          "bg-cyan-800 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Hit By Pitch
       </button>
 
       <button
-        onClick={() =>
-          addStat(
-            "reached_on_error"
-          )
-        }
+        onClick={() => addStat("reached_on_error")}
         className={buttonClass(
           "reached_on_error",
-          "bg-orange-700 text-white p-2 text-sm rounded-xl"
+          "bg-orange-700 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Reached On Err
@@ -954,46 +939,39 @@ const obp =
 
     </div>
 
+    {/* DIVIDER */}
+    <div className="border-t border-slate-700 my-4" />
+
     {/* EXTRA */}
-    <h2 className="font-semibold text-sm mb-2 text-blue-400">
-      Extra Stats
-    </h2>
+
 
     <div className="grid grid-cols-3 gap-2 mb-5">
 
-
       <button
-        onClick={() =>
-          addStat("stolen_base")
-        }
+        onClick={() => addStat("stolen_base")}
         className={buttonClass(
           "stolen_base",
-          "bg-indigo-700 text-white p-2 text-sm rounded-xl"
+          "bg-indigo-700 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Stole Base
       </button>
 
       <button
-        onClick={() =>
-          addStat("rbi")
-        }
+        onClick={() => addStat("rbi")}
         className={buttonClass(
           "rbi",
-          "bg-blue-700 text-white p-2 text-sm rounded-xl"
+          "bg-blue-700 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         RBI
       </button>
 
-
       <button
-        onClick={() =>
-          addStat("run_scored")
-        }
+        onClick={() => addStat("run_scored")}
         className={buttonClass(
           "run_scored",
-          "bg-pink-700 text-white p-2 text-sm rounded-xl"
+          "bg-pink-700 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Scored Run
@@ -1001,84 +979,69 @@ const obp =
 
     </div>
 
-    {/* OUTS */}
-    <h2 className="font-semibold text-sm mb-2 text-red-400">
-      Outs
-    </h2>
+    {/* DIVIDER */}
+    <div className="border-t border-slate-700 my-4" />
 
-    <div className="grid grid-cols-3 gap-2 mb-5">
+    {/* OUTS */}
+ 
+
+    <div className="grid grid-cols-3 gap-2">
 
       <button
-        onClick={() =>
-          addStat(
-            "strikeout_swinging"
-          )
-        }
+        onClick={() => addStat("strikeout_swinging")}
         className={buttonClass(
           "strikeout_swinging",
-          "bg-red-500 text-white p-2 text-sm rounded-xl"
+          "bg-red-500 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         K Swing
       </button>
 
       <button
-        onClick={() =>
-          addStat(
-            "strikeout_looking"
-          )
-        }
+        onClick={() => addStat("strikeout_looking")}
         className={buttonClass(
           "strikeout_looking",
-          "bg-red-600 text-white p-2 text-sm rounded-xl"
+          "bg-red-600 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         K Looking
       </button>
 
       <button
-        onClick={() =>
-          addStat("ground_out")
-        }
+        onClick={() => addStat("ground_out")}
         className={buttonClass(
           "ground_out",
-          "bg-red-700 text-white p-2 text-sm rounded-xl"
+          "bg-red-700 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Ground Out
       </button>
 
       <button
-        onClick={() =>
-          addStat("fly_out")
-        }
+        onClick={() => addStat("fly_out")}
         className={buttonClass(
           "fly_out",
-          "bg-rose-800 text-white p-2 text-sm rounded-xl"
+          "bg-rose-800 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Fly Out
       </button>
 
       <button
-        onClick={() =>
-          addStat("sac_fly")
-        }
+        onClick={() => addStat("sac_fly")}
         className={buttonClass(
           "sac_fly",
-          "bg-red-800 text-white p-2 text-sm rounded-xl"
+          "bg-red-800 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Sac Fly
       </button>
 
       <button
-        onClick={() =>
-          addStat("other_out")
-        }
+        onClick={() => addStat("other_out")}
         className={buttonClass(
           "other_out",
-          "bg-red-950 text-white p-2 text-sm rounded-xl"
+          "bg-red-950 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
         Other Out
@@ -1086,7 +1049,7 @@ const obp =
 
     </div>
 
-  </>
+  </div>
 )}
       {/* COMMENTARY */}
       <div className="bg-slate-900 rounded-2xl p-4 border border-slate-800">
