@@ -51,7 +51,7 @@ export default function HowToPage() {
 
               <p>
                 Use the simple stat buttons to
-                track hits, outs, walks, RBI,
+                track your player's hits, outs, walks, RBI,
                 stolen bases, runs scored, and
                 more throughout the game.
               </p>
@@ -66,7 +66,7 @@ export default function HowToPage() {
                 Tap the
                 <strong> Share </strong>
                 button during the game to send
-                a live read-only game tracker
+                a live game tracker
                 to family & friends.
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function HowToPage() {
 
               <p>
                 Share the Summary page with
-                family & friends, or save the
+                family & friends, or save the unique game URL 
                 link for future reference.
               </p>
             </div>

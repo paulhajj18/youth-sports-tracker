@@ -83,8 +83,7 @@ export default function Home() {
         {/* SUBTITLE */}
         <p className="text-lg text-gray-200 mb-6 leading-relaxed">
           Track your kid’s stats live during the game.
-          <br />
-          Share updates instantly with family & friends.
+          <br />Add fun commentary. Share updates instantly with family & friends.
         </p>
 
         {/* MAIN CARD */}
