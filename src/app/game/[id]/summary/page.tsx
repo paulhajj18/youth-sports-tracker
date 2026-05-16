@@ -215,7 +215,7 @@ const obp =
               {teamName}
             </p>
 
-            <p className="text-3xl font-bold text-green-400">
+            <p className="text-3xl font-bold text-white">
               {ourScore}
             </p>
           </div>
@@ -235,7 +235,7 @@ const obp =
               {opponentName}
             </p>
 
-            <p className="text-3xl font-bold text-red-400">
+            <p className="text-3xl font-bold text-white">
               {theirScore}
             </p>
           </div>
