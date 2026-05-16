@@ -21,13 +21,14 @@ type Stats = {
   run_scored: number;
 
   sac_fly: number;
+strikeout: number;
 
-  strikeout_swinging: number;
-  strikeout_looking: number;
+fielders_choice: number;
+
 
   ground_out: number;
   fly_out: number;
-  other_out: number;
+
 };
 
 export default function SummaryPage() {
@@ -85,15 +86,16 @@ reached_on_error:
 
 sac_fly:
   data.sac_fly || 0,
-        strikeout_swinging:
-          data.strikeout_swinging || 0,
 
-        strikeout_looking:
-          data.strikeout_looking || 0,
+strikeout:
+  data.strikeout || 0,
+
+fielders_choice:
+  data.fielders_choice || 0,
 
         ground_out: data.ground_out || 0,
         fly_out: data.fly_out || 0,
-        other_out: data.other_out || 0,
+
       });
     });
 
@@ -115,21 +117,18 @@ sac_fly:
     stats.homerun;
 
   const outs =
-  stats.strikeout_swinging +
-  stats.strikeout_looking +
-  stats.ground_out +
-  stats.fly_out +
-  stats.other_out +
-  stats.sac_fly;
+stats.strikeout +
+stats.ground_out +
+stats.fly_out +
+stats.sac_fly
 
 const atBats =
   hits +
-  stats.reached_on_error +
-  stats.strikeout_swinging +
-  stats.strikeout_looking +
-  stats.ground_out +
-  stats.fly_out +
-  stats.other_out;
+stats.strikeout +
+stats.ground_out +
+stats.fly_out +
+stats.fielders_choice +
+stats.reached_on_error
 
   const avg =
     atBats > 0
@@ -329,8 +328,7 @@ const obp =
 
       <p className="text-sm font-bold">
         {
-          stats.strikeout_swinging +
-          stats.strikeout_looking
+          stats.strikeout
         }
       </p>
     </div>
@@ -406,7 +404,7 @@ const obp =
 </div>
 
 <div className="bg-orange-700 px-3 py-1 rounded-full text-xs">
-  Reached On Err: {stats.reached_on_error}
+  Reach On Err: {stats.reached_on_error}
 </div>
 
 
@@ -414,17 +412,9 @@ const obp =
 
         <div className="flex flex-wrap gap-2">
 
-          <div className="bg-red-500 px-3 py-1 rounded-full text-xs">
-            K Swing:
-            {" "}
-            {stats.strikeout_swinging}
-          </div>
-
-          <div className="bg-red-600 px-3 py-1 rounded-full text-xs">
-            K Looking:
-            {" "}
-            {stats.strikeout_looking}
-          </div>
+<div className="bg-red-600 px-3 py-1 rounded-full text-xs">
+  SO: {stats.strikeout}
+</div>
 
           <div className="bg-red-700 px-3 py-1 rounded-full text-xs">
             Ground Out:
@@ -433,7 +423,7 @@ const obp =
           </div>
 
           <div className="bg-rose-800 px-3 py-1 rounded-full text-xs">
-            Fly Out:
+            Fly/Line Out:
             {" "}
             {stats.fly_out}
           </div>
@@ -442,11 +432,9 @@ const obp =
   Sac Fly: {stats.sac_fly}
 </div>
 
-          <div className="bg-red-950 px-3 py-1 rounded-full text-xs">
-            Other:
-            {" "}
-            {stats.other_out}
-          </div>
+<div className="bg-orange-800 px-3 py-1 rounded-full text-xs">
+  FieldCh: {stats.fielders_choice}
+</div>
 
         </div>
 

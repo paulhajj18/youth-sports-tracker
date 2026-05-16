@@ -29,12 +29,13 @@ type Stats = {
 
   sac_fly: number;
 
-  strikeout_swinging: number;
-  strikeout_looking: number;
+  strikeout: number;
+
+  fielders_choice: number;
 
   ground_out: number;
   fly_out: number;
-  other_out: number;
+
 };
 
 type ActionLog = {
@@ -82,12 +83,13 @@ sac_fly: 0,
     stolen_base: 0,
     run_scored: 0,
 
-    strikeout_swinging: 0,
-    strikeout_looking: 0,
+   strikeout: 0,
+
+   fielders_choice: 0,
 
     ground_out: 0,
     fly_out: 0,
-    other_out: 0,
+
   });
 
   const [comments, setComments] = useState<
@@ -152,19 +154,18 @@ sac_fly:
         run_scored:
           data.run_scored || 0,
 
-        strikeout_swinging:
-          data.strikeout_swinging || 0,
+     strikeout:
+       data.strikeout || 0,
 
-        strikeout_looking:
-          data.strikeout_looking || 0,
+    fielders_choice:
+       data.fielders_choice || 0,
 
         ground_out:
           data.ground_out || 0,
 
         fly_out: data.fly_out || 0,
 
-        other_out:
-          data.other_out || 0,
+
       });
 
       setComments(data.comments || []);
@@ -202,17 +203,17 @@ sac_fly:
 
     run_scored: `${kidName} scores a run!`,
 
-    strikeout_swinging:
-      `${kidName} strikes out swinging.`,
+strikeout:
+  `${kidName} strikes out.`,
 
-    strikeout_looking:
-      `${kidName} strikes out looking.`,
+fielders_choice:
+  `${kidName} reaches on a fielder's choice.`,
 
     ground_out: `${kidName} grounds out.`,
 
     fly_out: `${kidName} flies out.`,
 
-    other_out: `${kidName} is retired.`,
+
   };
 
   // BUTTON FLASH
@@ -336,23 +337,20 @@ sac_fly:
 
   const outs = useMemo(
     () =>
- stats.strikeout_swinging +
-  stats.strikeout_looking +
-  stats.ground_out +
-  stats.fly_out +
-  stats.other_out +
-  stats.sac_fly,
+stats.strikeout +
+stats.ground_out +
+stats.fly_out +
+stats.sac_fly
     [stats]
   );
 
 const atBats =
   hits +
-  stats.reached_on_error +
-  stats.strikeout_swinging +
-  stats.strikeout_looking +
-  stats.ground_out +
-  stats.fly_out +
-  stats.other_out;
+stats.strikeout +
+stats.ground_out +
+stats.fly_out +
+stats.fielders_choice +
+stats.reached_on_error
 
   const avg =
     atBats > 0
@@ -417,15 +415,44 @@ const obp =
     <div className="min-h-screen bg-slate-950 text-white p-4 max-w-xl mx-auto">
 
       {/* HEADER */}
+
       <div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-5 shadow-lg mb-4">
 
-        <p className="text-sm opacity-80">
-          Play Ball! ⚾ Tracking Live Stats for
-        </p>
+<div className="flex justify-between items-start">
 
-        <h1 className="text-3xl font-bold">
-          {kidName || "Player"}
-        </h1>
+  <div>
+
+    <p className="text-sm opacity-80">
+      Play Ball! ⚾ Tracking Live Stats for
+    </p>
+
+    <h1 className="text-3xl font-bold">
+      {kidName || "Player"}
+    </h1>
+
+  </div>
+
+  {!isViewer && (
+    <button
+      onClick={shareGame}
+      className="
+        bg-white/20
+        hover:bg-white/30
+        transition
+        text-white
+        text-sm
+        font-semibold
+        px-3
+        py-2
+        rounded-xl
+        backdrop-blur-sm
+      "
+    >
+      Share Live!
+    </button>
+  )}
+
+</div>
 
       </div>
 
@@ -617,12 +644,7 @@ const obp =
       {!isViewer && (
         <div className="flex flex-wrap justify-center gap-2 mb-4">
 
-          <button
-            onClick={shareGame}
-            className="bg-purple-600 text-white px-3 py-2 rounded-xl"
-          >
-            Share Live!
-          </button>
+ 
 
           <button
             onClick={undoLast}
@@ -730,8 +752,7 @@ const obp =
 
         <p className="text-sm font-bold">
           {
-            stats.strikeout_swinging +
-            stats.strikeout_looking
+		stats.strikeout
           }
         </p>
       </div>
@@ -816,29 +837,24 @@ const obp =
 
     <div className="flex flex-wrap gap-2">
 
-      <div className="bg-red-500 px-3 py-1 rounded-full text-xs">
-        K Swing: {stats.strikeout_swinging}
-      </div>
-
-      <div className="bg-red-600 px-3 py-1 rounded-full text-xs">
-        K Looking: {stats.strikeout_looking}
-      </div>
-
+<div className="bg-red-600 px-3 py-1 rounded-full text-xs">
+  SO: {stats.strikeout}
+</div>
       <div className="bg-red-700 px-3 py-1 rounded-full text-xs">
         Ground Out: {stats.ground_out}
       </div>
 
       <div className="bg-rose-800 px-3 py-1 rounded-full text-xs">
-        Fly Out: {stats.fly_out}
+        Fly/Line Out: {stats.fly_out}
       </div>
 
       <div className="bg-red-800 px-3 py-1 rounded-full text-xs">
         Sac Fly: {stats.sac_fly}
       </div>
 
-      <div className="bg-red-950 px-3 py-1 rounded-full text-xs">
-        Other Out: {stats.other_out}
-      </div>
+<div className="bg-orange-800 px-3 py-1 rounded-full text-xs">
+  Fielders Choice: {stats.fielders_choice}
+</div>
 
     </div>
 
@@ -848,13 +864,15 @@ const obp =
 
 {/* BUTTONS CONTAINER */}
 
+
 {!isViewer && (
   <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
 
- {/* HITS */}
-    <h2 className="font-semibold text-sm mb-2 text-yellow-500"><center>
+    <h2 className="font-semibold text-sm mb-2 text-white"><center>
       Track {kidName}'s Stats with Buttons below!</center>
     </h2>
+
+ {/* HITS */}
 
     <div className="grid grid-cols-4 gap-2 mb-5">
 
@@ -988,25 +1006,16 @@ const obp =
 
     <div className="grid grid-cols-3 gap-2">
 
-      <button
-        onClick={() => addStat("strikeout_swinging")}
-        className={buttonClass(
-          "strikeout_swinging",
-          "bg-red-500 text-white p-2 text-sm rounded-xl shadow-md"
-        )}
-      >
-        K Swing
-      </button>
+<button
+  onClick={() => addStat("strikeout")}
+  className={buttonClass(
+    "strikeout",
+    "bg-red-600 text-white p-2 text-sm rounded-xl shadow-md"
+  )}
+>
+  Strikeout
+</button>
 
-      <button
-        onClick={() => addStat("strikeout_looking")}
-        className={buttonClass(
-          "strikeout_looking",
-          "bg-red-600 text-white p-2 text-sm rounded-xl shadow-md"
-        )}
-      >
-        K Looking
-      </button>
 
       <button
         onClick={() => addStat("ground_out")}
@@ -1025,7 +1034,7 @@ const obp =
           "bg-rose-800 text-white p-2 text-sm rounded-xl shadow-md"
         )}
       >
-        Fly Out
+        Fly/Line Out
       </button>
 
       <button
@@ -1038,15 +1047,15 @@ const obp =
         Sac Fly
       </button>
 
-      <button
-        onClick={() => addStat("other_out")}
-        className={buttonClass(
-          "other_out",
-          "bg-red-950 text-white p-2 text-sm rounded-xl shadow-md"
-        )}
-      >
-        Other Out
-      </button>
+<button
+  onClick={() => addStat("fielders_choice")}
+  className={buttonClass(
+    "fielders_choice",
+    "bg-orange-800 text-white p-2 text-sm rounded-xl shadow-md"
+  )}
+>
+  Fielder's Choice
+</button>
 
     </div>
 
