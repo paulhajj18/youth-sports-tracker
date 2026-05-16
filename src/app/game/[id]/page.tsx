@@ -335,14 +335,14 @@ fielders_choice:
     [stats]
   );
 
-  const outs = useMemo(
-    () =>
-stats.strikeout +
-stats.ground_out +
-stats.fly_out +
-stats.sac_fly
-    [stats]
-  );
+const outs = useMemo(
+  () =>
+    stats.strikeout +
+    stats.ground_out +
+    stats.fly_out +
+    stats.sac_fly,
+  [stats]
+);
 
 const atBats =
   hits +
