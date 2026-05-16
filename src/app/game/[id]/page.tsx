@@ -423,7 +423,7 @@ const obp =
   <div>
 
     <p className="text-sm opacity-80">
-      Play Ball! ⚾ Tracking Live Stats for
+      ⚾ Tracking stats for
     </p>
 
     <h1 className="text-3xl font-bold">
