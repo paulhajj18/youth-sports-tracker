@@ -224,17 +224,18 @@ fielders_choice:
       setActiveButton("");
     }, 200);
   };
-
   // ADD STAT
   const addStat = async (key: keyof Stats) => {
+    const commentary =
+      commentaryMap[key] ||
+      `${kidName} records a play.`;
+
     triggerFlash(key);
 
     await updateDoc(gameRef, {
       [key]: increment(1),
 
-      comments: arrayUnion(
-        commentaryMap[key]
-      ),
+      comments: arrayUnion(commentary),
 
       log: arrayUnion({
         type: key,
@@ -350,7 +351,7 @@ stats.strikeout +
 stats.ground_out +
 stats.fly_out +
 stats.fielders_choice +
-stats.reached_on_error
+stats.reached_on_error;
 
   const avg =
     atBats > 0
