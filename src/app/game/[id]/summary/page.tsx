@@ -191,17 +191,19 @@ const obp =
 
 <p className="text-sm text-slate-300 mt-1">
   Game Date:{" "}
-  {gameDate
-    ? new Date(gameDate).toLocaleDateString(
-        "en-US",
-        {
-          weekday: "short",
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        }
-      )
-    : "No game date"}
+{gameDate
+  ? new Date(
+      gameDate + "T12:00:00"
+    ).toLocaleDateString(
+      "en-US",
+      {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }
+    )
+  : "No game date"}
 </p>
           </div>
 
