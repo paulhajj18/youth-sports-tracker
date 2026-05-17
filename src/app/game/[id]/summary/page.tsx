@@ -407,7 +407,7 @@ const obp =
           </div>
 
           <div className="bg-indigo-700 px-3 py-1 rounded-full text-xs">
-            Stole Base: {stats.stolen_base}
+            SB: {stats.stolen_base}
           </div>
 
           <div className="bg-pink-700 px-3 py-1 rounded-full text-xs">

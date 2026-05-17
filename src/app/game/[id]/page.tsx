@@ -954,7 +954,7 @@ const obp =
       </div>
 
 <div className="bg-orange-800 px-3 py-1 rounded-full text-xs">
-  Fielders Choice: {stats.fielders_choice}
+  Fielders Ch: {stats.fielders_choice}
 </div>
 
     </div>
