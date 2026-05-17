@@ -330,10 +330,12 @@ comments: arrayUnion({
   const addComment = async () => {
     if (!comment.trim()) return;
 
-    await updateDoc(gameRef, {
-      comments: arrayUnion(comment),
-    });
-
+await updateDoc(gameRef, {
+  comments: arrayUnion({
+    text: comment,
+    timestamp: Date.now(),
+  }),
+});
     setComment("");
   };
 
