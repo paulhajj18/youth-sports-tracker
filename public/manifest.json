@@ -1,6 +1,6 @@
 {
   "name": "Youth Sports Tracker",
-  "short_name": "YST",
+  "short_name": "Youth Sp Track",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
