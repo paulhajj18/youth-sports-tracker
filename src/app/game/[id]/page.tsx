@@ -445,7 +445,9 @@ const obp =
         {!isViewer ? (
           <label
             className="
-              flex
+                relative
+  overflow-hidden
+  flex
               items-center
               gap-2
               bg-white/10
@@ -491,7 +493,14 @@ const obp =
                   gameDate: value,
                 });
               }}
-              className="hidden"
+             className="
+  absolute
+  opacity-0
+  inset-0
+  w-full
+  h-full
+  cursor-pointer
+"
             />
           </label>
         ) : (
