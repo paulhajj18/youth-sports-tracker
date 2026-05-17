@@ -277,7 +277,7 @@ const obp =
     {/* RUNS */}
     <div className="bg-pink-700 rounded-xl p-2">
       <p className="text-[11px] opacity-80">
-        RUNS
+        RUN
       </p>
 
       <p className="text-sm font-bold">
@@ -288,7 +288,7 @@ const obp =
     {/* HITS */}
     <div className="bg-green-700 rounded-xl p-2">
       <p className="text-[11px] opacity-80">
-        HITS
+        HIT
       </p>
 
       <p className="text-sm font-bold">

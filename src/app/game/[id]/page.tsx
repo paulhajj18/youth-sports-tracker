@@ -720,7 +720,7 @@ const obp =
                   onClick={() =>
                     changeTheirScore(1)
                   }
-                  className="bg-red-600 px-2 rounded"
+                  className="bg-green-600 px-2 rounded"
                 >
                   +
                 </button>
