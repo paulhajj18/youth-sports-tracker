@@ -314,17 +314,24 @@ comments: arrayUnion({
   };
 
   // UNDO
-  const undoLast = async () => {
-    const last = log[log.length - 1];
+ const undoLast = async () => {
+  const last = log[log.length - 1];
 
-    if (!last) return;
+  if (!last) return;
 
-    await updateDoc(gameRef, {
-      [last.type]: increment(-1),
+  triggerFlash("undo");
 
-      log: log.slice(0, -1),
-    });
-  };
+  await updateDoc(gameRef, {
+    [last.type]: increment(-1),
+
+    log: log.slice(0, -1),
+
+    comments: arrayUnion({
+      text: `Oops, ${last.type} was undone.`,
+      timestamp: Date.now(),
+    }),
+  });
+};
 
   // COMMENT
   const addComment = async () => {
