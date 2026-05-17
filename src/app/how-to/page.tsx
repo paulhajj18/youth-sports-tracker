@@ -54,6 +54,7 @@ export default function HowToPage() {
                 track your player's hits, outs, walks, RBI,
                 stolen bases, runs scored, and
                 more throughout the game.
+Tracking all player stats is work 🤓, <strong>BUT tracking just for your own kid is fun!</strong>😎
               </p>
             </div>
 
