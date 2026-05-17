@@ -736,7 +736,7 @@ const obp =
 
       {/* ACTIONS */}
       {!isViewer && (
-        <div className="flex flex-wrap justify-center gap-2 mb-4">
+        <div className="flex flex-wrap justify-center gap-12 mb-4">
 
  
 
@@ -1199,7 +1199,9 @@ const obp =
             ))}
 
         </div>
-
+  <footer className="text-center text-xs text-gray-500 py-3">
+    © 2026 Youth Sports Tracker
+  </footer>
       </div>
 
     </div>

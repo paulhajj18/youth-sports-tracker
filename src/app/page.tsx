@@ -227,12 +227,15 @@ export default function Home() {
             <p>
               🚫 No downloads or signups needed
             </p>
-
+  <footer className="text-center text-xs text-gray-500 py-3">
+    © 2026 Youth Sports Tracker
+  </footer>
           </div>
 
         </div>
 
       </div>
+
     </div>
   );
 }
