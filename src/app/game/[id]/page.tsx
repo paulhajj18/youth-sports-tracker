@@ -467,7 +467,7 @@ const obp =
             <span>
               {gameDate
                 ? new Date(
-                    gameDate
+                    gameDate + "T12:00:00"
                   ).toLocaleDateString(
                     "en-US",
                     {
@@ -491,13 +491,7 @@ const obp =
                   gameDate: value,
                 });
               }}
-className="
-  absolute
-  opacity-0
-  pointer-events-none
-  w-0
-  h-0
-"
+              className="hidden"
             />
           </label>
         ) : (
@@ -505,7 +499,7 @@ className="
             📅{" "}
             {gameDate
               ? new Date(
-                  gameDate
+                  gameDate + "T12:00:00"
                 ).toLocaleDateString(
                   "en-US",
                   {
