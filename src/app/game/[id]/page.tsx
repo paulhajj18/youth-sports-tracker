@@ -54,6 +54,8 @@ export default function GamePage() {
 
   const [kidName, setKidName] = useState("");
 
+  const [gameDate, setGameDate] =
+    useState("");
 
   const [teamName, setTeamName] =
     useState("");
@@ -92,9 +94,12 @@ sac_fly: 0,
 
   });
 
-  const [comments, setComments] = useState<
-    string[]
-  >([]);
+type CommentItem = {
+  text: string;
+  timestamp: number;
+};
+
+const [comments, setComments] = useState<CommentItem[]>([]);
 
   const [log, setLog] = useState<ActionLog[]>(
     []
@@ -113,7 +118,7 @@ sac_fly: 0,
       if (!data) return;
 
       setKidName(data.kidName || "Player");
-
+      setGameDate(data.gameDate || "");
 
   setTeamName(
     data.teamName ?? ""
@@ -235,7 +240,10 @@ fielders_choice:
     await updateDoc(gameRef, {
       [key]: increment(1),
 
-      comments: arrayUnion(commentary),
+      comments: arrayUnion({
+       text: commentary,
+       timestamp: Date.now(),
+      }),
 
       log: arrayUnion({
         type: key,
@@ -258,9 +266,10 @@ fielders_choice:
     await updateDoc(gameRef, {
       ourScore: newScore,
 
-      comments: arrayUnion(
-        `${teamName} score updated: ${newScore}`
-      ),
+comments: arrayUnion({
+  text: `${teamName} score updated: ${newScore}`,
+  timestamp: Date.now(),
+}),
     });
   };
 
@@ -277,9 +286,10 @@ fielders_choice:
     await updateDoc(gameRef, {
       theirScore: newScore,
 
-      comments: arrayUnion(
-        `${opponentName} score updated: ${newScore}`
-      ),
+comments: arrayUnion({
+  text: `${opponentName} score updated: ${newScore}`,
+  timestamp: Date.now(),
+}),
     });
   };
 
@@ -296,9 +306,10 @@ fielders_choice:
     await updateDoc(gameRef, {
       inning: newInning,
 
-      comments: arrayUnion(
-        `Now entering inning ${newInning}.`
-      ),
+comments: arrayUnion({
+  text: `Now entering inning ${newInning}.`,
+  timestamp: Date.now(),
+}),
     });
   };
 
@@ -423,13 +434,42 @@ const obp =
 
   <div>
 
-    <p className="text-sm opacity-80">
-      ⚾ Tracking stats for
-    </p>
+<p className="text-sm opacity-80">
+  ⚾ Tracking stats for
+</p>
 
-    <h1 className="text-3xl font-bold">
-      {kidName || "Player"}
-    </h1>
+<h1 className="text-3xl font-bold">
+  {kidName || "Player"}
+</h1>
+
+{!isViewer ? (
+  <input
+    type="date"
+    value={gameDate}
+    onChange={(e) =>
+      setGameDate(e.target.value)
+    }
+    onBlur={async () => {
+      await updateDoc(gameRef, {
+        gameDate,
+      });
+    }}
+    className="
+      mt-2
+      bg-transparent
+      text-sm
+      text-slate-300
+      border-b
+      border-slate-500
+      outline-none
+    "
+  />
+) : (
+  <p className="text-sm text-slate-300 mt-1">
+    {gameDate}
+  </p>
+)}
+
 
   </div>
 
@@ -688,7 +728,7 @@ const obp =
       {/* RUNS */}
       <div className="bg-pink-700 rounded-xl p-2">
         <p className="text-[11px] opacity-80">
-          RUNS
+          RUN
         </p>
 
         <p className="text-sm font-bold">
@@ -699,7 +739,7 @@ const obp =
       {/* HITS */}
       <div className="bg-green-700 rounded-xl p-2">
         <p className="text-[11px] opacity-80">
-          HITS
+          HIT
         </p>
 
         <p className="text-sm font-bold">
@@ -1101,7 +1141,7 @@ const obp =
                 key={i}
                 className="bg-slate-800 rounded-xl p-3 text-sm"
               >
-                {c}
+                {c.text}
               </div>
             ))}
 

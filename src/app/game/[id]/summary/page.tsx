@@ -40,6 +40,7 @@ export default function SummaryPage() {
   const gameRef = doc(db, "games", gameId);
 
   const [kidName, setKidName] = useState("");
+  const [gameDate, setGameDate] =  useState("");
   const [teamName, setTeamName] = useState("Our Team");
   const [opponentName, setOpponentName] = useState("Other Team");
 
@@ -56,7 +57,7 @@ export default function SummaryPage() {
       if (!data) return;
 
       setKidName(data.kidName || "Player");
-
+      setGameDate(data.gameDate || "");
       setTeamName(data.teamName || "Our Team");
 
       setOpponentName(
@@ -188,9 +189,20 @@ const obp =
               {kidName}'s stats
             </h1>
 
-            <p className="text-sm opacity-75 mt-1">
-              Game Date : {new Date().toLocaleDateString()}
-            </p>
+<p className="text-sm text-slate-300 mt-1">
+  Game Date:{" "}
+  {gameDate
+    ? new Date(gameDate).toLocaleDateString(
+        "en-US",
+        {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }
+      )
+    : "No game date"}
+</p>
           </div>
 
           <button
