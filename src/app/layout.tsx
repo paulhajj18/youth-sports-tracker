@@ -13,48 +13,70 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-title: "Youth Sports Tracker",
+  title: "Youth Sports Tracker",
 
-description:
-"Track live youth baseball stats and share game updates instantly with family & friends.",
+  description:
+    "Track live youth baseball stats and share game updates instantly with family & friends.",
 
-icons: {
-icon: "/favicon.ico",
-},
+  manifest: "/manifest.json",
 
-openGraph: {
-title: "Youth Sports Tracker",
+  icons: {
+    icon: "/favicon.ico",
 
-description:
-"Track live youth baseball stats and share game updates instantly.",
+    apple: "/icons/apple-touch-icon.png",
+  },
 
-url: "https://youthsportstracker.com",
+  themeColor: "#2563eb",
 
-siteName: "Youth Sports Tracker",
+  openGraph: {
+    title: "Youth Sports Tracker",
 
-images: [
-{
-url: "/images/baseball-kids.png",
-width: 1200,
-height: 630,
-},
-],
+    description:
+      "Track live youth baseball stats and share game updates instantly.",
 
-locale: "en_US",
-type: "website",
-},
+    url: "https://youthsportstracker.com",
+
+    siteName: "Youth Sports Tracker",
+
+    images: [
+      {
+        url: "/images/baseball-kids.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+
+    locale: "en_US",
+    type: "website",
+  },
 };
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+<html
+  lang="en"
+  className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+>
+  <head>
+    <meta
+      name="apple-mobile-web-app-capable"
+      content="yes"
+    />
+
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black"
+    />
+  </head>
+
+  <body className="min-h-full flex flex-col">
+    {children}
+  </body>
+</html>
   );
 }
