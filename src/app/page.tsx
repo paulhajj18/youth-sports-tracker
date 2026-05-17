@@ -57,6 +57,23 @@ export default function Home() {
     );
   };
 
+const shareApp = async () => {
+  triggerFlash("share");
+
+  try {
+    await navigator.share({
+      title: "Youth Sports Tracker",
+
+      text:
+        "Track your kid's stats and share game updates instantly!",
+
+      url: "https://youthsportstracker.com",
+    });
+  } catch (err) {
+    console.log("Share cancelled");
+  }
+};
+
   return (
     <div className="relative min-h-screen flex items-center justify-center p-6 overflow-hidden">
 
@@ -162,35 +179,64 @@ export default function Home() {
 
           </div>
 
-          {/* HOW TO */}
-          <button
-            onClick={() => {
-              triggerFlash("howto");
+{/* BUTTON ROW */}
+<div className="flex gap-3 mb-3">
 
-              router.push("/how-to");
-            }}
-            className={`
-              w-full
-              bg-blue-600
-              hover:bg-blue-700
-              transition-all
-              duration-150
-              text-white
-              font-semibold
-              text-sm
-              p-2.5
-              rounded-xl
-              mb-3
+  {/* HOW TO */}
+  <button
+    onClick={() => {
+      triggerFlash("howto");
 
-              ${
-                activeButton === "howto"
-                  ? "scale-95 brightness-125"
-                  : ""
-              }
-            `}
-          >
-            📘 How It Works
-          </button>
+      router.push("/how-to");
+    }}
+    className={`
+      flex-1
+      bg-blue-600
+      hover:bg-blue-700
+      transition-all
+      duration-150
+      text-white
+      font-semibold
+      text-sm
+      p-2.5
+      rounded-xl
+
+      ${
+        activeButton === "howto"
+          ? "scale-95 brightness-125"
+          : ""
+      }
+    `}
+  >
+    📘 How It Works
+  </button>
+
+  {/* SHARE */}
+  <button
+    onClick={shareApp}
+    className={`
+      flex-1
+      bg-orange-500
+      hover:bg-orange-600
+      transition-all
+      duration-150
+      text-white
+      font-semibold
+      text-sm
+      p-2.5
+      rounded-xl
+
+      ${
+        activeButton === "share"
+          ? "scale-95 brightness-125"
+          : ""
+      }
+    `}
+  >
+    📣 Tell A Friend
+  </button>
+
+</div>
 
           {/* INSTALL */}
           <button
