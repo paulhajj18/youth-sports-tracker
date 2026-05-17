@@ -425,77 +425,125 @@ const obp =
 
   return (
     <div className="min-h-screen bg-slate-950 text-white p-4 max-w-xl mx-auto">
+{/* HEADER */}
 
-      {/* HEADER */}
+<div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-5 shadow-lg mb-4">
 
-      <div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-5 shadow-lg mb-4">
+  <div className="flex justify-between items-start">
 
-<div className="flex justify-between items-start">
+    <div>
 
-  <div>
+      <p className="text-sm opacity-80">
+        ⚾ Tracking stats for
+      </p>
 
-<p className="text-sm opacity-80">
-  ⚾ Tracking stats for
-</p>
+      <h1 className="text-3xl font-bold">
+        {kidName || "Player"}
+      </h1>
 
-<h1 className="text-3xl font-bold">
-  {kidName || "Player"}
-</h1>
+      <div className="mt-3">
+        {!isViewer ? (
+          <label
+            className="
+              flex
+              items-center
+              gap-2
+              bg-white/10
+              hover:bg-white/20
+              transition
+              border
+              border-white/20
+              rounded-xl
+              px-3
+              py-2
+              text-sm
+              text-slate-200
+              cursor-pointer
+              w-fit
+            "
+          >
+            <span>📅</span>
 
-{!isViewer ? (
-  <input
-    type="date"
-    value={gameDate}
-    onChange={(e) =>
-      setGameDate(e.target.value)
-    }
-    onBlur={async () => {
-      await updateDoc(gameRef, {
-        gameDate,
-      });
-    }}
-    className="
-      mt-2
-      bg-transparent
-      text-sm
-      text-slate-300
-      border-b
-      border-slate-500
-      outline-none
-    "
-  />
-) : (
-  <p className="text-sm text-slate-300 mt-1">
-    {gameDate}
-  </p>
-)}
+            <span>
+              {gameDate
+                ? new Date(
+                    gameDate
+                  ).toLocaleDateString(
+                    "en-US",
+                    {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    }
+                  )
+                : "Select Game Date"}
+            </span>
 
+            <input
+              type="date"
+              value={gameDate}
+              onChange={async (e) => {
+                const value = e.target.value;
+
+                setGameDate(value);
+
+                await updateDoc(gameRef, {
+                  gameDate: value,
+                });
+              }}
+className="
+  absolute
+  opacity-0
+  pointer-events-none
+  w-0
+  h-0
+"
+            />
+          </label>
+        ) : (
+          <p className="text-sm text-slate-300 mt-1">
+            📅{" "}
+            {gameDate
+              ? new Date(
+                  gameDate
+                ).toLocaleDateString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  }
+                )
+              : "No Game Date"}
+          </p>
+        )}
+      </div>
+
+    </div>
+
+    {!isViewer && (
+      <button
+        onClick={shareGame}
+        className="
+          bg-white/20
+          hover:bg-white/30
+          transition
+          text-white
+          text-sm
+          font-semibold
+          px-3
+          py-2
+          rounded-xl
+          backdrop-blur-sm
+        "
+      >
+        Share Live!
+      </button>
+    )}
 
   </div>
 
-  {!isViewer && (
-    <button
-      onClick={shareGame}
-      className="
-        bg-white/20
-        hover:bg-white/30
-        transition
-        text-white
-        text-sm
-        font-semibold
-        px-3
-        py-2
-        rounded-xl
-        backdrop-blur-sm
-      "
-    >
-      Share Live!
-    </button>
-  )}
-
 </div>
-
-      </div>
 
       {/* SCOREBOARD */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-4">
