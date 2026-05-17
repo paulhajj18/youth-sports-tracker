@@ -223,7 +223,9 @@ export default function Home() {
             <p>
               🎙️ Fun sports commentary
             </p>
-
+  <p>
+    🆓 100% Free to Use
+  </p>
             <p>
               🚫 No downloads or signups needed
             </p>

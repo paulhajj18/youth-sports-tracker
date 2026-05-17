@@ -542,7 +542,7 @@ const obp =
           backdrop-blur-sm
         "
       >
-        Share Live!
+       ⚡ Share Live!
       </button>
     )}
 
