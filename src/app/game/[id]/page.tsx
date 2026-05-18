@@ -979,7 +979,7 @@ const obp =
 
 
 {!isViewer && (
-  <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
+  <div className="bg-slate-700 border border-slate-800 rounded-2xl p-4 mb-5">
 
     <h2 className="font-semibold text-sm mb-2 text-white"><center>
       Track {kidName}'s Stats with Buttons below!</center>
