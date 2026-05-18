@@ -370,9 +370,9 @@ const obp =
     </div>
 
   </div>
-       <h3 className="text-center text-xs text-gray-500 mt-1">
-          www.youthsportstracker.com
-        </h3> 
+  <h3 className="text-center text-xs text-gray-500 mt-1 tracking-widest opacity-80">
+  www.youthsportstracker.com
+</h3>
 </div>
 
 
