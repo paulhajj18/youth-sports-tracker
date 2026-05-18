@@ -979,7 +979,7 @@ const obp =
 
 
 {!isViewer && (
-  <div className="bg-slate-700 border border-slate-800 rounded-2xl p-4 mb-5">
+  <div className="bg-slate-500 border border-slate-300 rounded-2xl p-4 mb-5">
 
     <h2 className="font-semibold text-sm mb-2 text-white"><center>
       Track {kidName}'s Stats with Buttons below!</center>
@@ -993,7 +993,7 @@ const obp =
         onClick={() => addStat("single")}
         className={buttonClass(
           "single",
-          "bg-green-600 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-green-600 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         1B
@@ -1003,7 +1003,7 @@ const obp =
         onClick={() => addStat("double")}
         className={buttonClass(
           "double",
-          "bg-green-700 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-green-700 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         2B
@@ -1013,7 +1013,7 @@ const obp =
         onClick={() => addStat("triple")}
         className={buttonClass(
           "triple",
-          "bg-green-800 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-green-800 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         3B
@@ -1023,7 +1023,7 @@ const obp =
         onClick={() => addStat("homerun")}
         className={buttonClass(
           "homerun",
-          "bg-yellow-500 text-black font-bold p-2 text-sm rounded-xl shadow-md"
+          "bg-yellow-500 text-black font-bold p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         HR
@@ -1043,7 +1043,7 @@ const obp =
         onClick={() => addStat("walk")}
         className={buttonClass(
           "walk",
-          "bg-cyan-700 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-cyan-700 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         Walked
@@ -1053,7 +1053,7 @@ const obp =
         onClick={() => addStat("hit_by_pitch")}
         className={buttonClass(
           "hit_by_pitch",
-          "bg-cyan-800 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-cyan-800 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         Hit By Pitch
@@ -1063,7 +1063,7 @@ const obp =
         onClick={() => addStat("reached_on_error")}
         className={buttonClass(
           "reached_on_error",
-          "bg-orange-700 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-orange-700 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         Reached On Err
@@ -1083,7 +1083,7 @@ const obp =
         onClick={() => addStat("stolen_base")}
         className={buttonClass(
           "stolen_base",
-          "bg-indigo-700 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-indigo-700 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         Stole Base
@@ -1093,7 +1093,7 @@ const obp =
         onClick={() => addStat("rbi")}
         className={buttonClass(
           "rbi",
-          "bg-blue-700 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-blue-700 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         RBI
@@ -1103,7 +1103,7 @@ const obp =
         onClick={() => addStat("run_scored")}
         className={buttonClass(
           "run_scored",
-          "bg-pink-700 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-pink-700 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         Scored Run
@@ -1123,7 +1123,7 @@ const obp =
   onClick={() => addStat("strikeout")}
   className={buttonClass(
     "strikeout",
-    "bg-red-600 text-white p-2 text-sm rounded-xl shadow-md"
+    "bg-red-600 text-white p-2 text-sm rounded-xl shadow-lg"
   )}
 >
   Strikeout
@@ -1134,7 +1134,7 @@ const obp =
         onClick={() => addStat("ground_out")}
         className={buttonClass(
           "ground_out",
-          "bg-red-700 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-red-700 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         Ground Out
@@ -1144,7 +1144,7 @@ const obp =
         onClick={() => addStat("fly_out")}
         className={buttonClass(
           "fly_out",
-          "bg-rose-800 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-rose-800 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         Fly/Line Out
@@ -1154,7 +1154,7 @@ const obp =
         onClick={() => addStat("sac_fly")}
         className={buttonClass(
           "sac_fly",
-          "bg-red-800 text-white p-2 text-sm rounded-xl shadow-md"
+          "bg-red-800 text-white p-2 text-sm rounded-xl shadow-lg"
         )}
       >
         Sac Fly
@@ -1164,7 +1164,7 @@ const obp =
   onClick={() => addStat("fielders_choice")}
   className={buttonClass(
     "fielders_choice",
-    "bg-orange-800 text-white p-2 text-sm rounded-xl shadow-md"
+    "bg-orange-800 text-white p-2 text-sm rounded-xl shadow-lg"
   )}
 >
   Fielder's Choice
@@ -1172,7 +1172,7 @@ const obp =
 
           <button
             onClick={undoLast}
-            className="bg-pink-600 text-white px-3 py-2 rounded-xl"
+            className="bg-pink-600 text-white px-3 py-2 rounded-xl shadow-lg"
           >
             Undo ↶
           </button>
