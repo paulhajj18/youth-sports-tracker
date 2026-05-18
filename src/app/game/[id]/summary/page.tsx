@@ -424,6 +424,13 @@ const obp =
   Reach On Err: {stats.reached_on_error}
 </div>
 
+<div className="bg-red-800 px-3 py-1 rounded-full text-xs">
+  Sac Fly: {stats.sac_fly}
+</div>
+
+<div className="bg-orange-800 px-3 py-1 rounded-full text-xs">
+  FieldCh: {stats.fielders_choice}
+</div>
 
         </div>
 
@@ -445,13 +452,7 @@ const obp =
             {stats.fly_out}
           </div>
 
-<div className="bg-red-800 px-3 py-1 rounded-full text-xs">
-  Sac Fly: {stats.sac_fly}
-</div>
 
-<div className="bg-orange-800 px-3 py-1 rounded-full text-xs">
-  FieldCh: {stats.fielders_choice}
-</div>
 
         </div>
 
