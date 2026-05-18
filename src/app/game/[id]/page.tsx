@@ -533,25 +533,57 @@ const obp =
 
     </div>
 
-    {!isViewer && (
-      <button
-        onClick={shareGame}
-        className="
-          bg-white/20
-          hover:bg-white/30
-          transition
-          text-white
-          text-sm
-          font-semibold
-          px-3
-          py-2
-          rounded-xl
-          backdrop-blur-sm
-        "
-      >
-       ⚡ Share Live!
-      </button>
-    )}
+<div className="flex flex-col items-end justify-between h-full min-h-[100px]">
+
+  {!isViewer && (
+    <button
+      onClick={shareGame}
+      className="
+        bg-white/20
+        hover:bg-white/30
+        transition
+        text-white
+        text-sm
+        font-semibold
+        px-3
+        py-2
+        rounded-xl
+        backdrop-blur-sm
+      "
+    >
+      ⚡ Share Live!
+    </button>
+  )}
+
+  {!isViewer && (
+<button
+  onClick={() => {
+    const confirmed = window.confirm(
+      "Are you sure you want to exit stat tracking?"
+    );
+
+    if (confirmed) {
+      goToSummary();
+    }
+  }}
+  className="
+    bg-blue-950/60
+    hover:bg-blue-950/90
+    transition
+    text-white
+    text-xs
+    px-3
+    py-1.5
+    rounded-lg
+    border
+    border-white/20
+  "
+>
+  Exit to Stat Summary
+</button>
+  )}
+
+</div>
 
   </div>
 
@@ -741,28 +773,6 @@ const obp =
 
       </div>
 
-      {/* ACTIONS */}
-      {!isViewer && (
-        <div className="flex flex-wrap justify-center gap-12 mb-4">
-
- 
-
-          <button
-            onClick={undoLast}
-            className="bg-pink-600 text-white px-3 py-2 rounded-xl"
-          >
-            Undo ↶
-          </button>
-
-          <button
-            onClick={goToSummary}
-            className="bg-blue-600 text-white px-3 py-2 rounded-xl"
-          >
-            View Summary
-          </button>
-
-        </div>
-      )}
 
 {/* STATS CONTAINER */}
 <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
@@ -1157,6 +1167,14 @@ const obp =
 >
   Fielder's Choice
 </button>
+
+          <button
+            onClick={undoLast}
+            className="bg-pink-600 text-white px-3 py-2 rounded-xl"
+          >
+            Undo ↶
+          </button>
+
 
     </div>
 
