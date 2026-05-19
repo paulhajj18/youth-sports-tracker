@@ -157,6 +157,8 @@ stolenBases += game.stolen_base || 0;
           : ".000";
 
       setTotals({
+        gamesPlayed: gameList.length,
+
         hits,
         atBats,
         avg,
@@ -335,6 +337,16 @@ const deleteGame =
               </h2>
 
               <div className="grid grid-cols-3 gap-3 text-center">
+
+<div className="bg-slate-700 rounded-2xl p-2">
+  <p className="text-xs text-gray-200">
+    GP
+  </p>
+
+  <p className="text-xl font-bold">
+    {totals.gamesPlayed}
+  </p>
+</div>
 
                 <div className="bg-green-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
