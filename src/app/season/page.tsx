@@ -10,6 +10,8 @@ import {
   query,
   where,
   getDocs,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 
 export default function SeasonPage() {
@@ -53,10 +55,13 @@ export default function SeasonPage() {
         )
       );
 
+
+
       const querySnapshot =
         await getDocs(q);
 
 // NO RESULTS
+
 if (querySnapshot.empty) {
 
   alert(
@@ -91,8 +96,10 @@ if (querySnapshot.empty) {
       let groundOuts = 0;
       let flyOuts = 0;
 
-      let walks = 0;
-      let hbp = 0;
+let walks = 0;
+let hbp = 0;
+
+let stolenBases = 0;
 
       let rbi = 0;
       let runs = 0;
@@ -108,11 +115,13 @@ if (querySnapshot.empty) {
         groundOuts += game.ground_out || 0;
         flyOuts += game.fly_out || 0;
 
-        walks += game.walk || 0;
-        hbp += game.hit_by_pitch || 0;
+walks += game.walk || 0;
+hbp += game.hit_by_pitch || 0;
+
+stolenBases += game.stolen_base || 0;
 
         rbi += game.rbi || 0;
-        runs += game.run || 0;
+        runs += game.run_scored || 0;
       });
 
       // HITS
@@ -161,12 +170,40 @@ if (querySnapshot.empty) {
         rbi,
         runs,
 
-        walks,
-        hbp,
+walks,
+hbp,
 
-        strikeouts,
+stolenBases,
+
+strikeouts,
+
       });
     };
+const deleteGame =
+  async (gameId: string) => {
+
+    const confirmed = confirm(
+      "Delete this game permanently?"
+    );
+
+    if (!confirmed) return;
+
+    // DELETE GAME
+    await deleteDoc(
+      doc(db, "games", gameId)
+    );
+
+    // REMOVE FROM UI
+    const updatedGames =
+      games.filter(
+        (game) => game.id !== gameId
+      );
+
+    setGames(updatedGames);
+
+    // RELOAD TOTALS
+    loadSeasonStats();
+};
 
   return (
     <div className="relative min-h-screen flex items-center justify-center p-6 overflow-hidden">
@@ -278,7 +315,9 @@ if (querySnapshot.empty) {
           >
             📊 View Season Stats
           </button>
-
+  <h3 className="text-center text-xs text-gray-500 mt-1 tracking-widest opacity-80">
+  www.youthsportstracker.com
+</h3>
           {/* SEASON TOTALS */}
           {totals && (
 
@@ -297,126 +336,144 @@ if (querySnapshot.empty) {
 
               <div className="grid grid-cols-3 gap-3 text-center">
 
-                <div className="bg-green-700 rounded-2xl p-3">
+                <div className="bg-green-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     AVG
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.avg}
                   </p>
                 </div>
 
-                <div className="bg-blue-700 rounded-2xl p-3">
+                <div className="bg-blue-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     OBP
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.obp}
                   </p>
                 </div>
 
-                <div className="bg-red-700 rounded-2xl p-3">
+                <div className="bg-red-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     H
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.hits}
                   </p>
                 </div>
 
-                <div className="bg-yellow-600 rounded-2xl p-3">
+                <div className="bg-yellow-600 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     HR
                   </p>
 
-                  <p className="text-2xl font-bold text-black">
+                  <p className="text-xl font-bold text-black">
                     {totals.homeruns}
                   </p>
                 </div>
 
-                <div className="bg-purple-700 rounded-2xl p-3">
+                <div className="bg-purple-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     RBI
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.rbi}
                   </p>
                 </div>
 
-                <div className="bg-cyan-700 rounded-2xl p-3">
+                <div className="bg-cyan-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     RUN
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.runs}
                   </p>
                 </div>
 
-                <div className="bg-emerald-700 rounded-2xl p-3">
+                <div className="bg-emerald-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     AB
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.atBats}
                   </p>
                 </div>
 
-                <div className="bg-indigo-700 rounded-2xl p-3">
+                <div className="bg-indigo-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     1B
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.singles}
                   </p>
                 </div>
 
-                <div className="bg-sky-700 rounded-2xl p-3">
+                <div className="bg-sky-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     2B
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.doubles}
                   </p>
                 </div>
 
-                <div className="bg-pink-700 rounded-2xl p-3">
+                <div className="bg-pink-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     3B
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.triples}
                   </p>
                 </div>
 
-                <div className="bg-orange-700 rounded-2xl p-3">
+                <div className="bg-orange-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     BB
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.walks}
                   </p>
                 </div>
 
-                <div className="bg-rose-700 rounded-2xl p-3">
+                <div className="bg-rose-700 rounded-2xl p-2">
                   <p className="text-xs text-gray-200">
                     SO
                   </p>
 
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl font-bold">
                     {totals.strikeouts}
                   </p>
                 </div>
+<div className="bg-teal-700 rounded-xl p-2">
+  <p className="text-[10px] text-gray-200">
+    SB
+  </p>
 
+  <p className="text-xl font-bold">
+    {totals.stolenBases}
+  </p>
+</div>
+
+<div className="bg-lime-700 rounded-xl p-2">
+  <p className="text-[10px] text-gray-200">
+    HBP
+  </p>
+
+  <p className="text-xl font-bold">
+    {totals.hbp}
+  </p>
+</div>
               </div>
 
             </div>
@@ -453,30 +510,54 @@ if (querySnapshot.empty) {
                         {game.kidName}
                       </p>
 
-                      <button
-                        onClick={() =>
-                          router.push(`/summary/${game.id}`)
-                        }
-                        className="
-                          bg-blue-600
-                          hover:bg-blue-700
-                          px-3
-                          py-1
-                          rounded-xl
-                          text-xs
-                          font-semibold
-                          transition-all
-                        "
-                      >
-                        View
-                      </button>
+                      <div className="flex gap-2">
+
+  <button
+    onClick={() =>
+      router.push(`/game/${game.id}/summary`)
+    }
+    className="
+      bg-blue-600
+      hover:bg-blue-700
+      px-3
+      py-1
+      rounded-xl
+      text-xs
+      font-semibold
+      transition-all
+    "
+  >
+    View
+  </button>
+
+  <button
+    onClick={() =>
+      deleteGame(game.id)
+    }
+    className="
+      bg-red-600
+      hover:bg-red-700
+      px-3
+      py-1
+      rounded-xl
+      text-xs
+      font-semibold
+      transition-all
+    "
+  >
+    Delete
+  </button>
+
+</div>
 
                     </div>
 
                     <p className="text-sm text-gray-300 mb-2">
                       Game ID: {game.id}
                     </p>
-
+<p className="text-sm text-yellow-300 mb-2">
+  📅 {game.gameDate || "Unknown Date"}
+</p>
                     <div className="grid grid-cols-2 gap-2 text-sm text-gray-200">
 
                       <div>
@@ -488,7 +569,7 @@ if (querySnapshot.empty) {
                       </div>
 
                       <div>
-                        Runs: {game.run || 0}
+                        Runs: {game.run_scored || 0}
                       </div>
 
                       <div>
