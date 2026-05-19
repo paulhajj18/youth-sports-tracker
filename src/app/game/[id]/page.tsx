@@ -63,7 +63,6 @@ export default function GamePage() {
   const [opponentName, setOpponentName] =
     useState("");
 
-
   const [ourScore, setOurScore] = useState(0);
   const [theirScore, setTheirScore] =
     useState(0);
@@ -109,6 +108,27 @@ const [comments, setComments] = useState<CommentItem[]>([]);
 
   const [activeButton, setActiveButton] =
     useState("");
+
+
+const [activePlayerId, setActivePlayerId] =
+  useState("");
+
+// LOAD ACTIVE PLAYER
+useEffect(() => {
+  const storedPlayerId =
+    localStorage.getItem(
+      "activePlayerId"
+    );
+
+  if (storedPlayerId) {
+    setActivePlayerId(storedPlayerId);
+
+    // SAVE PLAYER ID TO GAME DOC
+    updateDoc(gameRef, {
+      playerId: storedPlayerId,
+    });
+  }
+}, []);
 
   // LIVE SYNC
   useEffect(() => {
@@ -450,6 +470,18 @@ const obp =
         {kidName || "Player"}
       </h1>
 
+{activePlayerId && (
+  <div className="text-center text-sm text-green-200 mb-2 font-semibold">
+
+    Player ID :
+    <span className="ml-1">
+      {activePlayerId}
+
+    </span>
+
+  </div>
+)}
+
       <div className="mt-3">
         {!isViewer ? (
           <label
@@ -530,6 +562,9 @@ const obp =
           </p>
         )}
       </div>
+
+
+
 
     </div>
 

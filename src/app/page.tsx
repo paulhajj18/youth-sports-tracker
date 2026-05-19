@@ -3,16 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { db } from "@/lib/firebase";
-
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "firebase/firestore";
 
 export default function Home() {
-  const [name, setName] = useState("");
 
   // BUTTON FLASH STATE
   const [activeButton, setActiveButton] =
@@ -29,21 +21,6 @@ export default function Home() {
     }, 180);
   };
 
-  const startGame = async () => {
-    if (!name) return;
-
-    triggerFlash("play");
-
-    const docRef = await addDoc(
-      collection(db, "games"),
-      {
-        kidName: name,
-        createdAt: serverTimestamp(),
-      }
-    );
-
-    router.push(`/game/${docRef.id}`);
-  };
 
   const showInstallHelp = () => {
     triggerFlash("install");
@@ -115,109 +92,150 @@ const shareApp = async () => {
           <br />Add fun commentary. Share updates instantly with family & friends.
         </p>
 
-        {/* MAIN CARD */}
-        <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
+{/* MAIN CARD */}
+<div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
-          {/* INPUT */}
-          <input
-            className="
-              w-full
-              p-3
-              rounded-xl
-              bg-white/20
-              border
-              border-white/20
-              text-white
-              placeholder:text-gray-300
-              mb-4
-              outline-none
-            "
-            placeholder="Enter your kid's name"
-            value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
-          />
-
-          {/* PLAY BALL */}
-          <button
-            onClick={startGame}
-            className={`
-              w-full
-              bg-green-500
-              hover:bg-green-600
-              transition-all
-              duration-150
-              text-white
-              font-bold
-              text-lg
-              p-3
-              rounded-2xl
-              shadow-lg
-              mb-4
-
-              ${
-                activeButton === "play"
-                  ? "scale-95 brightness-125"
-                  : ""
-              }
-            `}
-          >
-            ⚾ Play Ball!
-          </button>
-
-          {/* DIVIDER */}
-          <div className="flex items-center gap-3 my-4">
-
-            <div className="flex-1 h-px bg-white/15" />
-
-            <p className="text-[10px] uppercase tracking-[0.25em] text-gray-300">
-              More
-            </p>
-
-            <div className="flex-1 h-px bg-white/15" />
-
-          </div>
-
-{/* BUTTON ROW */}
-<div className="flex gap-3 mb-3">
-
-  {/* HOW TO */}
+  {/* PLAY BALL */}
   <button
     onClick={() => {
-      triggerFlash("howto");
+      triggerFlash("play");
 
-      router.push("/how-to");
+      router.push("/play");
     }}
     className={`
-      flex-1
+      w-full
+      bg-green-500
+      hover:bg-green-600
+      transition-all
+      duration-150
+      text-white
+      font-bold
+      text-lg
+      p-3
+      rounded-2xl
+      shadow-lg
+      mb-4
+
+      ${
+        activeButton === "play"
+          ? "scale-95 brightness-125"
+          : ""
+      }
+    `}
+  >
+    ⚾ Play Ball!
+  </button>
+
+  {/* SEASON STATS */}
+  <button
+    onClick={() => {
+      triggerFlash("season");
+
+      router.push("/season");
+    }}
+    className={`
+      w-full
       bg-blue-600
       hover:bg-blue-700
       transition-all
       duration-150
       text-white
-      font-semibold
-      text-sm
-      p-2.5
-      rounded-xl
+      font-bold
+      text-lg
+      p-3
+      rounded-2xl
+      shadow-lg
+      mb-4
 
       ${
-        activeButton === "howto"
+        activeButton === "season"
           ? "scale-95 brightness-125"
           : ""
       }
     `}
   >
-    📘 How It Works
+    📊 Season Stats
   </button>
 
-  {/* SHARE */}
+  {/* DIVIDER */}
+  <div className="flex items-center gap-3 my-4">
+
+    <div className="flex-1 h-px bg-white/15" />
+
+    <p className="text-[10px] uppercase tracking-[0.25em] text-gray-300">
+      More
+    </p>
+
+    <div className="flex-1 h-px bg-white/15" />
+
+  </div>
+
+  {/* BUTTON ROW */}
+  <div className="flex gap-3 mb-3">
+
+    {/* HOW TO */}
+    <button
+      onClick={() => {
+        triggerFlash("howto");
+
+        router.push("/how-to");
+      }}
+      className={`
+        flex-1
+        bg-blue-600
+        hover:bg-blue-700
+        transition-all
+        duration-150
+        text-white
+        font-semibold
+        text-sm
+        p-2.5
+        rounded-xl
+
+        ${
+          activeButton === "howto"
+            ? "scale-95 brightness-125"
+            : ""
+        }
+      `}
+    >
+      📘 How It Works
+    </button>
+
+    {/* SHARE */}
+    <button
+      onClick={shareApp}
+      className={`
+        flex-1
+        bg-orange-500
+        hover:bg-orange-600
+        transition-all
+        duration-150
+        text-white
+        font-semibold
+        text-sm
+        p-2.5
+        rounded-xl
+
+        ${
+          activeButton === "share"
+            ? "scale-95 brightness-125"
+            : ""
+        }
+      `}
+    >
+      📣 Tell A Friend
+    </button>
+
+  </div>
+
+  {/* INSTALL */}
   <button
-    onClick={shareApp}
+    onClick={showInstallHelp}
     className={`
-      flex-1
-      bg-orange-500
-      hover:bg-orange-600
+      w-full
+      bg-purple-600
+      hover:bg-purple-700
       transition-all
       duration-150
       text-white
@@ -227,44 +245,16 @@ const shareApp = async () => {
       rounded-xl
 
       ${
-        activeButton === "share"
+        activeButton === "install"
           ? "scale-95 brightness-125"
           : ""
       }
     `}
   >
-    📣 Tell A Friend
+    📲 Save To Home Screen
   </button>
 
 </div>
-
-          {/* INSTALL */}
-          <button
-            onClick={showInstallHelp}
-            className={`
-              w-full
-              bg-purple-600
-              hover:bg-purple-700
-              transition-all
-              duration-150
-              text-white
-              font-semibold
-              text-sm
-              p-2.5
-              rounded-xl
-
-              ${
-                activeButton === "install"
-                  ? "scale-95 brightness-125"
-                  : ""
-              }
-            `}
-          >
-            📲 Save To Home Screen
-          </button>
-
-        </div>
-
         {/* FEATURE BOX */}
         <div className="mt-5 bg-black/30 rounded-2xl p-4 backdrop-blur-sm border border-white/5">
 
@@ -286,7 +276,7 @@ const shareApp = async () => {
   </p>
             <p>
               🚫 No downloads or signups needed
-            </p>
+           </p>
   <footer className="text-center text-xs text-gray-500 py-3">
     © 2026 Youth Sports Tracker
   </footer>
