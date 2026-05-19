@@ -470,7 +470,7 @@ const obp =
         {kidName || "Player"}
       </h1>
 
-{activePlayerId && (
+{!isViewer && activePlayerId && (
   <div className="text-center text-sm text-green-200 mb-2 font-semibold">
 
     Player ID :
