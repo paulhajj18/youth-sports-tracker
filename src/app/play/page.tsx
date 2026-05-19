@@ -339,7 +339,7 @@ await addDoc(
       {generatedId}
     </p>
 
-    <strong><p className="text-xs text-red-400 mt-2">
+    <strong><p className="text-xs text-yellow-400 mt-2">
       Save this ID to access season stats later!
     </p></strong>
 

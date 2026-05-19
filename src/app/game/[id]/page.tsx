@@ -471,7 +471,7 @@ const obp =
       </h1>
 
 {!isViewer && activePlayerId && (
-  <div className="text-center text-sm text-green-200 mb-2 font-semibold">
+  <div className="text-left text-sm text-green-200 mb-2 font-semibold">
 
     Player ID :
     <span className="ml-1">
