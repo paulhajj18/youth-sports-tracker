@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 
 import { db } from "@/lib/firebase";
@@ -56,6 +56,8 @@ export default function GamePage() {
 
   const [gameDate, setGameDate] =
     useState("");
+
+  const dateInputRef = useRef<HTMLInputElement>(null);
 
   const [teamName, setTeamName] =
     useState("");
@@ -484,8 +486,9 @@ const obp =
 
       <div className="mt-3">
         {!isViewer ? (
-          <label
-            className="
+<label
+  onClick={() => dateInputRef.current?.showPicker()}
+  className="
                 relative
   overflow-hidden
   flex
@@ -523,6 +526,7 @@ const obp =
             </span>
 
             <input
+              ref={dateInputRef}
               type="date"
               value={gameDate}
               onChange={async (e) => {
