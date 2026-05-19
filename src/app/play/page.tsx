@@ -332,16 +332,16 @@ await addDoc(
   <div className="mt-4 bg-black/30 rounded-2xl p-4 border border-white/10">
 
     <p className="text-sm text-gray-300 mb-2">
-      Your Player ID
+      Your Kid's Player ID
     </p>
 
     <p className="text-2xl font-bold text-green-300 break-words">
       {generatedId}
     </p>
 
-    <p className="text-xs text-gray-400 mt-2">
-      Save this ID to access season stats later.
-    </p>
+    <strong><p className="text-xs text-red-400 mt-2">
+      Save this ID to access season stats later!
+    </p></strong>
 
   </div>
 )}
