@@ -242,14 +242,22 @@ strikeouts,
   return (
     <div className="relative min-h-screen flex items-center justify-center p-6 overflow-hidden">
 
-      {/* BACKGROUND */}
-      <div
-        className="absolute inset-0 bg-cover bg-center scale-105"
-        style={{
-          backgroundImage:
-            "url('/images/baseball-kids.png')",
-        }}
-      />
+{/* BACKGROUND */}
+<div
+  className="
+    absolute
+    inset-0
+    bg-repeat
+bg-fixed
+    opacity-20
+  "
+  style={{
+    backgroundImage:
+      "url('/images/baseball-kids.png')",
+
+    backgroundSize: "350px",
+  }}
+/>
 
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/70" />
