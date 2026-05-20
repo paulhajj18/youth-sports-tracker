@@ -408,10 +408,15 @@ stats.fly_out +
 stats.fielders_choice +
 stats.reached_on_error;
 
-  const avg =
-    atBats > 0
-      ? (hits / atBats).toFixed(3)
-      : "0.000";
+// AVG
+
+const avg =
+  atBats > 0
+    ? (hits / atBats)
+        .toFixed(3)
+        .replace(/^0/, "")
+    : ".000";
+
 
 const obp =
   atBats +
@@ -431,8 +436,10 @@ const obp =
           stats.hit_by_pitch +
           stats.sac_fly
         )
-      ).toFixed(3)
-    : "0.000";
+      )
+        .toFixed(3)
+        .replace(/^0/, "")
+    : ".000";
 
   // SHARE
   const shareGame = () => {

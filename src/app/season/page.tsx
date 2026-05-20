@@ -158,7 +158,6 @@ const avg =
         .replace(/^0/, "")
     : ".000";
 
-      // OBP
 
 // OBP
 const obpDenominator =
