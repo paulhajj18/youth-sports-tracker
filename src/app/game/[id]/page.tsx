@@ -618,7 +618,7 @@ const obp =
 <button
   onClick={() => {
     const confirmed = window.confirm(
-      "Are you sure you want to exit stat tracking?"
+      "Are you sure you want to exit live stat tracking?"
     );
 
     if (confirmed) {
