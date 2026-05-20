@@ -293,8 +293,7 @@ const deleteGame =
     absolute
     inset-0
     bg-repeat
-bg-fixed
-    opacity-20
+    opacity-70
   "
   style={{
     backgroundImage:
