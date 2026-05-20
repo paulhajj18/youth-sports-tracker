@@ -528,50 +528,40 @@ const deleteGame =
 
     </div>
 
-    {/* SECONDARY STATS */}
-    <div className="grid grid-cols-4 gap-3 text-center mb-4">
+{/* SECONDARY STATS */}
+<div className="grid grid-cols-3 gap-3 text-center mb-4">
 
-      <div className="bg-cyan-700 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          OBP
-        </p>
+  <div className="bg-cyan-700 rounded-2xl p-3">
+    <p className="text-[11px] opacity-80">
+      OBP
+    </p>
 
-        <p className="text-2xl font-bold">
-          {totals.obp}
-        </p>
-      </div>
+    <p className="text-2xl font-bold">
+      {totals.obp}
+    </p>
+  </div>
 
-      <div className="bg-yellow-500 text-black rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          HR
-        </p>
+  <div className="bg-yellow-500 text-black rounded-2xl p-3">
+    <p className="text-[11px] opacity-80">
+      HR
+    </p>
 
-        <p className="text-2xl font-bold">
-          {totals.homeruns}
-        </p>
-      </div>
+    <p className="text-2xl font-bold">
+      {totals.homeruns}
+    </p>
+  </div>
 
-      <div className="bg-indigo-700 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          SB
-        </p>
+  <div className="bg-indigo-700 rounded-2xl p-3">
+    <p className="text-[11px] opacity-80">
+      SB
+    </p>
 
-        <p className="text-2xl font-bold">
-          {totals.stolenBases}
-        </p>
-      </div>
+    <p className="text-2xl font-bold">
+      {totals.stolenBases}
+    </p>
+  </div>
 
-      <div className="bg-slate-700 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          GP
-        </p>
-
-        <p className="text-2xl font-bold">
-          {totals.gamesPlayed}
-        </p>
-      </div>
-
-    </div>
+</div>
 
     {/* DETAIL STATS */}
     <div className="grid grid-cols-3 gap-3 text-center">
@@ -636,15 +626,32 @@ const deleteGame =
         </p>
       </div>
 
-      <div className="bg-slate-800 rounded-2xl p-3 col-span-3">
-        <p className="text-[11px] opacity-80">
-          At Bats
-        </p>
+{/* BOTTOM ROW */}
+<div className="grid grid-cols-2 gap-3 mt-3 col-span-3">
 
-        <p className="text-2xl font-bold">
-          {totals.atBats}
-        </p>
-      </div>
+  {/* AB */}
+  <div className="bg-slate-800 rounded-2xl p-3 text-center">
+    <p className="text-[11px] opacity-80">
+      AB
+    </p>
+
+    <p className="text-2xl font-bold">
+      {totals.atBats}
+    </p>
+  </div>
+
+  {/* GP */}
+  <div className="bg-slate-700 rounded-2xl p-3 text-center">
+    <p className="text-[11px] opacity-80">
+      GP
+    </p>
+
+    <p className="text-2xl font-bold">
+      {totals.gamesPlayed}
+    </p>
+  </div>
+
+</div>
 
     </div>
 
