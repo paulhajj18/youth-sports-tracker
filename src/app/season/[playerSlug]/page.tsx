@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {
+  useRouter,
+  useParams,
+} from "next/navigation";
 
 import { db } from "@/lib/firebase";
 
@@ -18,6 +21,11 @@ export default function SeasonPage() {
 
   const router = useRouter();
 
+const params = useParams();
+
+const playerSlug =
+  params.playerSlug as string;
+
   const [playerId, setPlayerId] =
     useState("");
 
@@ -27,17 +35,54 @@ export default function SeasonPage() {
   const [totals, setTotals] =
     useState<any>(null);
 
-  // AUTO-FILL LAST PLAYER
-  useEffect(() => {
-    const storedPlayerId =
-      localStorage.getItem(
-        "activePlayerId"
+
+// LOAD PLAYER FROM PUBLIC SLUG
+useEffect(() => {
+
+  const loadSharedPlayer =
+    async () => {
+
+      if (!playerSlug) return;
+
+      const q = query(
+        collection(db, "players"),
+
+        where(
+          "publicSlug",
+          "==",
+          playerSlug
+        )
       );
 
-    if (storedPlayerId) {
-      setPlayerId(storedPlayerId);
-    }
-  }, []);
+      const querySnapshot =
+        await getDocs(q);
+
+      if (querySnapshot.empty) {
+        alert("Player not found.");
+        return;
+      }
+
+      const playerData =
+        querySnapshot.docs[0].data();
+
+      setPlayerId(
+        playerData.playerId
+      );
+    };
+
+  loadSharedPlayer();
+
+}, [playerSlug]);
+
+
+// AUTO-LOAD STATS
+useEffect(() => {
+
+  if (playerId) {
+    loadSeasonStats();
+  }
+
+}, [playerId]);
 
   const loadSeasonStats =
     async () => {
@@ -182,90 +227,7 @@ strikeouts,
       });
     };
 
-// SHARE SEASON STATS
-const shareSeasonStats =
-  async () => {
 
-    if (!playerId) return;
-
-    // LOOKUP PLAYER
-    const q = query(
-      collection(db, "players"),
-
-      where(
-        "playerId",
-        "==",
-        playerId
-      )
-    );
-
-    const querySnapshot =
-      await getDocs(q);
-
-    if (querySnapshot.empty) {
-      alert("Player not found.");
-      return;
-    }
-
-    const playerData =
-      querySnapshot.docs[0].data();
-
-    const publicSlug =
-      playerData.publicSlug;
-
-    const url =
-`${window.location.origin}/season/${publicSlug}`;
-
-    if (navigator.share) {
-
-      navigator.share({
-        title:
-`${playerData.firstName}'s Season Stats`,
-
-        text:
-"Check out these season stats!",
-
-        url,
-      });
-
-    } else {
-
-      navigator.clipboard.writeText(
-        url
-      );
-
-      alert(
-        "Season stats link copied!"
-      );
-    }
-};
-
-
-const deleteGame =
-  async (gameId: string) => {
-
-    const confirmed = confirm(
-      "Delete this game permanently?"
-    );
-
-    if (!confirmed) return;
-
-    // DELETE GAME
-    await deleteDoc(
-      doc(db, "games", gameId)
-    );
-
-    // REMOVE FROM UI
-    const updatedGames =
-      games.filter(
-        (game) => game.id !== gameId
-      );
-
-    setGames(updatedGames);
-
-    // RELOAD TOTALS
-    loadSeasonStats();
-};
 
   return (
     <div className="relative min-h-screen flex items-center justify-center p-6 overflow-hidden">
@@ -327,81 +289,28 @@ const deleteGame =
 
         </div>
 
-        {/* SUBTITLE */}
-        <p className="text-lg text-gray-200 mb-6 leading-relaxed">
-          View season totals, averages, and game history.
-        </p>
 
         {/* MAIN CARD */}
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
-          <h2 className="text-lg font-bold mb-3">
-            Enter Player ID
-          </h2>
-
-          <input
-            className="
-              w-full
-              p-3
-              rounded-xl
-              bg-white/20
-              border
-              border-white/20
-              text-white
-              placeholder:text-gray-300
-              mb-4
-              outline-none
-            "
-            placeholder="Paul-235059"
-            value={playerId}
-            onChange={(e) =>
-              setPlayerId(e.target.value)
-            }
-          />
-
-          <button
-            onClick={loadSeasonStats}
-            className="
-              w-full
-              bg-blue-600
-              hover:bg-blue-700
-              transition-all
-              duration-150
-              text-white
-              font-bold
-              text-lg
-              p-3
-              rounded-2xl
-              shadow-lg
-            "
-          >
-            📊 View Season Stats
-          </button>
+       {games.length > 0 && (
+  <h1
+    className="
+      text-2xl
+      font-bold
+      text-center
+      text-white
+      mb-6
+    "
+  >
+    {games[0].kidName}'s Season Stats
+  </h1>
+)}
   <h3 className="text-center text-xs text-gray-300 mt-1 tracking-widest opacity-80">
   www.youthsportstracker.com
 </h3>
-{games.length > 0 && (
 
-  <button
-    onClick={shareSeasonStats}
-    className="
-      mt-4
-      w-full
-      bg-green-600
-      hover:bg-green-700
-      transition-all
-      duration-150
-      text-white
-      font-bold
-      text-lg
-      p-3
-      rounded-2xl
-      shadow-lg
-    "
-  >
-    📲 Share Season Stats
-  </button>
-)}
+
 
           {/* SEASON TOTALS */}
           {totals && (
@@ -625,23 +534,6 @@ const deleteGame =
     View
   </button>
 
-  <button
-    onClick={() =>
-      deleteGame(game.id)
-    }
-    className="
-      bg-red-600
-      hover:bg-red-700
-      px-3
-      py-1
-      rounded-xl
-      text-xs
-      font-semibold
-      transition-all
-    "
-  >
-    Delete
-  </button>
 
 </div>
 

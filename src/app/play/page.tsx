@@ -338,12 +338,23 @@ localStorage.setItem(
   newId
 );
 
+const randomSlug =
+  Math.random()
+    .toString(36)
+    .substring(2, 8);
+
+const publicSlug =
+  `${cleanName.toLowerCase()}-${randomSlug}`;
+
 // SAVE PLAYER TO FIREBASE
+
+
 await addDoc(
   collection(db, "players"),
   {
     playerId: newId,
     firstName: cleanName,
+    publicSlug,
     createdAt: serverTimestamp(),
   }
 );
