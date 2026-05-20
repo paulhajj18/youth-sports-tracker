@@ -333,15 +333,16 @@ bg-fixed
  {/* SEASON TOTALS */}
 {totals && (
 
-  <div className="
-    mt-6
-    bg-slate-900
-    border
-    border-slate-800
-    rounded-3xl
-    p-5
-    shadow-2xl
-  ">
+<div className="
+  mt-6
+  bg-slate-900/70
+  backdrop-blur-md
+  border
+  border-white/10
+  rounded-3xl
+  p-5
+  shadow-2xl
+">
 
     <h2 className="text-2xl font-bold mb-5 text-center">
       📊 Season Totals
@@ -582,12 +583,14 @@ bg-fixed
 
                   <div
                     key={game.id}
-                    className="
-                      bg-slate-900
-                      border-slate-800
-                      rounded-2xl
-                      p-4
-                    "
+ className="
+  bg-slate-900/70
+  backdrop-blur-md
+  border
+  border-white/10
+  rounded-2xl
+  p-4
+"
                   >
 
                     <div className="flex items-center justify-between mb-2">
