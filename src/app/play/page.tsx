@@ -153,6 +153,31 @@ useEffect(() => {
       {/* CONTENT */}
       <div className="relative z-10 w-full max-w-md text-center text-white">
 
+ {/* BACK BUTTON */}
+        <div className="flex justify-start mb-4">
+
+          <button
+            onClick={() => router.push("/")}
+            className="
+              bg-white/10
+              hover:bg-white/20
+              transition-all
+              duration-150
+              px-4
+              py-2
+              rounded-2xl
+              border
+              border-white/10
+              text-sm
+              font-semibold
+              shadow-lg
+            "
+          >
+            ← Home
+          </button>
+
+        </div>
+
         {/* TITLE */}
         <div className="flex items-center justify-center gap-3 mb-3">
 
@@ -182,7 +207,7 @@ useEffect(() => {
           <div className="mb-6">
 
             <h2 className="text-lg font-bold mb-3">
-              Existing Player
+              Existing Player ID
             </h2>
 
             <input
@@ -249,7 +274,7 @@ onClick={continueWithPlayer}
           <div>
 
             <h2 className="text-lg font-bold mb-3">
-              Create New Player
+              Create New Player ID
             </h2>
 
             <input
