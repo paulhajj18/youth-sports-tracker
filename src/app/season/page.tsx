@@ -138,23 +138,28 @@ stolenBases += game.stolen_base || 0;
         groundOuts +
         flyOuts;
 
-      // AVG
-      const avg =
-        atBats > 0
-          ? (hits / atBats).toFixed(3)
-          : ".000";
+const avg =
+  atBats > 0
+    ? (hits / atBats)
+        .toFixed(3)
+        .replace(/^0/, "")
+    : ".000";
 
       // OBP
-      const obpDenominator =
-        atBats + walks + hbp;
 
-      const obp =
-        obpDenominator > 0
-          ? (
-              (hits + walks + hbp) /
-              obpDenominator
-            ).toFixed(3)
-          : ".000";
+// OBP
+const obpDenominator =
+  atBats + walks + hbp;
+
+const obp =
+  obpDenominator > 0
+    ? (
+        (hits + walks + hbp) /
+        obpDenominator
+      )
+        .toFixed(3)
+        .replace(/^0/, "")
+    : ".000";
 
       setTotals({
         gamesPlayed: gameList.length,
@@ -403,177 +408,236 @@ const deleteGame =
   </button>
 )}
 
-          {/* SEASON TOTALS */}
-          {totals && (
+{/* SEASON TOTALS */}
+{totals && (
 
-            <div className="
-              mt-6
-              bg-black/30
-              border
-              border-white/10
-              rounded-3xl
-              p-5
-            ">
+  <div className="
+    mt-6
+    bg-slate-900
+    border
+    border-slate-800
+    rounded-3xl
+    p-5
+    shadow-2xl
+  ">
 
-              <h2 className="text-2xl font-bold mb-4 text-center">
-                Season Totals
-              </h2>
+    <h2 className="text-2xl font-bold mb-5 text-center">
+      📊 Season Totals
+    </h2>
 
-              <div className="grid grid-cols-3 gap-3 text-center">
+    {/* FEATURED STATS */}
+    <div className="grid grid-cols-2 gap-3 mb-4">
 
-<div className="bg-slate-700 rounded-2xl p-2">
-  <p className="text-xs text-gray-200">
-    GP
-  </p>
+      {/* AVG */}
+      <div className="
+        bg-orange-500
+        text-black
+        rounded-2xl
+        p-4
+        text-center
+        shadow-lg
+      ">
+        <p className="text-xs font-semibold opacity-80">
+          Batting Average
+        </p>
 
-  <p className="text-xl font-bold">
-    {totals.gamesPlayed}
-  </p>
-</div>
+        <p className="text-4xl font-black">
+          {totals.avg}
+        </p>
 
-                <div className="bg-green-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    AVG
-                  </p>
+        <p className="text-xs mt-1">
+          AVG
+        </p>
+      </div>
 
-                  <p className="text-xl font-bold">
-                    {totals.avg}
-                  </p>
-                </div>
+      {/* HITS */}
+      <div className="
+        bg-green-700
+        rounded-2xl
+        p-4
+        text-center
+        shadow-lg
+      ">
+        <p className="text-xs text-green-100">
+          Total Hits
+        </p>
 
-                <div className="bg-blue-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    OBP
-                  </p>
+        <p className="text-4xl font-black">
+          {totals.hits}
+        </p>
 
-                  <p className="text-xl font-bold">
-                    {totals.obp}
-                  </p>
-                </div>
+        <p className="text-xs text-green-100 mt-1">
+          HITS
+        </p>
+      </div>
 
-                <div className="bg-red-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    H
-                  </p>
+      {/* RBI */}
+      <div className="
+        bg-blue-700
+        rounded-2xl
+        p-4
+        text-center
+        shadow-lg
+      ">
+        <p className="text-xs text-blue-100">
+          Runs Batted In
+        </p>
 
-                  <p className="text-xl font-bold">
-                    {totals.hits}
-                  </p>
-                </div>
+        <p className="text-4xl font-black">
+          {totals.rbi}
+        </p>
 
-                <div className="bg-yellow-600 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    HR
-                  </p>
+        <p className="text-xs text-blue-100 mt-1">
+          RBI
+        </p>
+      </div>
 
-                  <p className="text-xl font-bold text-black">
-                    {totals.homeruns}
-                  </p>
-                </div>
+      {/* RUNS */}
+      <div className="
+        bg-pink-700
+        rounded-2xl
+        p-4
+        text-center
+        shadow-lg
+      ">
+        <p className="text-xs text-pink-100">
+          Runs Scored
+        </p>
 
-                <div className="bg-purple-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    RBI
-                  </p>
+        <p className="text-4xl font-black">
+          {totals.runs}
+        </p>
 
-                  <p className="text-xl font-bold">
-                    {totals.rbi}
-                  </p>
-                </div>
+        <p className="text-xs text-pink-100 mt-1">
+          RUNS
+        </p>
+      </div>
 
-                <div className="bg-cyan-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    RUN
-                  </p>
+    </div>
 
-                  <p className="text-xl font-bold">
-                    {totals.runs}
-                  </p>
-                </div>
+    {/* SECONDARY STATS */}
+    <div className="grid grid-cols-4 gap-3 text-center mb-4">
 
-                <div className="bg-emerald-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    AB
-                  </p>
+      <div className="bg-cyan-700 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          OBP
+        </p>
 
-                  <p className="text-xl font-bold">
-                    {totals.atBats}
-                  </p>
-                </div>
+        <p className="text-2xl font-bold">
+          {totals.obp}
+        </p>
+      </div>
 
-                <div className="bg-indigo-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    1B
-                  </p>
+      <div className="bg-yellow-500 text-black rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          HR
+        </p>
 
-                  <p className="text-xl font-bold">
-                    {totals.singles}
-                  </p>
-                </div>
+        <p className="text-2xl font-bold">
+          {totals.homeruns}
+        </p>
+      </div>
 
-                <div className="bg-sky-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    2B
-                  </p>
+      <div className="bg-indigo-700 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          SB
+        </p>
 
-                  <p className="text-xl font-bold">
-                    {totals.doubles}
-                  </p>
-                </div>
+        <p className="text-2xl font-bold">
+          {totals.stolenBases}
+        </p>
+      </div>
 
-                <div className="bg-pink-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    3B
-                  </p>
+      <div className="bg-slate-700 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          GP
+        </p>
 
-                  <p className="text-xl font-bold">
-                    {totals.triples}
-                  </p>
-                </div>
+        <p className="text-2xl font-bold">
+          {totals.gamesPlayed}
+        </p>
+      </div>
 
-                <div className="bg-orange-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    BB
-                  </p>
+    </div>
 
-                  <p className="text-xl font-bold">
-                    {totals.walks}
-                  </p>
-                </div>
+    {/* DETAIL STATS */}
+    <div className="grid grid-cols-3 gap-3 text-center">
 
-                <div className="bg-rose-700 rounded-2xl p-2">
-                  <p className="text-xs text-gray-200">
-                    SO
-                  </p>
+      <div className="bg-green-800 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          1B
+        </p>
 
-                  <p className="text-xl font-bold">
-                    {totals.strikeouts}
-                  </p>
-                </div>
-<div className="bg-teal-700 rounded-xl p-2">
-  <p className="text-[10px] text-gray-200">
-    SB
-  </p>
+        <p className="text-xl font-bold">
+          {totals.singles}
+        </p>
+      </div>
 
-  <p className="text-xl font-bold">
-    {totals.stolenBases}
-  </p>
-</div>
+      <div className="bg-sky-700 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          2B
+        </p>
 
-<div className="bg-lime-700 rounded-xl p-2">
-  <p className="text-[10px] text-gray-200">
-    HBP
-  </p>
+        <p className="text-xl font-bold">
+          {totals.doubles}
+        </p>
+      </div>
 
-  <p className="text-xl font-bold">
-    {totals.hbp}
-  </p>
-</div>
-              </div>
+      <div className="bg-purple-700 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          3B
+        </p>
 
-            </div>
+        <p className="text-xl font-bold">
+          {totals.triples}
+        </p>
+      </div>
 
-          )}
+      <div className="bg-cyan-800 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          BB
+        </p>
+
+        <p className="text-xl font-bold">
+          {totals.walks}
+        </p>
+      </div>
+
+      <div className="bg-red-700 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          SO
+        </p>
+
+        <p className="text-xl font-bold">
+          {totals.strikeouts}
+        </p>
+      </div>
+
+      <div className="bg-lime-700 rounded-2xl p-3">
+        <p className="text-[11px] opacity-80">
+          HBP
+        </p>
+
+        <p className="text-xl font-bold">
+          {totals.hbp}
+        </p>
+      </div>
+
+      <div className="bg-slate-800 rounded-2xl p-3 col-span-3">
+        <p className="text-[11px] opacity-80">
+          At Bats
+        </p>
+
+        <p className="text-2xl font-bold">
+          {totals.atBats}
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+)}
 
           {/* GAME HISTORY */}
           {games.length > 0 && (
@@ -591,7 +655,7 @@ const deleteGame =
                   <div
                     key={game.id}
                     className="
-                      bg-black/30
+                      bg-slate-900
                       border
                       border-white/10
                       rounded-2xl
@@ -694,7 +758,7 @@ const deleteGame =
         </div>
 
         {/* FEATURE BOX */}
-        <div className="mt-5 bg-black/30 rounded-2xl p-4 backdrop-blur-sm border border-white/5">
+        <div className="mt-5 bg-slate-900 rounded-2xl p-4 backdrop-blur-sm border border-white/5">
 
           <div className="space-y-2 text-sm text-gray-200">
 
