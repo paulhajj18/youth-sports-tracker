@@ -56,6 +56,12 @@ const startGame = async () => {
 
   triggerFlash("play");
 
+  // GENERATE SECRET EDIT TOKEN
+  const editToken =
+    Math.random()
+      .toString(36)
+      .substring(2, 12);
+
   const docRef = await addDoc(
     collection(db, "games"),
     {
@@ -65,10 +71,16 @@ const startGame = async () => {
         generatedId.split("-")[0],
 
       createdAt: serverTimestamp(),
+
+      // SAVE TOKEN
+      editToken,
     }
   );
 
-  router.push(`/game/${docRef.id}`);
+  // OWNER URL
+  router.push(
+    `/game/${docRef.id}?edit=${editToken}`
+  );
 };
 
 const continueWithPlayer =
@@ -103,6 +115,12 @@ const continueWithPlayer =
       playerId.trim()
     );
 
+    // GENERATE SECRET EDIT TOKEN
+    const editToken =
+      Math.random()
+        .toString(36)
+        .substring(2, 12);
+
     // CREATE GAME
     const docRef = await addDoc(
       collection(db, "games"),
@@ -114,12 +132,15 @@ const continueWithPlayer =
 
         createdAt:
           serverTimestamp(),
+
+        // SAVE TOKEN
+        editToken,
       }
     );
 
     // GO TO GAME
     router.push(
-      `/game/${docRef.id}`
+      `/game/${docRef.id}?edit=${editToken}`
     );
 };
 

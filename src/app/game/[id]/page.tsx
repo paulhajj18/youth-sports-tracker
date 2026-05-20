@@ -47,8 +47,15 @@ export default function GamePage() {
   const params = useParams();
   const searchParams = useSearchParams();
 
-  const gameId = params.id as string;
-  const isViewer = searchParams.get("view") === "true";
+
+const gameId = params.id as string;
+
+const editParam =
+  searchParams.get("edit");
+
+const [canEdit, setCanEdit] =
+  useState(false);
+
 
   const gameRef = doc(db, "games", gameId);
 
@@ -132,12 +139,18 @@ useEffect(() => {
   }
 }, []);
 
+
   // LIVE SYNC
+
   useEffect(() => {
     const unsub = onSnapshot(gameRef, (snap) => {
       const data = snap.data();
 
       if (!data) return;
+
+setCanEdit(
+  editParam === data.editToken
+);
 
       setKidName(data.kidName || "Player");
       setGameDate(data.gameDate || "");
@@ -424,7 +437,7 @@ const obp =
   // SHARE
   const shareGame = () => {
     const url =
-      `${window.location.origin}/game/${gameId}?view=true`;
+      `${window.location.origin}/game/${gameId}?`;
 
     if (navigator.share) {
       navigator.share({
@@ -472,7 +485,7 @@ const obp =
         {kidName || "Player"}
       </h1>
 
-{!isViewer && activePlayerId && (
+{canEdit && activePlayerId && (
   <div className="text-left text-sm text-green-200 mb-2 font-semibold">
 
     Player ID :
@@ -485,7 +498,7 @@ const obp =
 )}
 
       <div className="mt-3">
-        {!isViewer ? (
+        {canEdit ? (
 <label
   onClick={() => dateInputRef.current?.showPicker()}
   className="
@@ -574,7 +587,7 @@ const obp =
 
 <div className="flex flex-col items-end justify-between h-full min-h-[100px]">
 
-  {!isViewer && (
+  {canEdit && (
     <button
       onClick={shareGame}
       className="
@@ -594,7 +607,7 @@ const obp =
     </button>
   )}
 
-  {!isViewer && (
+  {canEdit && (
 <button
   onClick={() => {
     const confirmed = window.confirm(
@@ -636,7 +649,7 @@ const obp =
           {/* OUR TEAM */}
           <div>
 
-            {!isViewer ? (
+            {canEdit ? (
               
 
 <input
@@ -676,7 +689,7 @@ const obp =
               {ourScore}
             </div>
 
-            {!isViewer && (
+            {canEdit && (
               <div className="flex justify-center gap-2 mt-2">
 
                 <button
@@ -713,7 +726,7 @@ const obp =
               {inning}
             </div>
 
-            {!isViewer && (
+            {canEdit && (
               <div className="flex justify-center gap-2 mt-2">
 
                 <button
@@ -742,7 +755,7 @@ const obp =
           {/* OTHER TEAM */}
           <div>
 
-            {!isViewer ? (
+            {canEdit ? (
              
 
  <input
@@ -782,7 +795,7 @@ const obp =
               {theirScore}
             </div>
 
-            {!isViewer && (
+            {canEdit && (
               <div className="flex justify-center gap-2 mt-2">
 
                 <button
@@ -1017,7 +1030,7 @@ const obp =
 {/* BUTTONS CONTAINER */}
 
 
-{!isViewer && (
+{canEdit && (
   <div className="bg-slate-500 border border-slate-300 rounded-2xl p-4 mb-5">
 
     <h2 className="font-semibold text-sm mb-2 text-white"><center>
@@ -1228,7 +1241,7 @@ const obp =
           Live Commentary 🎙️
         </h2>
 
-        {!isViewer && (
+        {canEdit && (
           <div className="flex gap-2 mb-4">
 
             <input

@@ -317,7 +317,7 @@ const deleteGame =
           >
             📊 View Season Stats
           </button>
-  <h3 className="text-center text-xs text-gray-500 mt-1 tracking-widest opacity-80">
+  <h3 className="text-center text-xs text-gray-300 mt-1 tracking-widest opacity-80">
   www.youthsportstracker.com
 </h3>
           {/* SEASON TOTALS */}
