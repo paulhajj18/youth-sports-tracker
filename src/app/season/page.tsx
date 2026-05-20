@@ -91,10 +91,13 @@ if (querySnapshot.empty) {
       let doubles = 0;
       let triples = 0;
       let homeruns = 0;
-
+      let sacFlies = 0;
       let strikeouts = 0;
       let groundOuts = 0;
       let flyOuts = 0;
+      let reachedOnError = 0;
+      let fieldersChoice = 0;
+
 
 let walks = 0;
 let hbp = 0;
@@ -114,6 +117,12 @@ let stolenBases = 0;
         strikeouts += game.strikeout || 0;
         groundOuts += game.ground_out || 0;
         flyOuts += game.fly_out || 0;
+sacFlies += game.sac_fly || 0;
+reachedOnError +=
+  game.reached_on_error || 0;
+
+fieldersChoice +=
+  game.fielders_choice || 0;
 
 walks += game.walk || 0;
 hbp += game.hit_by_pitch || 0;
@@ -132,11 +141,15 @@ stolenBases += game.stolen_base || 0;
         homeruns;
 
       // AT BATS
-      const atBats =
-        hits +
-        strikeouts +
-        groundOuts +
-        flyOuts;
+
+const atBats =
+  hits +
+  strikeouts +
+  groundOuts +
+  flyOuts +
+  reachedOnError +
+  fieldersChoice;
+
 
 const avg =
   atBats > 0
@@ -149,7 +162,7 @@ const avg =
 
 // OBP
 const obpDenominator =
-  atBats + walks + hbp;
+  atBats + walks + hbp + sacFlies;
 
 const obp =
   obpDenominator > 0
