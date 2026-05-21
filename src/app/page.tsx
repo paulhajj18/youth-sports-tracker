@@ -70,25 +70,17 @@ const shareApp = async () => {
       <div className="relative z-10 w-full max-w-md text-center text-white">
 
         {/* TITLE */}
-<div className="flex items-center justify-center gap-3 mb-3">
-
-  <div className="text-3xl shrink-0">
-    ⚾
-  </div>
 
   <h1 className="text-4xl font-extrabold drop-shadow-2xl text-center leading-tight">
     Youth Sports Tracker
   </h1>
 
-  <div className="text-3xl shrink-0">
-    ⚾
-  </div>
-
-</div>
-
         {/* SUBTITLE */}
+  <h1 className="text-xl font-extrabold drop-shadow-2xl text-center leading-tight">
+    ⚾ Baseball / Softball  ⚾
+  </h1>
         <p className="text-lg text-gray-200 mb-6 leading-relaxed">
-          Track your kid’s stats live during the game.
+          Track your player's stats live during the game.
           <br />Add fun commentary. Share updates instantly with family & friends.
         </p>
 
