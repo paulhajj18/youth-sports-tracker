@@ -623,12 +623,12 @@ strikeouts,
 
                     </div>
 
-                    <p className="text-sm text-gray-300 mb-2">
-                      Game ID: {game.id}
-                    </p>
 <p className="text-sm text-yellow-300 mb-2">
   📅 {game.gameDate || "Unknown Date"}
 </p>
+  <p className="text-xs text-cyan-300">
+    {game.teamName} vs {game.opponentName}
+  </p>
                     <div className="grid grid-cols-2 gap-2 text-sm text-gray-200">
 
                       <div>
