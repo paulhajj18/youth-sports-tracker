@@ -293,7 +293,7 @@ const deleteGame =
     absolute
     inset-0
     bg-repeat
-    opacity-70
+    opacity-80
   "
   style={{
     backgroundImage:
@@ -786,7 +786,7 @@ className="
         </div>
 
         {/* FEATURE BOX */}
-        <div className="mt-5 bg-slate-900 rounded-2xl p-4 backdrop-blur-sm border border-white/5">
+        <div className="mt-5 bg-black/30 rounded-2xl p-4 backdrop-blur-sm border border-white/5">
 
           <div className="space-y-2 text-sm text-gray-200">
 

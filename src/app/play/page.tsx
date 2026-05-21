@@ -207,7 +207,7 @@ useEffect(() => {
           </div>
 
           <h1 className="text-4xl font-extrabold drop-shadow-2xl text-center leading-tight">
-            Play Ball
+            Play Ball!
           </h1>
 
           <div className="text-3xl shrink-0">
@@ -218,7 +218,10 @@ useEffect(() => {
 
         {/* SUBTITLE */}
         <p className="text-lg text-gray-200 mb-6 leading-relaxed">
-          Select your player to begin tracking stats.
+          Select Player ID to start your game.
+        </p>
+        <p className="text-sm text-gray-200 mb-6 leading-relaxed">
+          Note: Your kid's Player ID is used for all games & season stats.  They are also unique, and only for you. <strong>Make a note of it and do not share.</strong>
         </p>
 
         {/* MAIN CARD */}
@@ -382,7 +385,7 @@ await addDoc(
     }
   `}
 >
-  ⚾ Create New Player
+  ⚾ Create New Player ID
 </button>
 
 {generatedId && (
