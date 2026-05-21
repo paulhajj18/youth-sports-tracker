@@ -277,6 +277,16 @@ const shareApp = async () => {
             <p>
               🚫 No downloads or signups needed
            </p>
+
+<p className="pt-2">
+  <a
+    href="/contact"
+    className="text-gray-400 hover:text-white transition text-xs underline underline-offset-2"
+  >
+    Contact / Feedback
+  </a>
+</p>
+
   <footer className="text-center text-xs text-gray-500 py-3">
     © 2026 Youth Sports Tracker
   </footer>
