@@ -78,7 +78,7 @@ export default function ScreenshotsPage() {
                 overflow-hidden
                 rounded-2xl
                 border
-                border-white/10
+                border-white/50
                 shadow-xl
                 transition-all
                 duration-300
@@ -113,7 +113,7 @@ export default function ScreenshotsPage() {
                 overflow-hidden
                 rounded-2xl
                 border
-                border-white/10
+                border-white/50
                 shadow-xl
                 transition-all
                 duration-300
@@ -147,7 +147,7 @@ export default function ScreenshotsPage() {
                 overflow-hidden
                 rounded-2xl
                 border
-                border-white/10
+                border-white/50
                 shadow-xl
                 transition-all
                 duration-300
@@ -181,7 +181,7 @@ export default function ScreenshotsPage() {
                 overflow-hidden
                 rounded-2xl
                 border
-                border-white/10
+                border-white/50
                 shadow-xl
                 transition-all
                 duration-300
