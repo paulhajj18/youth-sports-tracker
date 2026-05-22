@@ -717,6 +717,27 @@ className="
     View
   </button>
 
+<button
+  onClick={() =>
+    router.push(
+      `/game/${game.id}?edit=${game.editToken}`
+    )
+  }
+  className="
+    bg-yellow-500
+    hover:bg-yellow-700
+    px-3
+    py-1
+    rounded-xl
+    text-xs
+    text-black
+    font-semibold
+    transition-all
+  "
+>
+  Edit
+</button>
+
   <button
     onClick={() =>
       deleteGame(game.id)

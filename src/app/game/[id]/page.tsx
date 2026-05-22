@@ -122,21 +122,51 @@ const [comments, setComments] = useState<CommentItem[]>([]);
 const [activePlayerId, setActivePlayerId] =
   useState("");
 
-// LOAD ACTIVE PLAYER
+// LOAD ACTIVE PLAYER ONLY FOR NEW GAMES
 useEffect(() => {
-  const storedPlayerId =
-    localStorage.getItem(
-      "activePlayerId"
+
+  async function setupPlayer() {
+
+    const storedPlayerId =
+      localStorage.getItem(
+        "activePlayerId"
+      );
+
+    // FIRST CHECK IF GAME ALREADY HAS PLAYER
+    const unsub = onSnapshot(
+      gameRef,
+      async (snap) => {
+
+        const data = snap.data();
+
+        if (!data) return;
+
+        // EXISTING GAME PLAYER
+        if (data.playerId) {
+
+          setActivePlayerId(
+            data.playerId
+          );
+
+        } else if (storedPlayerId) {
+
+          // NEW GAME ONLY
+          setActivePlayerId(
+            storedPlayerId
+          );
+
+          await updateDoc(gameRef, {
+            playerId: storedPlayerId,
+          });
+        }
+      }
     );
 
-  if (storedPlayerId) {
-    setActivePlayerId(storedPlayerId);
-
-    // SAVE PLAYER ID TO GAME DOC
-    updateDoc(gameRef, {
-      playerId: storedPlayerId,
-    });
+    return () => unsub();
   }
+
+  setupPlayer();
+
 }, []);
 
 
