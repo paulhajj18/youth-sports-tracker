@@ -212,7 +212,7 @@ const [submitted, setSubmitted] =
 
         {/* FOOTER */}
         <footer className="text-center text-xs text-gray-500 py-4">
-          © 2026 Youth Sports Tracker
+          © 2026 Youth Sports Tracker ⚾
         </footer>
 
       </div>

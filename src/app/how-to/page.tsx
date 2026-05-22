@@ -63,10 +63,7 @@ export default function HowToPage() {
               </h2>
 
               <p>
-                Enter your kid's name on the
-                main screen and tap the
-                <strong> Play Ball! </strong>
-                button.
+                Hit <strong>Play Ball!</strong> Enter a player's ID name, and then immediately start tracking game stats!
               </p>
             </div>
 
@@ -183,7 +180,7 @@ export default function HowToPage() {
         </div>
 
         <footer className="text-center text-xs text-gray-400 py-3">
-          © 2026 Youth Sports Tracker
+          © 2026 Youth Sports Tracker ⚾
         </footer>
 
       </div>
