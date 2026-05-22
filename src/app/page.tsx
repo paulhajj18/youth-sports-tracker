@@ -69,20 +69,22 @@ const shareApp = async () => {
       {/* CONTENT */}
       <div className="relative z-10 w-full max-w-md text-center text-white">
 
-        {/* TITLE */}
+{/* TITLE */}
+<h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center leading-snug drop-shadow-2xl">
+  Youth Sports Tracker
+</h1>
 
-  <h1 className="text-4xl font-extrabold drop-shadow-2xl text-center leading-tight">
-    Youth Sports Tracker
-  </h1>
+{/* SUBTITLE */}
+<h2 className="text-lg sm:text-xl font-semibold text-yellow-300 text-center mt-2 tracking-wide">
+  ⚾ Baseball • Softball ⚾
+</h2>
 
-        {/* SUBTITLE */}
-  <h1 className="text-xl font-extrabold drop-shadow-2xl text-center leading-tight">
-    ⚾ Baseball / Softball  ⚾
-  </h1>
-        <p className="text-lg text-gray-200 mb-6 leading-relaxed">
-          Track your player's stats live during the game.
-          <br />Add fun commentary. Share updates instantly with family & friends.
-        </p>
+{/* DESCRIPTION */}
+<p className="text-lg text-gray-200 text-center mt-6 mb-6 leading-relaxed max-w-xl">
+  Track your player&apos;s stats live during the game.
+  <br />
+  Add fun commentary and instantly share updates with family and friends.
+</p>
 
 {/* MAIN CARD */}
 <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">

@@ -220,9 +220,13 @@ useEffect(() => {
         <p className="text-lg text-gray-200 mb-6 leading-relaxed">
           Select Player ID to start your game.
         </p>
-        <p className="text-sm text-gray-200 mb-6 leading-relaxed">
-          Note: Your kid's Player ID is used for all games & season stats.  They are also unique, and only for you. <strong>Make a note of it and do not share.</strong>
-        </p>
+<p className="text-sm text-gray-200 mb-6 leading-relaxed">
+  Note: Your child&apos;s Player ID is used for all games and season stats.
+  Each Player ID is unique and assigned only to you.
+  <strong className="text-yellow-300">
+    {" "}Please save it and do not share it.
+  </strong>
+</p>
 
         {/* MAIN CARD */}
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
