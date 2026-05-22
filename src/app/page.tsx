@@ -164,70 +164,93 @@ const shareApp = async () => {
 
   </div>
 
-  {/* BUTTON ROW */}
-  <div className="flex gap-3 mb-3">
+{/* BUTTON GRID */}
+<div className="grid grid-cols-2 gap-3">
 
-    {/* HOW TO */}
-    <button
-      onClick={() => {
-        triggerFlash("howto");
+  {/* HOW TO */}
+  <button
+    onClick={() => {
+      triggerFlash("howto");
 
-        router.push("/how-to");
-      }}
-      className={`
-        flex-1
-        bg-blue-600
-        hover:bg-blue-700
-        transition-all
-        duration-150
-        text-white
-        font-semibold
-        text-sm
-        p-2.5
-        rounded-xl
+      router.push("/how-to");
+    }}
+    className={`
+      bg-blue-600
+      hover:bg-blue-700
+      transition-all
+      duration-150
+      text-white
+      font-semibold
+      text-sm
+      p-2.5
+      rounded-xl
 
-        ${
-          activeButton === "howto"
-            ? "scale-95 brightness-125"
-            : ""
-        }
-      `}
-    >
-      📘 How It Works
-    </button>
+      ${
+        activeButton === "howto"
+          ? "scale-95 brightness-125"
+          : ""
+      }
+    `}
+  >
+    📘 How It Works
+  </button>
 
-    {/* SHARE */}
-    <button
-      onClick={shareApp}
-      className={`
-        flex-1
-        bg-orange-500
-        hover:bg-orange-600
-        transition-all
-        duration-150
-        text-white
-        font-semibold
-        text-sm
-        p-2.5
-        rounded-xl
+  {/* SHARE */}
+  <button
+    onClick={shareApp}
+    className={`
+      bg-orange-500
+      hover:bg-orange-600
+      transition-all
+      duration-150
+      text-white
+      font-semibold
+      text-sm
+      p-2.5
+      rounded-xl
 
-        ${
-          activeButton === "share"
-            ? "scale-95 brightness-125"
-            : ""
-        }
-      `}
-    >
-      📣 Tell A Friend
-    </button>
+      ${
+        activeButton === "share"
+          ? "scale-95 brightness-125"
+          : ""
+      }
+    `}
+  >
+    📣 Tell A Friend
+  </button>
 
-  </div>
+  {/* SCREENSHOTS */}
+  <button
+    onClick={() => {
+      triggerFlash("screenshots");
+
+      router.push("/screenshots");
+    }}
+    className={`
+      bg-pink-600
+      hover:bg-pink-700
+      transition-all
+      duration-150
+      text-white
+      font-semibold
+      text-sm
+      p-2.5
+      rounded-xl
+
+      ${
+        activeButton === "screenshots"
+          ? "scale-95 brightness-125"
+          : ""
+      }
+    `}
+  >
+    📸 Screenshots
+  </button>
 
   {/* INSTALL */}
   <button
     onClick={showInstallHelp}
     className={`
-      w-full
       bg-purple-600
       hover:bg-purple-700
       transition-all
@@ -247,6 +270,8 @@ const shareApp = async () => {
   >
     📲 Save To Home Screen
   </button>
+
+</div>
 
 </div>
         {/* FEATURE BOX */}
