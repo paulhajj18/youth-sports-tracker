@@ -222,7 +222,7 @@ useEffect(() => {
         </p>
 <p className="text-sm text-gray-200 mb-6 leading-relaxed">
   Note: Your child&apos;s Player ID is used for all games and season stats.
-  Each Player ID is unique and assigned only to you.
+  Each Player ID is unique and assigned only to you. <br />
   <strong className="text-yellow-300">
     {" "}Please save it and do not share it.
   </strong>

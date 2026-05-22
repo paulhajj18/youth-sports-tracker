@@ -760,7 +760,7 @@ className="
 
                     </div>
 
-                    <p className="text-sm text-gray-300 mb-2">
+                    <p className="text-sm text-gray-600 mb-2">
                       Game ID: {game.id}
                     </p>
 <p className="text-sm text-yellow-300 mb-2">
