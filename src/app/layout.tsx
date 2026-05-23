@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
@@ -53,33 +54,49 @@ export const metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-<html
-  lang="en"
-  className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
->
-  <head>
-    <meta
-      name="apple-mobile-web-app-capable"
-      content="yes"
-    />
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <head>
+        <meta
+          name="apple-mobile-web-app-capable"
+          content="yes"
+        />
 
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black"
-    />
-  </head>
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black"
+        />
+      </head>
 
-  <body className="min-h-full flex flex-col">
-    {children}
- <Analytics />
-  </body>
-</html>
+      <body className="min-h-full flex flex-col">
+        {children}
+
+        <Analytics />
+
+        {/* Google Ads Tag */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18183051018"
+        />
+
+        <Script id="google-ads">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-18183051018');
+          `}
+        </Script>
+      </body>
+    </html>
   );
 }

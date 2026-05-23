@@ -401,9 +401,7 @@ const deleteGame =
           >
             📊 View Season Stats
           </button>
-  <h3 className="text-center text-xs text-gray-300 mt-1 tracking-widest opacity-80">
-  www.youthsportstracker.com
-</h3>
+
 {games.length > 0 && (
 
   <button
@@ -661,7 +659,9 @@ const deleteGame =
 </div>
 
     </div>
-
+  <h3 className="text-center text-xs text-gray-300 mt-1 tracking-widest opacity-80">
+  www.youthsportstracker.com
+</h3>
   </div>
 
 )}
