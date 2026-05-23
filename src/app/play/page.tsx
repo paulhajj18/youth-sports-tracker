@@ -230,9 +230,6 @@ useEffect(() => {
   text-sm
   text-yellow-100
 ">
-  <span className="font-bold text-yellow-300">
-    ⚠ Important:
-  </span>{" "}
   Save your Player ID and do not share it with others.
 </div>
 
