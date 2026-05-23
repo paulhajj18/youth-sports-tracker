@@ -218,9 +218,9 @@ useEffect(() => {
 
         {/* SUBTITLE */}
 <p className="text-sm text-gray-200 mb-4 leading-relaxed">
-  Each Player ID is unique to your player and is used for all games and season stats.
+  To start tracking stats, <strong>enter a Player ID OR create a new one!</strong><br/>
+Each player ID is unique and is used for all games and season stats.
 </p>
-
 <div className="
   rounded-2xl
   border border-yellow-400/40
