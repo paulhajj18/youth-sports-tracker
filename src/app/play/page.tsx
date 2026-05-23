@@ -217,15 +217,24 @@ useEffect(() => {
         </div>
 
         {/* SUBTITLE */}
-        <p className="text-lg text-gray-200 mb-6 leading-relaxed">
-          Select Player ID to start your game.
-        </p>
-<p className="text-sm text-gray-200 mb-6 leading-relaxed">
-  Each Player ID is unique and assigned only to your player. It is used for all games and season stats.<br />
-  <strong className="text-yellow-300">
-    {" "}Please save it and do not share it.
-  </strong>
+<p className="text-sm text-gray-200 mb-4 leading-relaxed">
+  Each Player ID is unique to your player and is used for all games and season stats.
 </p>
+
+<div className="
+  rounded-2xl
+  border border-yellow-400/40
+  bg-yellow-400/10
+  px-4
+  py-3
+  text-sm
+  text-yellow-100
+">
+  <span className="font-bold text-yellow-300">
+    ⚠ Important:
+  </span>{" "}
+  Save your Player ID and do not share it with others.
+</div>
 
         {/* MAIN CARD */}
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
