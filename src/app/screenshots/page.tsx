@@ -10,14 +10,22 @@ export default function ScreenshotsPage() {
   return (
     <div className="relative min-h-screen p-6 flex items-center justify-center overflow-hidden">
 
-      {/* BACKGROUND */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('/images/baseball-kids.png')",
-        }}
-      />
+{/* BACKGROUND */}
+<div
+  className="
+    absolute
+    inset-0
+    bg-repeat
+    opacity-80
+  "
+  style={{
+    backgroundImage:
+      "url('/images/baseball-kids.png')",
+
+    backgroundSize: "350px",
+  }}
+/>
+
 
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/70" />
@@ -210,7 +218,7 @@ export default function ScreenshotsPage() {
 
         {/* FOOTER */}
         <footer className="text-center text-xs text-gray-400 py-4">
-          © 2026 Youth Sports Tracker
+          © 2026 Youth Sports Tracker ⚾
         </footer>
 
       </div>
