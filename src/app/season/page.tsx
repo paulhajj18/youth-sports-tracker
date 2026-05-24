@@ -239,8 +239,8 @@ const shareSeasonStats =
         title:
 `${playerData.firstName}'s Season Stats`,
 
-        text:
-"Check out these season stats!",
+text:
+`Check out ${playerData.firstName}'s season stats! ⚾`,
 
         url,
       });

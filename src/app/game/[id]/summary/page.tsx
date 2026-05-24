@@ -171,7 +171,7 @@ const obp =
     if (navigator.share) {
       navigator.share({
         title: `${kidName} Game Summary`,
-        text: "Check out this game summary!",
+        text: "Check out ${kidName}'s game summary!",
         url,
       });
     } else {

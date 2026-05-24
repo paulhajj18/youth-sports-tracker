@@ -479,7 +479,7 @@ const obp =
     if (navigator.share) {
       navigator.share({
         title: `Live Game for ${kidName}`,
-        text: "Follow this live game!",
+        text: `Follow ${kidName}'s live baseball game! ⚾`,
         url,
       });
     } else {
