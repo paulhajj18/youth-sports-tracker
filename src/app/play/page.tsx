@@ -216,23 +216,28 @@ useEffect(() => {
 
         </div>
 
-        {/* SUBTITLE */}
+{/* SUBTITLE */}
 <p className="text-sm text-gray-200 mb-4 leading-relaxed">
-  To start tracking stats, <strong>enter a Player ID OR create a new one!</strong><br/>
-Each player ID is unique and is used for all games and season stats.
+  <strong>Enter your player's ID or create a new one.</strong>
+  <br />
+  Each athlete has their own unique Player ID. This ID is used to track
+  all games, stats, and season history.
 </p>
-<div className="
-  rounded-2xl
-  border border-yellow-400/40
-  bg-yellow-400/10
-  px-4
-  py-3
-  text-sm
-  text-yellow-100
-">
-  Save your Player ID and do not share it with others.
-</div>
 
+<div
+  className="
+    rounded-2xl
+    border border-yellow-400/40
+    bg-yellow-400/10
+    px-4
+    py-3
+    text-sm
+    text-yellow-100
+    leading-relaxed
+  "
+>
+Make a note of your player's ID and do not share it.
+</div>
         {/* MAIN CARD */}
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
