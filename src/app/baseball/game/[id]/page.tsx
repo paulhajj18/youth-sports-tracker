@@ -474,7 +474,7 @@ const obp =
   // SHARE
   const shareGame = () => {
     const url =
-      `${window.location.origin}/game/${gameId}?`;
+      `${window.location.origin}/baseball/game/${gameId}?`;
 
     if (navigator.share) {
       navigator.share({
@@ -491,7 +491,7 @@ const obp =
 
   const goToSummary = () => {
     window.location.href =
-      `/game/${gameId}/summary`;
+      `/baseball/game/${gameId}/summary`;
   };
 
   const buttonClass = (

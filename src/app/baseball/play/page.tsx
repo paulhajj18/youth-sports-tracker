@@ -79,7 +79,7 @@ const startGame = async () => {
 
   // OWNER URL
   router.push(
-    `/game/${docRef.id}?edit=${editToken}`
+    `/baseball/game/${docRef.id}?edit=${editToken}`
   );
 };
 
@@ -140,7 +140,7 @@ const continueWithPlayer =
 
     // GO TO GAME
     router.push(
-      `/game/${docRef.id}?edit=${editToken}`
+      `/baseball/game/${docRef.id}?edit=${editToken}`
     );
 };
 

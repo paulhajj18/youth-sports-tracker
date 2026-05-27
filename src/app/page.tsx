@@ -94,7 +94,7 @@ const shareApp = async () => {
     onClick={() => {
       triggerFlash("play");
 
-      router.push("/play");
+      router.push("/baseball/play");
     }}
     className={`
       w-full
@@ -125,7 +125,7 @@ const shareApp = async () => {
     onClick={() => {
       triggerFlash("season");
 
-      router.push("/season");
+      router.push("/baseball/season");
     }}
     className={`
       w-full

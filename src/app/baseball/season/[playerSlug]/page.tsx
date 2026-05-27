@@ -602,7 +602,7 @@ strikeouts,
 
   <button
     onClick={() =>
-      router.push(`/game/${game.id}/summary`)
+      router.push(`/baseball/game/${game.id}/summary`)
     }
     className="
       bg-blue-600

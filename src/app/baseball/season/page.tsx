@@ -231,7 +231,7 @@ const shareSeasonStats =
       playerData.publicSlug;
 
     const url =
-`${window.location.origin}/season/${publicSlug}`;
+`${window.location.origin}/baseball/season/${publicSlug}`;
 
     if (navigator.share) {
 
@@ -701,7 +701,7 @@ className="
 
   <button
     onClick={() =>
-      router.push(`/game/${game.id}/summary`)
+      router.push(`/baseball/game/${game.id}/summary`)
     }
     className="
       bg-blue-600
@@ -720,7 +720,7 @@ className="
 <button
   onClick={() =>
     router.push(
-      `/game/${game.id}?edit=${game.editToken}`
+      `/baseball/game/${game.id}?edit=${game.editToken}`
     )
   }
   className="
