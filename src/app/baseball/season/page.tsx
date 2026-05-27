@@ -75,7 +75,7 @@ if (querySnapshot.empty) {
   return;
 }
 
-const gameList = querySnapshot.docs
+const gameList: any[] = querySnapshot.docs
   .map((doc) => ({
     id: doc.id,
     ...doc.data(),
