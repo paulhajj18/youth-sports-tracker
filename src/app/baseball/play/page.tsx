@@ -62,20 +62,21 @@ const startGame = async () => {
       .toString(36)
       .substring(2, 12);
 
-  const docRef = await addDoc(
-    collection(db, "games"),
-    {
-      playerId: generatedId,
+const docRef = await addDoc(
+  collection(db, "games"),
+  {
+    sport: "baseball",
 
-      kidName:
-        generatedId.split("-")[0],
+    playerId: generatedId,
 
-      createdAt: serverTimestamp(),
+    kidName:
+      generatedId.split("-")[0],
 
-      // SAVE TOKEN
-      editToken,
-    }
-  );
+    createdAt: serverTimestamp(),
+
+    editToken,
+  }
+);
 
   // OWNER URL
   router.push(
@@ -121,22 +122,22 @@ const continueWithPlayer =
         .toString(36)
         .substring(2, 12);
 
-    // CREATE GAME
-    const docRef = await addDoc(
-      collection(db, "games"),
-      {
-        playerId: playerId.trim(),
+const docRef = await addDoc(
+  collection(db, "games"),
+  {
+    sport: "baseball",
 
-        kidName:
-          playerId.split("-")[0],
+    playerId: playerId.trim(),
 
-        createdAt:
-          serverTimestamp(),
+    kidName:
+      playerId.split("-")[0],
 
-        // SAVE TOKEN
-        editToken,
-      }
-    );
+    createdAt:
+      serverTimestamp(),
+
+    editToken,
+  }
+);
 
     // GO TO GAME
     router.push(

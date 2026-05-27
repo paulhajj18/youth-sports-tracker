@@ -120,16 +120,18 @@ if (querySnapshot.empty) {
   return;
 }
 
-      const gameList: any[] = [];
+const gameList = querySnapshot.docs
+  .map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
+  .filter(
+    (item: any) =>
+      !item.sport ||
+      item.sport === "baseball"
+  );
 
-      querySnapshot.forEach((doc) => {
-        gameList.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-
-      setGames(gameList);
+setGames(gameList);
 
       // TOTALS
       let singles = 0;
