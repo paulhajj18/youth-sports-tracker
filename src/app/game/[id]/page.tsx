@@ -524,8 +524,7 @@ const obp =
 
 {canEdit && activePlayerId && (
   <div className="text-left text-sm text-green-200 mb-2 font-semibold">
-
-    Player ID :
+    ID :
     <span className="ml-1">
       {activePlayerId}
 
