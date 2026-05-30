@@ -76,7 +76,7 @@ const shareApp = async () => {
 
 {/* SUBTITLE */}
 <h2 className="text-lg sm:text-xl font-semibold text-yellow-300 text-center mt-2 tracking-wide">
-  ⚾ Baseball • Softball ⚾
+  ⚾ Baseball • Softball • Basketball 🏀 
 </h2>
 
 {/* DESCRIPTION */}
@@ -89,68 +89,93 @@ const shareApp = async () => {
 {/* MAIN CARD */}
 <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
-  {/* PLAY BALL */}
-  <button
-    onClick={() => {
-      triggerFlash("play");
+{/* BASEBALL */}
 
-      router.push("/baseball/play");
-    }}
-    className={`
-      w-full
-      bg-green-500
-      hover:bg-green-600
-      transition-all
-      duration-150
-      text-white
-      font-bold
-      text-lg
-      p-3
-      rounded-2xl
-      shadow-lg
-      mb-4
+<div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 mb-4">
 
-      ${
-        activeButton === "play"
-          ? "scale-95 brightness-125"
-          : ""
+  <h2 className="text-xl font-bold text-center mb-4">
+    ⚾ Baseball
+  </h2>
+
+  <div className="grid grid-cols-2 gap-3">
+
+    <button
+      onClick={() =>
+        router.push("/baseball/play/")
       }
-    `}
-  >
-    ⚾ Play Ball!
-  </button>
+      className="
+        bg-blue-600
+        hover:bg-blue-500
+        rounded-xl
+        py-3
+        font-semibold
+      "
+    >
+      Start Tracking
+    </button>
 
-  {/* SEASON STATS */}
-  <button
-    onClick={() => {
-      triggerFlash("season");
-
-      router.push("/baseball/season");
-    }}
-    className={`
-      w-full
-      bg-blue-600
-      hover:bg-blue-700
-      transition-all
-      duration-150
-      text-white
-      font-bold
-      text-lg
-      p-3
-      rounded-2xl
-      shadow-lg
-      mb-4
-
-      ${
-        activeButton === "season"
-          ? "scale-95 brightness-125"
-          : ""
+    <button
+      onClick={() =>
+        router.push("/baseball/season/")
       }
-    `}
-  >
-    📊 Season Stats
-  </button>
+      className="
+        bg-slate-700
+        hover:bg-slate-600
+        rounded-xl
+        py-3
+        font-semibold
+      "
+    >
+      📊 Season Stats
+    </button>
 
+  </div>
+
+</div>
+
+{/* BASKETBALL */}
+
+<div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+
+  <h2 className="text-xl font-bold text-center mb-4">
+    🏀 Basketball
+  </h2>
+
+  <div className="grid grid-cols-2 gap-3">
+
+    <button
+      onClick={() =>
+        router.push("/basketball/play/")
+      }
+      className="
+        bg-green-600
+        hover:bg-green-500
+        rounded-xl
+        py-3
+        font-semibold
+      "
+    >
+      Start Tracking
+    </button>
+
+    <button
+      onClick={() =>
+        router.push("/basketball/season/")
+      }
+      className="
+        bg-slate-700
+        hover:bg-slate-600
+        rounded-xl
+        py-3
+        font-semibold
+      "
+    >
+     📊 Season Stats
+    </button>
+
+  </div>
+
+</div>
   {/* DIVIDER */}
   <div className="flex items-center gap-3 my-4">
 
