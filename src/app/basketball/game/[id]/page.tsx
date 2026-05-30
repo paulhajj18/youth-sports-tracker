@@ -893,127 +893,67 @@ const ftPct =
 
 </div>
 
-{/* STATS CONTAINER */}
-<div className="bg-slate-900 border border-slate-800 rounded-2xl p-1 mb-5">
+<div className="grid grid-cols-3 gap-2">
 
-
-{/* QUICK STATS */}
-<div className="space-y-2 mb-5 text-center">
-
-  <h3 className="text-center text-xs text-blue-500 mt-1 tracking-widest opacity-80">
-    {kidName}'s game stats
-  </h3>
-
-  {/* TOP ROW */}
-  <div className="grid grid-cols-4 gap-2">
-
-    <div className="bg-green-700 rounded-xl p-2">
-      <p className="text-[11px] opacity-80">
-        PTS
-      </p>
-
-      <p className="text-sm font-bold">
-        {stats.points}
-      </p>
-    </div>
-
-    <div className="bg-orange-700 rounded-xl p-2">
-      <p className="text-[11px] opacity-80">
-        REB
-      </p>
-
-      <p className="text-sm font-bold">
-        {stats.rebounds}
-      </p>
-    </div>
-
-    <div className="bg-cyan-700 rounded-xl p-2">
-      <p className="text-[11px] opacity-80">
-        AST
-      </p>
-
-      <p className="text-sm font-bold">
-        {stats.assists}
-      </p>
-    </div>
-
-    <div className="bg-indigo-700 rounded-xl p-2">
-      <p className="text-[11px] opacity-80">
-        STL
-      </p>
-
-      <p className="text-sm font-bold">
-        {stats.steals}
-      </p>
-    </div>
-
+  {/* POINTS */}
+  <div className="bg-indigo-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">PTS</p>
+    <p className="text-lg font-bold">{stats.points}</p>
   </div>
 
-  {/* SECOND ROW */}
-  <div className="grid grid-cols-4 gap-2">
-
-    <div className="bg-purple-700 rounded-xl p-2">
-      <p className="text-[10px] opacity-80">
-        BLK
-      </p>
-
-      <p className="text-sm font-bold">
-        {stats.blocks}
-      </p>
-    </div>
-
-    <div className="bg-red-700 rounded-xl p-2">
-      <p className="text-[10px] opacity-80">
-        TO
-      </p>
-
-      <p className="text-sm font-bold">
-        {stats.turnovers}
-      </p>
-    </div>
-
-    <div className="bg-blue-700 rounded-xl p-2">
-      <p className="text-[10px] opacity-80">
-        FG%
-      </p>
-
-      <p className="text-sm font-bold">
-        {fgPct}
-      </p>
-    </div>
-
-    <div className="bg-yellow-600 text-black rounded-xl p-2">
-      <p className="text-[10px] opacity-80">
-        3PT%
-      </p>
-
-      <p className="text-sm font-bold">
-        {threePct}
-      </p>
-    </div>
-
+  {/* REBOUNDS */}
+  <div className="bg-green-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">REB</p>
+    <p className="text-lg font-bold">{stats.rebounds}</p>
   </div>
 
-  {/* THIRD ROW */}
-  <div className="grid grid-cols-1 gap-2">
-
-    <div className="bg-emerald-700 rounded-xl p-2">
-      <p className="text-[10px] opacity-80">
-        FT%
-      </p>
-
-      <p className="text-sm font-bold">
-        {ftPct}
-      </p>
-    </div>
-
+  {/* ASSISTS */}
+  <div className="bg-blue-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">AST</p>
+    <p className="text-lg font-bold">{stats.assists}</p>
   </div>
 
-  <h3 className="text-center text-xs text-gray-500 mt-1 tracking-widest opacity-80">
-    www.youthsportstracker.com
-  </h3>
+  {/* STEALS */}
+  <div className="bg-yellow-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">STL</p>
+    <p className="text-lg font-bold">{stats.steals}</p>
+  </div>
 
-</div>
+  {/* BLOCKS */}
+  <div className="bg-purple-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">BLK</p>
+    <p className="text-lg font-bold">{stats.blocks}</p>
+  </div>
+
+  {/* TURNOVERS */}
+  <div className="bg-red-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">TO</p>
+    <p className="text-lg font-bold">{stats.turnovers}</p>
+  </div>
+
+  {/* FIELD GOALS */}
+  <div className="bg-emerald-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">FG</p>
+    <p className="text-lg font-bold">
+      {stats.fgMade}-{stats.fgAttempted}
+    </p>
+  </div>
+
+  {/* THREE POINTERS */}
+  <div className="bg-sky-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">3PT</p>
+    <p className="text-lg font-bold">
+      {stats.threeMade}-{stats.threeAttempted}
+    </p>
+  </div>
+
+  {/* FREE THROWS */}
+  <div className="bg-teal-700 rounded-xl p-2 text-center">
+    <p className="text-[10px] opacity-80">FT</p>
+    <p className="text-lg font-bold">
+      {stats.ftMade}-{stats.ftAttempted}
+    </p>
+  </div>
 
 </div>
 
