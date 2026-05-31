@@ -202,9 +202,20 @@ export default function SummaryPage() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white p-4 max-w-xl mx-auto">
+return (
+  <div
+    className="min-h-screen"
+    style={{
+      backgroundImage:
+        "linear-gradient(rgba(2,6,23,0.90), rgba(2,6,23,0.90)), url('/images/basketball-kids.png')",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center center",
+      backgroundSize: "cover",
+      backgroundAttachment: "fixed",
+    }}
+  >
 
+    <div className="text-white px-2 sm:px-4 max-w-2xl mx-auto">
       {/* HEADER */}
 
       <div className="bg-gradient-to-r from-green-700 to-emerald-800 rounded-2xl p-5 shadow-lg mb-4">
@@ -306,81 +317,75 @@ export default function SummaryPage() {
 
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-1 mb-5">
 
-        <div className="space-y-2 text-center">
+<div className="space-y-2 text-center">
 
-          <h3 className="text-center text-xs text-green-500 mt-2 tracking-widest opacity-80">
-            {kidName}'s Final Game Stats
-          </h3>
+  <h3 className="text-center text-xs text-green-400 mt-2 tracking-widest opacity-80">
+    {kidName}'s Final Game Stats
+  </h3>
 
-          <div className="grid grid-cols-4 gap-2">
+  <div className="grid grid-cols-3 gap-2">
 
-            <StatBox
-              label="PTS"
-              value={stats.points}
-              color="bg-green-700"
-            />
+    <StatBox
+      label="PTS"
+      value={stats.points}
+      color="bg-green-700"
+    />
 
-            <StatBox
-              label="REB"
-              value={stats.rebounds}
-              color="bg-orange-700"
-            />
+    <StatBox
+      label="REB"
+      value={stats.rebounds}
+      color="bg-orange-700"
+    />
 
-            <StatBox
-              label="AST"
-              value={stats.assists}
-              color="bg-cyan-700"
-            />
+    <StatBox
+      label="AST"
+      value={stats.assists}
+      color="bg-cyan-700"
+    />
 
-            <StatBox
-              label="STL"
-              value={stats.steals}
-              color="bg-indigo-700"
-            />
+    <StatBox
+      label="STL"
+      value={stats.steals}
+      color="bg-indigo-700"
+    />
 
-          </div>
+    <StatBox
+      label="BLK"
+      value={stats.blocks}
+      color="bg-purple-700"
+    />
 
-          <div className="grid grid-cols-4 gap-2">
+    <StatBox
+      label="TO"
+      value={stats.turnovers}
+      color="bg-red-700"
+    />
 
-            <StatBox
-              label="BLK"
-              value={stats.blocks}
-              color="bg-purple-700"
-            />
+    <StatBox
+      label="FG"
+      value={`${stats.fgMade}-${stats.fgAttempted}`}
+      color="bg-blue-700"
+    />
 
-            <StatBox
-              label="TO"
-              value={stats.turnovers}
-              color="bg-red-700"
-            />
+    <StatBox
+      label="3PT"
+      value={`${stats.threeMade}-${stats.threeAttempted}`}
+      color="bg-yellow-600 text-black"
+    />
 
-            <StatBox
-              label="FG%"
-              value={fgPct}
-              color="bg-blue-700"
-            />
+    <StatBox
+      label="FT"
+      value={`${stats.ftMade}-${stats.ftAttempted}`}
+      color="bg-emerald-700"
+    />
 
-            <StatBox
-              label="3PT%"
-              value={threePct}
-              color="bg-yellow-600 text-black"
-            />
-
-          </div>
-
-          <div className="grid grid-cols-1 gap-2">
-
-            <StatBox
-              label="FT%"
-              value={ftPct}
-              color="bg-emerald-700"
-            />
-
-          </div>
+  </div>
 
         </div>
 
-<div className="flex justify-center mt-6">
+      </div>
+
+      <div className="flex justify-center mt-6">
 
   <button
     onClick={() => {
