@@ -59,7 +59,7 @@ const shareApp = async () => {
         className="absolute inset-0 bg-cover bg-center scale-105"
         style={{
           backgroundImage:
-            "url('/images/baseball-kids.png')",
+            "url('/images/main-kids.png')",
         }}
       />
 
