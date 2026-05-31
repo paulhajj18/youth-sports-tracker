@@ -19,7 +19,7 @@ export const metadata = {
   title: "Youth Sports Tracker",
 
   description:
-    "Track live youth baseball stats and share game updates instantly with family & friends.",
+    "Track live youth baseball and basketball stats and share game updates instantly with family & friends.",
 
   manifest: "/manifest.json",
 
@@ -35,7 +35,7 @@ export const metadata = {
     title: "Youth Sports Tracker",
 
     description:
-      "Track live youth baseball stats and share game updates instantly.",
+      "Track live youth baseball and basketball stats and share game updates instantly.",
 
     url: "https://youthsportstracker.com",
 
