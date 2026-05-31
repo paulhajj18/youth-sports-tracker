@@ -10,6 +10,7 @@ import {
   updateDoc,
   increment,
   arrayUnion,
+serverTimestamp,
 } from "firebase/firestore";
 
 type Stats = {
@@ -77,6 +78,9 @@ const [awayScore, setAwayScore] =
 
 const [quarter, setQuarter] =
   useState(1);
+
+const [gameStatus, setGameStatus] =
+  useState("live");
 
 const [stats, setStats] = useState<Stats>({
   points: 0,
@@ -172,6 +176,10 @@ useEffect(() => {
       const data = snap.data();
 
       if (!data) return;
+
+setGameStatus(
+  data.gameStatus || "live"
+);
 
 setCanEdit(
   editParam === data.editToken
@@ -534,11 +542,21 @@ const ftPct =
       <h1 className="text-3xl font-bold">
         {kidName || "Player"}
       </h1>
+
 {!canEdit && (
-  <div className="mt-2 inline-flex items-center gap-2 bg-red-900/40 border border-red-500/30 text-red-200 text-xs px-3 py-1 rounded-full">
-    🔴 LIVE
+  <div
+    className={`mt-2 inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full ${
+      gameStatus === "live"
+        ? "bg-red-900/40 border border-red-500/30 text-red-200"
+        : "bg-green-900/40 border border-green-500/30 text-green-200"
+    }`}
+  >
+    {gameStatus === "live"
+      ? "🔴 LIVE"
+      : "🏁 FINAL"}
   </div>
 )}
+
 {canEdit && activePlayerId && (
   <div className="text-left text-sm text-green-200 mb-2 font-semibold">
     ID :
@@ -661,13 +679,20 @@ const ftPct =
   )}
 
   {canEdit && (
+
+
 <button
-  onClick={() => {
+  onClick={async () => {
     const confirmed = window.confirm(
-      "Are you sure you want to exit live stat tracking?"
+      "Are you sure you want to end the game?"
     );
 
     if (confirmed) {
+      await updateDoc(gameRef, {
+        gameStatus: "final",
+        endedAt: serverTimestamp(),
+      });
+
       goToSummary();
     }
   }}
@@ -685,7 +710,10 @@ const ftPct =
   "
 >
   Exit to Stat Summary
+
 </button>
+
+
   )}
 
 </div>

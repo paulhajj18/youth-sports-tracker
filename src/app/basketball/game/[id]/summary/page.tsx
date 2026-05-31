@@ -384,7 +384,9 @@ return (
         </div>
 
       </div>
-
+<p className="text-center text-[10px] text-gray-500 mt-5 tracking-wider uppercase">
+  YouthSportsTracker.com
+</p>
       <div className="flex justify-center mt-6">
 
   <button
