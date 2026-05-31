@@ -527,8 +527,24 @@ const ftPct =
 
 
 return (
+  <div className="relative min-h-screen">
 
-<div className="min-h-screen bg-slate-950 text-white p-4 mx-auto max-w-2xl">
+    {/* Background Image */}
+    <div
+      className="absolute inset-0 opacity-40"
+      style={{
+        backgroundImage: "url('/images/basketball-kids.png')",
+        backgroundRepeat: "repeat",
+        backgroundSize: "250px",
+        filter: "grayscale(100%)",
+      }}
+    />
+
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-slate-950/80" />
+
+    {/* Main Content */}
+    <div className="relative z-10 text-white p-4 mx-auto max-w-2xl">
 
 {/* HEADER */}
 
@@ -924,7 +940,9 @@ return (
 
 </div>
 
-<div className="grid grid-cols-3 gap-2">
+<div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 mb-4">
+
+  <div className="grid grid-cols-3 gap-2">
 
   {/* POINTS */}
   <div className="bg-indigo-700 rounded-xl p-2 text-center">
@@ -987,7 +1005,7 @@ return (
   </div>
 
 </div>
-
+</div>
 
 {/* BUTTONS CONTAINER */}
 
@@ -995,7 +1013,7 @@ return (
   <div className="bg-slate-900 border border-slate-800 rounded-2xl p-2 mb-5">
 
   <h3 className="text-center text-xs text-yellow-500 mt-1 tracking-widest opacity-80">
-    Use buttons below to track {kidName}'s stats
+    <strong>Use buttons below to track {kidName}'s stats</strong>
   </h3>
 
     <div className="grid grid-cols-2 gap-3 mb-4">
@@ -1177,6 +1195,10 @@ return (
   </footer>
       </div>
 
-    </div>
+   </div>
+</div>
+
+
+
   );
 }
