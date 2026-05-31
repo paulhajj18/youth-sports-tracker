@@ -43,7 +43,7 @@ export const metadata = {
 
     images: [
       {
-        url: "/images/baseball-kids.png",
+        url: "/images/main-kids.png",
         width: 1200,
         height: 630,
       },
