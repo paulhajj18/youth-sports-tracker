@@ -35,6 +35,9 @@ const playerSlug =
   const [totals, setTotals] =
     useState<any>(null);
 
+const [playerName, setPlayerName] =
+  useState("");
+
   // AUTO-FILL LAST PLAYER
 useEffect(() => {
 
@@ -73,6 +76,10 @@ const loadPlayerFromSlug =
 
     const playerData =
       querySnapshot.docs[0].data();
+
+setPlayerName(
+  playerData.firstName || ""
+);
 
     setPlayerId(
       playerData.playerId
@@ -388,7 +395,7 @@ const deleteGame =
 ">
 
     <h2 className="text-2xl font-bold mb-5 text-center">
-      📊 Season Totals
+      📊 {playerName}'s Season Stats
     </h2>
 
 {/* FEATURED STATS */}

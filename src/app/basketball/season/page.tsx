@@ -27,6 +27,9 @@ export default function SeasonPage() {
   const [totals, setTotals] =
     useState<any>(null);
 
+const [playerName, setPlayerName] =
+  useState("");
+
   // AUTO-FILL LAST PLAYER
   useEffect(() => {
     const storedPlayerId =
@@ -83,6 +86,12 @@ const gameList: any[] = querySnapshot.docs
 
 setGames(gameList);
 // BASKETBALL TOTALS
+
+if (gameList.length > 0) {
+  setPlayerName(
+    gameList[0].kidName || ""
+  );
+}
 
 let points = 0;
 let rebounds = 0;
@@ -411,8 +420,8 @@ const deleteGame =
   shadow-2xl
 ">
 
-    <h2 className="text-2xl font-bold mb-5 text-center">
-      📊 Season Stats
+    <h2 className="text-xl font-bold mb-5 text-center">
+      📊 {playerName}'s Season Stats
     </h2>
 
 {/* FEATURED STATS */}
