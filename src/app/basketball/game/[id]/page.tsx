@@ -500,7 +500,7 @@ const ftPct =
     if (navigator.share) {
       navigator.share({
         title: `Live Game for ${kidName}`,
-        text: `Follow ${kidName}'s live baseketball game! 🏀`,
+        text: `Follow ${kidName}'s live basketball game! 🏀`,
         url,
       });
     } else {

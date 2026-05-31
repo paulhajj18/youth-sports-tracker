@@ -46,7 +46,7 @@ export default function SeasonPage() {
 
       // QUERY GAMES
       const q = query(
-        collection(db, "games"),
+        collection(db, "basketballGames"),
 
         where(
           "playerId",
@@ -80,125 +80,95 @@ const gameList: any[] = querySnapshot.docs
     id: doc.id,
     ...doc.data(),
   }))
-  .filter(
-    (item: any) =>
-      !item.sport ||
-      item.sport === "baseball"
-  );
 
 setGames(gameList);
+// BASKETBALL TOTALS
 
-      // TOTALS
-      let singles = 0;
-      let doubles = 0;
-      let triples = 0;
-      let homeruns = 0;
-      let sacFlies = 0;
-      let strikeouts = 0;
-      let groundOuts = 0;
-      let flyOuts = 0;
-      let reachedOnError = 0;
-      let fieldersChoice = 0;
+let points = 0;
+let rebounds = 0;
+let assists = 0;
+let steals = 0;
+let blocks = 0;
+let turnovers = 0;
 
+let fgMade = 0;
+let fgAttempted = 0;
 
-let walks = 0;
-let hbp = 0;
+let threeMade = 0;
+let threeAttempted = 0;
 
-let stolenBases = 0;
+let ftMade = 0;
+let ftAttempted = 0;
 
-      let rbi = 0;
-      let runs = 0;
+gameList.forEach((game) => {
+  points += game.points || 0;
+  rebounds += game.rebounds || 0;
+  assists += game.assists || 0;
+  steals += game.steals || 0;
+  blocks += game.blocks || 0;
+  turnovers += game.turnovers || 0;
 
-      gameList.forEach((game) => {
+  fgMade += game.fgMade || 0;
+  fgAttempted += game.fgAttempted || 0;
 
-        singles += game.single || 0;
-        doubles += game.double || 0;
-        triples += game.triple || 0;
-        homeruns += game.homerun || 0;
+  threeMade += game.threeMade || 0;
+  threeAttempted += game.threeAttempted || 0;
 
-        strikeouts += game.strikeout || 0;
-        groundOuts += game.ground_out || 0;
-        flyOuts += game.fly_out || 0;
-sacFlies += game.sac_fly || 0;
-reachedOnError +=
-  game.reached_on_error || 0;
+  ftMade += game.ftMade || 0;
+  ftAttempted += game.ftAttempted || 0;
+});
 
-fieldersChoice +=
-  game.fielders_choice || 0;
+const gamesPlayed =
+  gameList.length || 1;
 
-walks += game.walk || 0;
-hbp += game.hit_by_pitch || 0;
+const ppg =
+  (points / gamesPlayed).toFixed(1);
 
-stolenBases += game.stolen_base || 0;
+const rpg =
+  (rebounds / gamesPlayed).toFixed(1);
 
-        rbi += game.rbi || 0;
-        runs += game.run_scored || 0;
-      });
+const apg =
+  (assists / gamesPlayed).toFixed(1);
 
-      // HITS
-      const hits =
-        singles +
-        doubles +
-        triples +
-        homeruns;
+const spg =
+  (steals / gamesPlayed).toFixed(1);
 
-      // AT BATS
+const bpg =
+  (blocks / gamesPlayed).toFixed(1);
 
-const atBats =
-  hits +
-  strikeouts +
-  groundOuts +
-  flyOuts +
-  reachedOnError +
-  fieldersChoice;
+const topg =
+  (turnovers / gamesPlayed).toFixed(1);
 
+const fgPct =
+  fgAttempted > 0
+    ? ((fgMade / fgAttempted) * 100).toFixed(1)
+    : "0.0";
 
-const avg =
-  atBats > 0
-    ? (hits / atBats)
-        .toFixed(3)
-        .replace(/^0/, "")
-    : ".000";
+const threePct =
+  threeAttempted > 0
+    ? ((threeMade / threeAttempted) * 100).toFixed(1)
+    : "0.0";
 
+const ftPct =
+  ftAttempted > 0
+    ? ((ftMade / ftAttempted) * 100).toFixed(1)
+    : "0.0";
 
-// OBP
-const obpDenominator =
-  atBats + walks + hbp + sacFlies;
+setTotals({
+  gamesPlayed,
 
-const obp =
-  obpDenominator > 0
-    ? (
-        (hits + walks + hbp) /
-        obpDenominator
-      )
-        .toFixed(3)
-        .replace(/^0/, "")
-    : ".000";
+  ppg,
+  rpg,
+  apg,
+  spg,
+  bpg,
+  topg,
 
-      setTotals({
-        gamesPlayed: gameList.length,
+  fgPct,
+  threePct,
+  ftPct,
+});
 
-        hits,
-        atBats,
-        avg,
-        obp,
-
-        singles,
-        doubles,
-        triples,
-        homeruns,
-
-        rbi,
-        runs,
-
-walks,
-hbp,
-
-stolenBases,
-
-strikeouts,
-
-      });
     };
 
 // SHARE SEASON STATS
@@ -233,7 +203,7 @@ const shareSeasonStats =
       playerData.publicSlug;
 
     const url =
-`${window.location.origin}/baseball/season/${publicSlug}`;
+`${window.location.origin}/basketball/season/${publicSlug}`;
 
     if (navigator.share) {
 
@@ -242,7 +212,7 @@ const shareSeasonStats =
 `${playerData.firstName}'s Season Stats`,
 
 text:
-`Check out ${playerData.firstName}'s season stats! ⚾`,
+`Check out ${playerData.firstName}'s basketball season stats! 🏀`,
 
         url,
       });
@@ -271,7 +241,7 @@ const deleteGame =
 
     // DELETE GAME
     await deleteDoc(
-      doc(db, "games", gameId)
+      doc(db, "basketballGames", gameId)
     );
 
     // REMOVE FROM UI
@@ -299,7 +269,7 @@ const deleteGame =
   "
   style={{
     backgroundImage:
-      "url('/images/baseball-kids.png')",
+      "url('/images/basketball-kids.png')",
 
     backgroundSize: "350px",
   }}
@@ -348,7 +318,7 @@ const deleteGame =
           </h1>
 
           <div className="text-3xl shrink-0">
-            ⚾
+           🏀
           </div>
 
         </div>
@@ -442,213 +412,94 @@ const deleteGame =
 ">
 
     <h2 className="text-2xl font-bold mb-5 text-center">
-      📊 Season Totals
+      📊 Season Stats
     </h2>
 
-    {/* FEATURED STATS */}
-    <div className="grid grid-cols-2 gap-3 mb-4">
+{/* FEATURED STATS */}
+<div className="grid grid-cols-2 gap-3 mb-4">
 
-      {/* AVG */}
-      <div className="
-        bg-orange-500
-        text-black
-        rounded-2xl
-        p-4
-        text-center
-        shadow-lg
-      ">
-        <p className="text-xs font-semibold opacity-80">
-          Batting Average
-        </p>
+  <div className="bg-orange-500 text-black rounded-2xl p-4 text-center shadow-lg">
+    <p className="text-xs font-semibold opacity-80">
+      Points Per Game
+    </p>
 
-        <p className="text-4xl font-black">
-          {totals.avg}
-        </p>
+    <p className="text-4xl font-black">
+      {totals.ppg}
+    </p>
 
-        <p className="text-xs mt-1">
-          AVG
-        </p>
-      </div>
+    <p className="text-xs mt-1">
+      PPG
+    </p>
+  </div>
 
-      {/* HITS */}
-      <div className="
-        bg-green-700
-        rounded-2xl
-        p-4
-        text-center
-        shadow-lg
-      ">
-        <p className="text-xs text-green-100">
-          Total Hits
-        </p>
+  <div className="bg-green-700 rounded-2xl p-4 text-center shadow-lg">
+    <p className="text-xs text-green-100">
+      Rebounds Per Game
+    </p>
 
-        <p className="text-4xl font-black">
-          {totals.hits}
-        </p>
+    <p className="text-4xl font-black">
+      {totals.rpg}
+    </p>
 
-        <p className="text-xs text-green-100 mt-1">
-          HITS
-        </p>
-      </div>
+    <p className="text-xs text-green-100 mt-1">
+      RPG
+    </p>
+  </div>
 
-      {/* RBI */}
-      <div className="
-        bg-blue-700
-        rounded-2xl
-        p-4
-        text-center
-        shadow-lg
-      ">
-        <p className="text-xs text-blue-100">
-          Runs Batted In
-        </p>
+  <div className="bg-blue-700 rounded-2xl p-4 text-center shadow-lg">
+    <p className="text-xs text-blue-100">
+      Assists Per Game
+    </p>
 
-        <p className="text-4xl font-black">
-          {totals.rbi}
-        </p>
+    <p className="text-4xl font-black">
+      {totals.apg}
+    </p>
 
-        <p className="text-xs text-blue-100 mt-1">
-          RBI
-        </p>
-      </div>
+    <p className="text-xs text-blue-100 mt-1">
+      APG
+    </p>
+  </div>
 
-      {/* RUNS */}
-      <div className="
-        bg-pink-700
-        rounded-2xl
-        p-4
-        text-center
-        shadow-lg
-      ">
-        <p className="text-xs text-pink-100">
-          Runs Scored
-        </p>
+  <div className="bg-pink-700 rounded-2xl p-4 text-center shadow-lg">
+    <p className="text-xs text-pink-100">
+      Steals Per Game
+    </p>
 
-        <p className="text-4xl font-black">
-          {totals.runs}
-        </p>
+    <p className="text-4xl font-black">
+      {totals.spg}
+    </p>
 
-        <p className="text-xs text-pink-100 mt-1">
-          RUNS
-        </p>
-      </div>
+    <p className="text-xs text-pink-100 mt-1">
+      SPG
+    </p>
+  </div>
 
-    </div>
+</div>
 
 {/* SECONDARY STATS */}
 <div className="grid grid-cols-3 gap-3 text-center mb-4">
 
   <div className="bg-cyan-700 rounded-2xl p-3">
     <p className="text-[11px] opacity-80">
-      OBP
+      BPG
     </p>
 
     <p className="text-2xl font-bold">
-      {totals.obp}
+      {totals.bpg}
     </p>
   </div>
 
   <div className="bg-yellow-500 text-black rounded-2xl p-3">
     <p className="text-[11px] opacity-80">
-      HR
+      TOPG
     </p>
 
     <p className="text-2xl font-bold">
-      {totals.homeruns}
+      {totals.topg}
     </p>
   </div>
 
   <div className="bg-indigo-700 rounded-2xl p-3">
-    <p className="text-[11px] opacity-80">
-      SB
-    </p>
-
-    <p className="text-2xl font-bold">
-      {totals.stolenBases}
-    </p>
-  </div>
-
-</div>
-
-    {/* DETAIL STATS */}
-    <div className="grid grid-cols-3 gap-3 text-center">
-
-      <div className="bg-green-800 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          1B
-        </p>
-
-        <p className="text-xl font-bold">
-          {totals.singles}
-        </p>
-      </div>
-
-      <div className="bg-sky-700 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          2B
-        </p>
-
-        <p className="text-xl font-bold">
-          {totals.doubles}
-        </p>
-      </div>
-
-      <div className="bg-purple-700 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          3B
-        </p>
-
-        <p className="text-xl font-bold">
-          {totals.triples}
-        </p>
-      </div>
-
-      <div className="bg-cyan-800 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          BB
-        </p>
-
-        <p className="text-xl font-bold">
-          {totals.walks}
-        </p>
-      </div>
-
-      <div className="bg-red-700 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          SO
-        </p>
-
-        <p className="text-xl font-bold">
-          {totals.strikeouts}
-        </p>
-      </div>
-
-      <div className="bg-lime-700 rounded-2xl p-3">
-        <p className="text-[11px] opacity-80">
-          HBP
-        </p>
-
-        <p className="text-xl font-bold">
-          {totals.hbp}
-        </p>
-      </div>
-
-{/* BOTTOM ROW */}
-<div className="grid grid-cols-2 gap-3 mt-3 col-span-3">
-
-  {/* AB */}
-  <div className="bg-slate-800 rounded-2xl p-3 text-center">
-    <p className="text-[11px] opacity-80">
-      AB
-    </p>
-
-    <p className="text-2xl font-bold">
-      {totals.atBats}
-    </p>
-  </div>
-
-  {/* GP */}
-  <div className="bg-slate-700 rounded-2xl p-3 text-center">
     <p className="text-[11px] opacity-80">
       GP
     </p>
@@ -659,8 +510,42 @@ const deleteGame =
   </div>
 
 </div>
+{/* SHOOTING PERCENTAGES */}
+<div className="grid grid-cols-3 gap-3 text-center">
 
-    </div>
+  <div className="bg-green-800 rounded-2xl p-3">
+    <p className="text-[11px] opacity-80">
+      FG%
+    </p>
+
+    <p className="text-2xl font-bold">
+      {totals.fgPct}%
+    </p>
+  </div>
+
+  <div className="bg-blue-700 rounded-2xl p-3">
+    <p className="text-[11px] opacity-80">
+      3PT%
+    </p>
+
+    <p className="text-2xl font-bold">
+      {totals.threePct}%
+    </p>
+  </div>
+
+  <div className="bg-purple-700 rounded-2xl p-3">
+    <p className="text-[11px] opacity-80">
+      FT%
+    </p>
+
+    <p className="text-2xl font-bold">
+      {totals.ftPct}%
+    </p>
+  </div>
+
+</div>
+
+
   <h3 className="text-center text-xs text-gray-300 mt-1 tracking-widest opacity-80">
   www.youthsportstracker.com
 </h3>
@@ -703,7 +588,7 @@ className="
 
   <button
     onClick={() =>
-      router.push(`/baseball/game/${game.id}/summary`)
+      router.push(`/basketball/game/${game.id}/summary`)
     }
     className="
       bg-blue-600
@@ -722,7 +607,7 @@ className="
 <button
   onClick={() =>
     router.push(
-      `/baseball/game/${game.id}?edit=${game.editToken}`
+      `/basketball/game/${game.id}?edit=${game.editToken}`
     )
   }
   className="
@@ -771,33 +656,49 @@ className="
   <p className="text-xs text-cyan-300">
     {game.teamName} vs {game.opponentName}
   </p>
-                    <div className="grid grid-cols-2 gap-2 text-sm text-gray-200">
+<p className="text-sm text-green-300 mb-2">
+  🏀 {game.homeScore || 0} - {game.awayScore || 0}
+</p>
 
-                      <div>
-                        Hits: {(game.single || 0) + (game.double || 0) + (game.triple || 0) + (game.homerun || 0)}
-                      </div>
+<div className="grid grid-cols-2 gap-2 text-sm text-gray-200">
 
-                      <div>
-                        RBI: {game.rbi || 0}
-                      </div>
+  <div>
+    PTS: {game.points || 0}
+  </div>
 
-                      <div>
-                        Runs: {game.run_scored || 0}
-                      </div>
+  <div>
+    REB: {game.rebounds || 0}
+  </div>
 
-                      <div>
-                        HR: {game.homerun || 0}
-                      </div>
+  <div>
+    AST: {game.assists || 0}
+  </div>
 
-                      <div>
-                        Walks: {game.walk || 0}
-                      </div>
+  <div>
+    STL: {game.steals || 0}
+  </div>
 
-                      <div>
-                        Strikeouts: {game.strikeout || 0}
-                      </div>
+  <div>
+    BLK: {game.blocks || 0}
+  </div>
 
-                    </div>
+  <div>
+    TO: {game.turnovers || 0}
+  </div>
+
+  <div>
+    FG: {game.fgMade || 0}-{game.fgAttempted || 0}
+  </div>
+
+  <div>
+    3PT: {game.threeMade || 0}-{game.threeAttempted || 0}
+  </div>
+
+  <div>
+    FT: {game.ftMade || 0}-{game.ftAttempted || 0}
+  </div>
+
+</div>
 
                   </div>
 
@@ -817,11 +718,11 @@ className="
           <div className="space-y-2 text-sm text-gray-200">
 
             <p>
-              ⚾ View season batting stats
+              ⚾ View season averages
             </p>
 
             <p>
-              📊 Track totals & averages
+             📊 Track game-by-game performance
             </p>
 
             <p>
@@ -837,7 +738,7 @@ className="
             </p>
 
             <footer className="text-center text-xs text-gray-500 py-3">
-              © 2026 Youth Sports Tracker ⚾
+              © 2026 Youth Sports Tracker 🏀
             </footer>
 
           </div>
