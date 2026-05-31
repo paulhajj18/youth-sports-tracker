@@ -527,7 +527,7 @@ const deleteGame =
       FG%
     </p>
 
-    <p className="text-2xl font-bold">
+    <p className="text-xl font-bold">
       {totals.fgPct}%
     </p>
   </div>
@@ -537,7 +537,7 @@ const deleteGame =
       3PT%
     </p>
 
-    <p className="text-2xl font-bold">
+    <p className="text-xl font-bold">
       {totals.threePct}%
     </p>
   </div>
@@ -547,7 +547,7 @@ const deleteGame =
       FT%
     </p>
 
-    <p className="text-2xl font-bold">
+    <p className="text-xl font-bold">
       {totals.ftPct}%
     </p>
   </div>
