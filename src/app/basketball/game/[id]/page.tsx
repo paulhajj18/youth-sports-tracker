@@ -525,8 +525,11 @@ const ftPct =
         : ""
     }`;
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white p-4 max-w-xl mx-auto">
+
+return (
+
+<div className="min-h-screen bg-slate-950 text-white p-4 mx-auto max-w-2xl">
+
 {/* HEADER */}
 
 <div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-5 shadow-lg mb-4">

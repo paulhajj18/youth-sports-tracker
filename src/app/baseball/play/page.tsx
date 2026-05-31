@@ -237,7 +237,7 @@ useEffect(() => {
     leading-relaxed
   "
 >
-Make a note of your player's ID and do not share it.
+Make a note of the player ID and do not share it.
 </div>
         {/* MAIN CARD */}
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">

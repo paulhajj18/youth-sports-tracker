@@ -309,7 +309,7 @@ const shareApp = async () => {
             </p>
 
             <p>
-              📲 Share live game updates
+              📊 Automatic season stat averages
             </p>
 
             <p>
@@ -318,6 +318,10 @@ const shareApp = async () => {
   <p>
     🆓 100% Free to Use
   </p>
+            <p>
+              ☁️ Saved online - no spreadsheets needed
+           </p>
+
             <p>
               🚫 No downloads or signups needed
            </p>

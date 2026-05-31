@@ -52,7 +52,7 @@ export default function HowToPage() {
         <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/10">
 
           <h1 className="text-4xl font-extrabold mb-6 text-center">
-            ⚾ How To Use
+            ⚾ How To Use 🏀
           </h1>
 
           <div className="space-y-6 text-lg leading-relaxed text-gray-100">
@@ -63,7 +63,7 @@ export default function HowToPage() {
               </h2>
 
               <p>
-                Hit <strong>Play Ball!</strong> Enter a player's ID name, and then immediately start tracking game stats!
+                Pick a sport, basketball or baseball. Enter a player's ID name, and then immediately start tracking game stats! <strong>Make a note of your player's ID, as that is used for all games and season stats.</strong>
               </p>
             </div>
 
@@ -74,9 +74,9 @@ export default function HowToPage() {
 
               <p>
                 Use the simple stat buttons to
-                track your player's hits, outs,
+                track your player's baseball hits, outs,
                 walks, RBI, stolen bases,
-                runs scored, and more
+                runs scored, and basketball 2pts, 3pts, & more 
                 throughout the game.
                 <br />
                 <br />
@@ -119,10 +119,8 @@ export default function HowToPage() {
 
               <p>
                 At the end of the game, tap
-                <strong> View Summary </strong>
-                to see final stats, batting averages,
-                OBP, game totals, and more.
-              </p>
+                <strong> Exit to Summary </strong>
+                to see the final summary of stats.</p>
             </div>
 
             <div>
@@ -139,7 +137,7 @@ export default function HowToPage() {
                 <strong> Season Stats </strong>
                 page to pull up cumulative stats
                 across all saved games, including
-                totals, averages, OBP, games played,
+                totals, averages, games played,
                 and more.
                 <br />
                 <br />
@@ -169,8 +167,8 @@ export default function HowToPage() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>📱 Works great on phones</li>
                 <li>🔗 Live shareable game links</li>
-                <li>📊 Automatic batting averages & OBP</li>
-                <li>☁️ Saved online — no spreadsheets needed</li>
+                <li>📊 Automatic season stat averages</li>
+                <li>☁️ Saved online - no spreadsheets needed</li>
                 <li>🆓 Totally free to use</li>
               </ul>
             </div>
