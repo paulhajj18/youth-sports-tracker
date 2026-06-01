@@ -63,7 +63,7 @@ export default function HowToPage() {
               </h2>
 
               <p>
-                Pick a sport, basketball or baseball. Enter a player's ID name, and then immediately start tracking game stats! <strong>Make a note of your player's ID, as that is used for all games and season stats.</strong>
+                Open your phone visit youthsportstracker.com.  <br />Pick a sport, basketball or baseball. Enter a player's ID name, and then immediately start tracking game stats! <br /><strong>Make a note of your player's ID, as that is used for all games and season stats.</strong>
               </p>
             </div>
 

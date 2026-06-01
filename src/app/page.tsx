@@ -42,7 +42,7 @@ const shareApp = async () => {
       title: "Youth Sports Tracker",
 
       text:
-        "Track a player's stats and share game updates instantly!",
+        "App to track a player's stats and share game updates instantly!",
 
       url: "https://youthsportstracker.com",
     });
@@ -70,18 +70,19 @@ const shareApp = async () => {
       <div className="relative z-10 w-full max-w-md text-center text-white">
 
 {/* TITLE */}
-<h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center leading-snug drop-shadow-2xl">
+<h1 className="text-2xl sm:text-4xl md:text-4xl font-extrabold text-center leading-snug drop-shadow-1xl">
   Youth Sports Tracker
 </h1>
 
 {/* SUBTITLE */}
 <h2 className="text-lg sm:text-xl font-semibold text-yellow-300 text-center mt-2 tracking-wide">
-  ⚾ Baseball • Softball • Basketball 🏀 
+  ⚾ Baseball • Softball • Basketball 🏀<br />
+📱 Mobile Web App
 </h2>
 
 {/* DESCRIPTION */}
 <p className="text-lg text-gray-200 text-center mt-6 mb-6 leading-relaxed max-w-xl">
-  Track a player's stats live during the game.
+  Use your phone to track a player's stats live during the game.
   <br />
   Add fun commentary and instantly share updates with family and friends.
 </p>
@@ -325,6 +326,9 @@ const shareApp = async () => {
             <p>
               🚫 No downloads or signups needed
            </p>
+<p>
+📱 Works great on phones
+</p>
 
 <p className="pt-2">
   <a
