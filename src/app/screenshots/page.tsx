@@ -68,7 +68,7 @@ export default function ScreenshotsPage() {
 
           {/* SUBTITLE */}
           <p className="text-center text-gray-200 text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
-            See how Youth Sports Tracker works during live games,
+            See how Youth Sports Tracker works during live youth <strong>baseball & basketball</strong> games,
             stat tracking, commentary, and season summaries.
           </p>
 
@@ -108,6 +108,32 @@ export default function ScreenshotsPage() {
                 stolen bases, runs scored, and more during the game.
               </p>
 
+
+              <div className="
+                overflow-hidden
+                rounded-2xl
+                border
+                border-white/50
+                shadow-xl
+                transition-all
+                duration-300
+                hover:scale-[1.01]
+                hover:shadow-2xl
+              ">
+                <Image
+                  src="/images/basketball_tracking.jpg"
+                  alt="Live Tracking Buttons"
+                  width={1400}
+                  height={900}
+                  className="w-full h-auto"
+                  priority
+                />
+              </div>
+
+              <p className="text-gray-200 mt-5 leading-relaxed max-w-2xl mx-auto">
+                Quickly track shots, assists, steals, turnovers and more during the game.
+              </p>
+
             </div>
 
             {/* LIVE VIEW */}
@@ -129,7 +155,7 @@ export default function ScreenshotsPage() {
                 hover:shadow-2xl
               ">
                 <Image
-                  src="/images/live_view.jpg"
+                  src="/images/basketball_share.jpg"
                   alt="Live Game View"
                   width={1400}
                   height={900}
@@ -208,6 +234,30 @@ export default function ScreenshotsPage() {
               <p className="text-gray-200 mt-5 leading-relaxed max-w-2xl mx-auto">
                 Automatically calculate season batting averages,
                 OBP, totals, games played, and cumulative stats.
+              </p>
+
+              <div className="
+                overflow-hidden
+                rounded-2xl
+                border
+                border-white/50
+                shadow-xl
+                transition-all
+                duration-300
+                hover:scale-[1.01]
+                hover:shadow-2xl
+              ">
+                <Image
+                  src="/images/basketball_season.jpg"
+                  alt="Season Stats"
+                  width={1400}
+                  height={900}
+                  className="w-full h-auto"
+                />
+              </div>
+
+              <p className="text-gray-200 mt-5 leading-relaxed max-w-2xl mx-auto">
+                Automatically calculate shot percentages, assists, steals per game and more.
               </p>
 
             </div>
