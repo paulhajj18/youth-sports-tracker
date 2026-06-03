@@ -75,6 +75,8 @@ const docRef = await addDoc(
     createdAt: serverTimestamp(),
 
     editToken,
+
+    isLive: true,
   }
 );
 
@@ -136,6 +138,9 @@ const docRef = await addDoc(
       serverTimestamp(),
 
     editToken,
+
+    isLive: true,
+
   }
 );
 

@@ -56,6 +56,7 @@ const editParam =
 const [canEdit, setCanEdit] =
   useState(false);
 
+const [isLive, setIsLive] = useState(false);
 
   const gameRef = doc(db, "games", gameId);
 
@@ -181,6 +182,8 @@ useEffect(() => {
 setCanEdit(
   editParam === data.editToken
 );
+
+setIsLive(data.isLive ?? false);
 
       setKidName(data.kidName || "Player");
       setGameDate(data.gameDate || "");
@@ -471,6 +474,7 @@ const obp =
         .replace(/^0/, "")
     : ".000";
 
+
   // SHARE
   const shareGame = () => {
     const url =
@@ -489,10 +493,17 @@ const obp =
     }
   };
 
-  const goToSummary = () => {
-    window.location.href =
-      `/baseball/game/${gameId}/summary`;
-  };
+
+const goToSummary = async () => {
+
+  await updateDoc(gameRef, {
+    isLive: false,
+  });
+
+  window.location.href =
+    `/baseball/game/${gameId}/summary`;
+};
+
 
   const buttonClass = (
     key: string,
@@ -521,6 +532,7 @@ const obp =
       <h1 className="text-3xl font-bold">
         {kidName || "Player"}
       </h1>
+
 
 {canEdit && activePlayerId && (
   <div className="text-left text-sm text-green-200 mb-2 font-semibold">
@@ -623,6 +635,41 @@ const obp =
 
 <div className="flex flex-col items-end justify-between h-full min-h-[100px]">
 
+{isLive ? (
+  <div
+    className="
+      bg-red-600
+      text-white
+      font-bold
+      text-sm
+      px-3
+      py-1
+      rounded-full
+      animate-pulse
+      shadow-lg
+      mb-2
+    "
+  >
+    🔴 LIVE
+  </div>
+) : (
+  <div
+    className="
+      bg-green-700
+      text-white
+      font-bold
+      text-sm
+      px-3
+      py-1
+      rounded-full
+      shadow-lg
+      mb-2
+    "
+  >
+    ✅ FINAL
+  </div>
+)}
+
   {canEdit && (
     <button
       onClick={shareGame}
@@ -647,7 +694,7 @@ const obp =
 <button
   onClick={() => {
     const confirmed = window.confirm(
-      "Are you sure you want to exit live stat tracking?"
+      "Are you sure you want to end game to summary?"
     );
 
     if (confirmed) {
