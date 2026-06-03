@@ -562,19 +562,10 @@ return (
         {kidName || "Player"}
       </h1>
 
-{!canEdit && (
-  <div
-    className={`mt-2 inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full ${
-      gameStatus === "live"
-        ? "bg-red-900/40 border border-red-500/30 text-red-200"
-        : "bg-green-900/40 border border-green-500/30 text-green-200"
-    }`}
-  >
-    {gameStatus === "live"
-      ? "🔴 LIVE"
-      : "🏁 FINAL"}
-  </div>
-)}
+
+
+
+
 
 {canEdit && activePlayerId && (
   <div className="text-left text-sm text-green-200 mb-2 font-semibold">
@@ -676,6 +667,27 @@ return (
     </div>
 
 <div className="flex flex-col items-end justify-between h-full min-h-[100px]">
+
+<div
+  className={`inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full ${
+    gameStatus === "live"
+      ? "bg-red-900/40 border border-red-500/30 text-red-200"
+      : "bg-green-900/40 border border-green-500/30 text-green-200"
+  }`}
+>
+  {gameStatus === "live" ? (
+    <>
+      <span className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"></span>
+      LIVE
+    </>
+  ) : (
+    <>
+      <span>✅</span>
+      FINAL
+    </>
+  )}
+</div>
+
 
   {canEdit && (
     <button
