@@ -535,11 +535,10 @@ const goToSummary = async () => {
 
 
 {canEdit && activePlayerId && (
-  <div className="text-left text-sm text-green-200 mb-2 font-semibold">
+  <div className="text-left text-sm text-gray-400 mb-2 font-semibold">
     ID :
     <span className="ml-1">
       {activePlayerId}
-
     </span>
 
   </div>
