@@ -171,7 +171,7 @@ const obp =
     if (navigator.share) {
       navigator.share({
         title: `${kidName} Game Summary`,
-        text: `Check out ${kidName}'s game summary!`,
+        text: `Check out ${kidName}'s baseball game summary!`,
         url,
       });
     } else {
@@ -184,13 +184,13 @@ const obp =
     <div className="min-h-screen bg-slate-950 text-white p-6 max-w-xl mx-auto">
 
       {/* HEADER */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 shadow-lg mb-5">
+      <div className="bg-gradient-to-r from-green-700 to-emerald-800 rounded-2xl p-5 shadow-lg mb-5">
 
         <div className="flex justify-between items-start">
 
           <div>
             <p className="text-sm opacity-80 mb-1">
-              Game Summary
+              ⚾ Game Summary
             </p>
 
             <h1 className="text-3xl font-bold">
@@ -267,7 +267,9 @@ const obp =
 
 {/* QUICK STATS */}
 <div className="space-y-2 mb-4 text-center">
-
+  <h3 className="text-center text-xs text-green-400 mt-2 tracking-widest opacity-80">
+    {kidName}'s Final Game Stats
+  </h3>
   {/* TOP ROW */}
   <div className="grid grid-cols-4 gap-2">
 
@@ -386,10 +388,6 @@ const obp =
 
       {/* STAT BREAKDOWN */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
-
-        <h2 className="text-sm font-bold text-slate-300 mb-3">
-          Stat Breakdown for {kidName}
-        </h2>
 
         <div className="flex flex-wrap gap-2 mb-3">
 

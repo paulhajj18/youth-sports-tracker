@@ -229,22 +229,22 @@ return (
             </p>
 
             <h1 className="text-3xl font-bold">
-              {kidName || "Player"}
+              {kidName || "Player"}'s stats
             </h1>
 
             <p className="text-sm text-slate-200 mt-2">
-              📅{" "}
-              {gameDate
-                ? new Date(
-                    gameDate +
-                      "T12:00:00"
-                  ).toLocaleDateString(
-                    "en-US",
-                    {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    }
+              Game Date:{" "}
+{gameDate
+  ? new Date(
+      gameDate + "T12:00:00"
+    ).toLocaleDateString(
+      "en-US",
+      {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }
                   )
                 : "No Game Date"}
             </p>
@@ -253,19 +253,9 @@ return (
 
           <button
             onClick={shareSummary}
-            className="
-              bg-white/20
-              hover:bg-white/30
-              transition
-              text-white
-              text-sm
-              font-semibold
-              px-3
-              py-2
-              rounded-xl
-            "
+            className="bg-white text-black px-3 py-2 rounded-xl text-sm font-semibold"
           >
-            Share
+            Share/Save
           </button>
 
         </div>
@@ -382,11 +372,11 @@ return (
   </div>
 
         </div>
-
+  <h3 className="text-center text-xs text-gray-500 mt-1 tracking-widest opacity-80">
+  www.youthsportstracker.com
+</h3>
       </div>
-<p className="text-center text-[10px] text-gray-500 mt-5 tracking-wider uppercase">
-  YouthSportsTracker.com
-</p>
+
       <div className="flex justify-center mt-6">
 
   <button
