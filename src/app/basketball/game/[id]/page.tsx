@@ -525,6 +525,19 @@ const ftPct =
         : ""
     }`;
 
+const getPeriodLabel = (
+  quarter: number
+) => {
+  if (quarter <= 4) {
+    return `Q${quarter}`;
+  }
+
+  if (quarter === 5) {
+    return "OT";
+  }
+
+  return `OT${quarter - 4}`;
+};
 
 return (
   <div className="relative min-h-screen">
@@ -666,7 +679,7 @@ return (
 
     </div>
 
-<div className="flex flex-col items-end justify-between h-full min-h-[100px]">
+<div className="flex flex-col items-end h-full min-h-[100px]">
 
 <div
   className={`inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full ${
@@ -693,6 +706,7 @@ return (
     <button
       onClick={shareGame}
       className="
+        mt-3
         bg-white/20
         hover:bg-white/30
         transition
@@ -709,25 +723,34 @@ return (
     </button>
   )}
 
+
+
+
   {canEdit && (
 
 
 <button
   onClick={async () => {
     const confirmed = window.confirm(
-      "Are you sure you want to end the game?"
+      "End game and view final stat summary?"
     );
 
     if (confirmed) {
-      await updateDoc(gameRef, {
-        gameStatus: "final",
-        endedAt: serverTimestamp(),
-      });
 
+await updateDoc(gameRef, {
+  gameStatus: "final",
+  endedAt: serverTimestamp(),
+
+  comments: arrayUnion({
+    text: "🏁 Final buzzer! Game is complete.",
+    timestamp: Date.now(),
+  }),
+});
       goToSummary();
     }
   }}
   className="
+    mt-6
     bg-blue-950/60
     hover:bg-blue-950/90
     transition
@@ -740,18 +763,22 @@ return (
     border-white/20
   "
 >
-  Exit to Stat Summary
+  🏁 End Game
 
 </button>
 
 
   )}
 
+
+
 </div>
 
   </div>
 
 </div>
+
+
 
 {/* SCOREBOARD */}
 
@@ -837,9 +864,9 @@ return (
         QUARTER
       </p>
 
-      <p className="text-2xl font-bold">
-        Q{quarter}
-      </p>
+<p className="text-2xl font-bold">
+  {getPeriodLabel(quarter)}
+</p>
 
       {canEdit && (
         <div className="flex justify-center gap-2 mt-2">
@@ -858,15 +885,13 @@ return (
             -
           </button>
 
-          <button
-            onClick={async () =>
-              updateDoc(gameRef, {
-                quarter: Math.min(
-                  quarter + 1,
-                  4
-                ),
-              })
-            }
+<button
+  onClick={async () =>
+    updateDoc(gameRef, {
+      quarter: quarter + 1,
+    })
+  }
+
             className="bg-blue-600 w-6 h-6 rounded"
           >
             +

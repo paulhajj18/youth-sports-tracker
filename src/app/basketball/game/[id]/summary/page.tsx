@@ -202,6 +202,21 @@ export default function SummaryPage() {
     }
   };
 
+const getPeriodLabel = (
+  quarter: number
+) => {
+  if (quarter <= 4) {
+    return `Q${quarter}`;
+  }
+
+  if (quarter === 5) {
+    return "OT";
+  }
+
+  return `OT${quarter - 4}`;
+};
+
+
 return (
   <div
     className="min-h-screen"
@@ -283,9 +298,9 @@ return (
               QUARTER
             </p>
 
-            <p className="text-2xl font-bold">
-              Q{quarter}
-            </p>
+  <p className="text-2xl font-bold">
+    {getPeriodLabel(quarter)}
+  </p>
           </div>
 
           <div>
