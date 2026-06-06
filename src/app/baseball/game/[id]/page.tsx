@@ -494,10 +494,16 @@ const obp =
   };
 
 
+
 const goToSummary = async () => {
 
   await updateDoc(gameRef, {
     isLive: false,
+
+    comments: arrayUnion({
+      text: `🏁 Final out! Game is complete.`,
+      timestamp: Date.now(),
+    }),
   });
 
   window.location.href =
@@ -514,6 +520,7 @@ const goToSummary = async () => {
         ? "scale-95 brightness-125"
         : ""
     }`;
+
 
   return (
     <div className="min-h-screen bg-slate-950 text-white p-4 max-w-xl mx-auto">
@@ -693,7 +700,7 @@ const goToSummary = async () => {
 <button
   onClick={() => {
     const confirmed = window.confirm(
-      "Are you sure you want to end game to summary?"
+      "End game and view final stat summary?"
     );
 
     if (confirmed) {
@@ -701,6 +708,7 @@ const goToSummary = async () => {
     }
   }}
   className="
+    mt-6    
     bg-blue-950/60
     hover:bg-blue-950/90
     transition
@@ -713,7 +721,7 @@ const goToSummary = async () => {
     border-white/20
   "
 >
-  Exit to Stat Summary
+  🏁 End Game
 </button>
   )}
 
