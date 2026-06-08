@@ -628,9 +628,24 @@ strikeouts,
 <p className="text-sm text-yellow-300 mb-2">
   📅 {game.gameDate || "Unknown Date"}
 </p>
-  <p className="text-xs text-cyan-300">
-    {game.teamName} vs {game.opponentName}
-  </p>
+
+<div className="flex justify-between text-sm mb-2">
+
+  <span className="text-green-300 font-semibold">
+    {game.teamName || "Our Team"}
+  </span>
+
+  <span className="font-bold">
+    {game.ourScore || 0} - {game.theirScore || 0}
+  </span>
+
+  <span className="text-red-300 font-semibold">
+    {game.opponentName || "Other Team"}
+  </span>
+
+</div>
+
+
                     <div className="grid grid-cols-2 gap-2 text-sm text-gray-200">
 
                       <div>
