@@ -180,8 +180,25 @@ const obp =
     }
   };
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white p-6 max-w-xl mx-auto">
+return (
+  <div className="relative min-h-screen">
+
+    {/* Background Image */}
+    <div
+      className="absolute inset-0 opacity-40"
+      style={{
+        backgroundImage: "url('/images/baseball-kids.png')",
+        backgroundRepeat: "repeat",
+        backgroundSize: "250px",
+        filter: "grayscale(100%)",
+      }}
+    />
+
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-slate-950/80" />
+
+    {/* Main Content */}
+    <div className="relative z-10 text-white p-6 max-w-xl mx-auto">
 
       {/* HEADER */}
       <div className="bg-gradient-to-r from-green-700 to-emerald-800 rounded-2xl p-5 shadow-lg mb-5">
@@ -266,7 +283,10 @@ const obp =
       </div>
 
 {/* QUICK STATS */}
-<div className="space-y-2 mb-4 text-center">
+<div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
+
+  <div className="space-y-2 text-center">
+
   <h3 className="text-center text-xs text-green-400 mt-2 tracking-widest opacity-80">
     {kidName}'s Final Game Stats
   </h3>
@@ -380,9 +400,12 @@ const obp =
     </div>
 
   </div>
+
   <h3 className="text-center text-xs text-gray-500 mt-1 tracking-widest opacity-80">
   www.youthsportstracker.com
 </h3>
+
+</div>
 </div>
 
 
@@ -482,9 +505,10 @@ const obp =
       >
         ⚾ Start Tracking A New Game
       </button>
-  <footer className="text-center text-xs text-gray-500 py-3">
-    © 2026 Youth Sports Tracker ⚾
-  </footer>
+<footer className="text-center text-xs text-gray-500 py-3">
+  © 2026 Youth Sports Tracker ⚾
+</footer>
     </div>
+  </div>
   );
 }

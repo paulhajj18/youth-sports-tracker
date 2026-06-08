@@ -522,8 +522,25 @@ const goToSummary = async () => {
     }`;
 
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white p-4 max-w-xl mx-auto">
+return (
+  <div className="relative min-h-screen">
+
+    {/* Background Image */}
+    <div
+      className="absolute inset-0 opacity-40"
+      style={{
+        backgroundImage: "url('/images/baseball-kids.png')",
+        backgroundRepeat: "repeat",
+        backgroundSize: "250px",
+        filter: "grayscale(100%)",
+      }}
+    />
+
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-slate-950/80" />
+
+    {/* Main Content */}
+    <div className="relative z-10 text-white p-4 mx-auto max-w-xl">
 {/* HEADER */}
 
 <div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-5 shadow-lg mb-4">
@@ -1374,5 +1391,6 @@ const goToSummary = async () => {
       </div>
 
     </div>
+  </div>
   );
 }
