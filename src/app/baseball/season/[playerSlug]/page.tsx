@@ -120,6 +120,7 @@ if (querySnapshot.empty) {
   return;
 }
 
+
 const gameList: any[] = querySnapshot.docs
   .map((doc) => ({
     id: doc.id,
@@ -129,9 +130,15 @@ const gameList: any[] = querySnapshot.docs
     (item: any) =>
       !item.sport ||
       item.sport === "baseball"
+  )
+  .sort((a, b) =>
+    new Date(b.gameDate).getTime() -
+    new Date(a.gameDate).getTime()
   );
 
 setGames(gameList);
+
+
 
       // TOTALS
       let singles = 0;

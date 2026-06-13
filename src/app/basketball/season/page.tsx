@@ -83,8 +83,14 @@ const gameList: any[] = querySnapshot.docs
     id: doc.id,
     ...doc.data(),
   }))
+  .sort((a, b) =>
+    new Date(b.gameDate).getTime() -
+    new Date(a.gameDate).getTime()
+  );
 
 setGames(gameList);
+
+
 // BASKETBALL TOTALS
 
 if (gameList.length > 0) {
