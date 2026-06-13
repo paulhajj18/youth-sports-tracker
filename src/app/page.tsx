@@ -77,7 +77,7 @@ const shareApp = async () => {
 {/* SUBTITLE */}
 <h2 className="text-lg sm:text-xl font-semibold text-yellow-300 text-center mt-2 tracking-wide">
   ⚾ Baseball • Softball • Basketball 🏀<br />
-📱 Mobile Web App
+📱 Mobile Web App - Free
 </h2>
 
 {/* DESCRIPTION */}
