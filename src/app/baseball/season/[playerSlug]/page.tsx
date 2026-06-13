@@ -136,9 +136,6 @@ const gameList: any[] = querySnapshot.docs
     new Date(a.gameDate).getTime()
   );
 
-setGames(gameList);
-
-
 
       // TOTALS
       let singles = 0;
