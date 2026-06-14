@@ -279,6 +279,10 @@ Make a note of the player ID and do not share it.
         {/* MAIN CARD */}
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
+{!generatedId && (
+  <>
+
+
           {/* EXISTING PLAYER */}
           <div className="mb-6">
 
@@ -346,6 +350,10 @@ onClick={continueWithPlayer}
 
           </div>
 
+
+  </>
+)}
+
           {/* CREATE NEW PLAYER */}
           <div>
 
@@ -372,6 +380,8 @@ onClick={continueWithPlayer}
                 setFirstName(e.target.value)
               }
             />
+
+{!generatedId && (
 
 <button
 onClick={async () => {
@@ -439,6 +449,8 @@ await addDoc(
 >
   🏀 Create New Player ID
 </button>
+
+)}
 
 {generatedId && (
   <div className="mt-4 bg-black/30 rounded-2xl p-4 border border-white/10">
