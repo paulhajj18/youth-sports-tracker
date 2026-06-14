@@ -77,16 +77,20 @@ const shareApp = async () => {
 {/* SUBTITLE */}
 <h2 className="text-lg sm:text-xl font-semibold text-yellow-300 text-center mt-2 tracking-wide">
   ⚾ Baseball • Softball • Basketball 🏀<br />
-📱 Mobile Web App - Free
+  📱 Mobile Web App - Free
 </h2>
 
-{/* DESCRIPTION */}
-<p className="text-lg text-gray-200 text-center mt-6 mb-6 leading-relaxed max-w-xl">
-  Use your phone to track a player's stats live during the game.
-  <br />
-  Add fun commentary and instantly share updates with family and friends.
+{/* QUICK SELLING POINT */}
+<p className="text-white font-bold mt-3 text-lg">
+  🚀 Start your child's game in less than 30 seconds. No account required.
 </p>
 
+{/* DESCRIPTION */}
+<p className="text-lg text-gray-200 text-center mt-5 mb-6 leading-relaxed max-w-xl">
+  Capture your child's biggest moments live.
+  <br />
+  Share stats, highlights, and commentary with family and friends anywhere.
+</p>
 {/* MAIN CARD */}
 <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
@@ -112,7 +116,7 @@ const shareApp = async () => {
         font-semibold
       "
     >
-      Start Tracking
+      Start Live Game
     </button>
 
     <button
@@ -156,7 +160,7 @@ const shareApp = async () => {
         font-semibold
       "
     >
-      Start Tracking
+      Start Live Game
     </button>
 
     <button
@@ -300,54 +304,59 @@ const shareApp = async () => {
 </div>
 
 </div>
-        {/* FEATURE BOX */}
-        <div className="mt-5 bg-black/30 rounded-2xl p-4 backdrop-blur-sm border border-white/5">
+{/* FEATURE BOX */}
 
-          <div className="space-y-2 text-sm text-gray-200">
+<div className="mt-5 bg-black/30 rounded-2xl p-4 backdrop-blur-sm border border-white/5">
 
-            <p>
-              ⚡ Instant live stat tracking
-            </p>
+  <h3 className="text-lg font-bold text-white text-center mb-3">
+    Perfect For
+  </h3>
 
-            <p>
-              📊 Automatic season stat averages
-            </p>
+  <div className="space-y-2 text-sm text-gray-200">
 
-            <p>
-              🎙️ Fun sports commentary
-            </p>
-  <p>
-    🆓 100% Free to Use
-  </p>
-            <p>
-              ☁️ Saved online - no spreadsheets needed
-           </p>
+    <p>⚾ Little League Baseball</p>
 
-            <p>
-              🚫 No downloads or signups needed
-           </p>
-<p>
-📱 Works great on phones
-</p>
+    <p>🥎 Softball Teams</p>
 
-<p className="pt-2">
-  <a
-    href="/contact"
-    className="text-gray-400 hover:text-white transition text-xs underline underline-offset-2"
-  >
-    Contact / Feedback
-  </a>
-</p>
+    <p>🏀 Travel Basketball</p>
 
-  <footer className="text-center text-xs text-gray-500 py-3">
-    © 2026 Youth Sports Tracker ⚾
-  </footer>
-          </div>
+    <p>👨‍👩‍👧 Family & grandparents who can't attend</p>
 
-        </div>
+    <div className="h-px bg-white/10 my-3"></div>
+
+    <p>🚫 No signup required</p>
+
+    <p>🆓 100% Free</p>
+
+    <p>📡 Share games live with family</p>
+
+    <p>⚡ Track stats during the game</p>
+
+    <p>📊 Automatic season statistics</p>
+
+    <p>🎙️ Fun play-by-play commentary</p>
+
+    <p className="pt-3">
+      <a
+        href="/contact"
+        className="text-gray-400 hover:text-white transition text-xs underline underline-offset-2"
+      >
+        Contact / Feedback
+      </a>
+    </p>
+
+    <footer className="text-center text-xs text-gray-500 py-3">
+      © 2026 Youth Sports Tracker ⚾
+    </footer>
+
+  </div>
+
+</div>
 
       </div>
 
     </div>
+
+
   );
 }
