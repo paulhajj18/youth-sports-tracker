@@ -247,72 +247,79 @@ Make a note of the player ID and do not share it.
         {/* MAIN CARD */}
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
-          {/* EXISTING PLAYER */}
-          <div className="mb-6">
 
-            <h2 className="text-lg font-bold mb-3">
-              Existing Player ID
-            </h2>
 
-            <input
-              className="
-                w-full
-                p-3
-                rounded-xl
-                bg-white/20
-                border
-                border-white/20
-                text-white
-                placeholder:text-gray-300
-                mb-4
-                outline-none
-              "
-              placeholder="Enter Player ID"
-              value={playerId}
-              onChange={(e) =>
-                setPlayerId(e.target.value)
-              }
-            />
+{!generatedId && (
+  <>
+    {/* EXISTING PLAYER */}
+    <div className="mb-6">
 
-            <button
-onClick={continueWithPlayer}
-              className={`
-                w-full
-                bg-blue-600
-                hover:bg-blue-700
-                transition-all
-                duration-150
-                text-white
-                font-bold
-                text-lg
-                p-3
-                rounded-2xl
-                shadow-lg
+      <h2 className="text-lg font-bold mb-3">
+        Existing Player ID
+      </h2>
 
-                ${
-                  activeButton === "continue"
-                    ? "scale-95 brightness-125"
-                    : ""
-                }
-              `}
-            >
-             ⚾ Continue
-            </button>
+      <input
+        className="
+          w-full
+          p-3
+          rounded-xl
+          bg-white/20
+          border
+          border-white/20
+          text-white
+          placeholder:text-gray-300
+          mb-4
+          outline-none
+        "
+        placeholder="Enter Player ID"
+        value={playerId}
+        onChange={(e) =>
+          setPlayerId(e.target.value)
+        }
+      />
 
-          </div>
+      <button
+        onClick={continueWithPlayer}
+        className={`
+          w-full
+          bg-blue-600
+          hover:bg-blue-700
+          transition-all
+          duration-150
+          text-white
+          font-bold
+          text-lg
+          p-3
+          rounded-2xl
+          shadow-lg
 
-          {/* DIVIDER */}
-          <div className="flex items-center gap-3 my-5">
+          ${
+            activeButton === "continue"
+              ? "scale-95 brightness-125"
+              : ""
+          }
+        `}
+      >
+        ⚾ Continue
+      </button>
 
-            <div className="flex-1 h-px bg-white/15" />
+    </div>
 
-            <p className="text-[10px] uppercase tracking-[0.25em] text-gray-300">
-              OR
-            </p>
+    {/* DIVIDER */}
+    <div className="flex items-center gap-3 my-5">
 
-            <div className="flex-1 h-px bg-white/15" />
+      <div className="flex-1 h-px bg-white/15" />
 
-          </div>
+      <p className="text-[10px] uppercase tracking-[0.25em] text-gray-300">
+        OR
+      </p>
+
+      <div className="flex-1 h-px bg-white/15" />
+
+    </div>
+  </>
+)}
+
 
           {/* CREATE NEW PLAYER */}
           <div>
@@ -340,6 +347,8 @@ onClick={continueWithPlayer}
                 setFirstName(e.target.value)
               }
             />
+
+{!generatedId && (
 
 <button
 onClick={async () => {
@@ -407,6 +416,7 @@ await addDoc(
 >
   ⚾ Create New Player ID
 </button>
+)}
 
 {generatedId && (
   <div className="mt-4 bg-black/30 rounded-2xl p-4 border border-white/10">
