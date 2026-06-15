@@ -256,15 +256,15 @@ sac_fly:
   > = {
     single: `${kidName} rips a single!`,
     double: `${kidName} smashes a double!`,
-    triple: `${kidName} blasts a triple!`,
+    triple: `${kidName} blasts a triple! 🔥`,
     homerun: `WOW! ${kidName} launches a HOME RUN! ⚾`,
 
     walk: `${kidName} draws a walk.`,
 
-    rbi: `${kidName} picks up an RBI!`,
+    rbi: `${kidName} picks up an RBI! ⚾`,
 
     hit_by_pitch:
-        `Ooof! ${kidName} is hit by the pitch.`,
+        `Ooof! ${kidName} is hit by the pitch. 😬`,
 
     reached_on_error:
        `${kidName} reaches on an error!`,
@@ -272,9 +272,9 @@ sac_fly:
     sac_fly:
        `${kidName} lifts a sacrifice fly!`,
 
-    stolen_base: `${kidName} steals a base!`,
+    stolen_base: `${kidName} steals a base! 🏃`,
 
-    run_scored: `${kidName} scores a run!`,
+    run_scored: `${kidName} scores a run! ⚾`,
 
 strikeout:
   `${kidName} strikes out.`,

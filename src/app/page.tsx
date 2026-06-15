@@ -91,6 +91,31 @@ const shareApp = async () => {
   <br />
   Share stats, highlights, and commentary with family and friends anywhere.
 </p>
+
+<button
+  onClick={() =>
+    window.open(
+      "https://youthsportstracker.com/baseball/game/X5YBfuTbHQWQmUY8T8ry",
+      "_blank"
+    )
+  }
+ className="
+    bg-red-600
+    hover:bg-red-500
+    transition
+    text-white
+    font-semibold
+    text-sm
+    rounded-xl
+    py-2
+    px-4
+    mb-6
+    shadow-lg
+  "
+>
+  👀 See How Family Follows Live
+</button>
+
 {/* MAIN CARD */}
 <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-white/10">
 
